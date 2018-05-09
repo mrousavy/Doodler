@@ -8,8 +8,8 @@ namespace Doodler.ViewModels
     public class LoginViewModel : ViewModelBase
     {
         #region Properties
-        private string _email;
-        private string _password;
+        private string _email = string.Empty;
+        private string _password = string.Empty;
 
         public string Email
         {
