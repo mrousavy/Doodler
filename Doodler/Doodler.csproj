@@ -60,6 +60,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Implementation\EmailValidationRule.cs" />
+    <Compile Include="Implementation\NotEmptyValidationRule.cs" />
     <Compile Include="Implementation\RelayCommand.cs" />
     <Compile Include="Implementation\ViewModelBase.cs" />
     <Compile Include="Models\LoginModel.cs" />
