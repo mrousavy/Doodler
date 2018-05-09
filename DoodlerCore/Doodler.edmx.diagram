@@ -6,7 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="72e6ba27aa3640b8a6f39eec180dffa2" Name="Diagram1" >
         <EntityTypeShape EntityType="Doodler.User" Width="1.5" PointX="4.125" PointY="2.5" />
-        <EntityTypeShape EntityType="Doodler.Poll" Width="1.5" PointX="8.375" PointY="2.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

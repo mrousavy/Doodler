@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DoodlerCore
 {
-    public class Class1
+    public class DataService
     {
+
     }
 }

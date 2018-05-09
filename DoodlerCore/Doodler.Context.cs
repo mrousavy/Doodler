@@ -26,6 +26,5 @@ namespace DoodlerCore
         }
     
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Poll> Polls { get; set; }
     }
 }
