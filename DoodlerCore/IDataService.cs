@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 
 namespace DoodlerCore
@@ -20,16 +21,17 @@ namespace DoodlerCore
         TextPoll
     }
 
+    /// <inheritdoc />
     /// <summary>
     ///     A database functions interface and service
     /// </summary>
-    public interface IDataService
+    public interface IDataService : IDisposable
     {
         #region User
         /// <summary>
-        ///     Login with the given email and password, if login fails this will throw an <see cref="InvalidCredentialsException"/>
+        ///     Login with the given email and password, if login fails this will throw an <see cref="InvalidCredentialException"/>
         /// </summary>
-        /// <exception cref="InvalidCredentialsException">Thrown if the email or password is incorrect</exception>
+        /// <exception cref="InvalidCredentialException">Thrown if the email or password is incorrect</exception>
         /// <param name="email">The user's email address</param>
         /// <param name="password">The user's password</param>
         /// <returns>The <see cref="User"/> object on the database</returns>

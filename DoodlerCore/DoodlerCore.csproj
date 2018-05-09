@@ -80,7 +80,6 @@
     <Compile Include="Inbox.cs">
       <DependentUpon>Doodler.tt</DependentUpon>
     </Compile>
-    <Compile Include="InvalidCredentialsException.cs" />
     <Compile Include="Notification.cs">
       <DependentUpon>Doodler.tt</DependentUpon>
     </Compile>
