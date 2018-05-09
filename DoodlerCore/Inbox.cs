@@ -12,21 +12,17 @@ namespace DoodlerCore
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Inbox
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public Inbox()
         {
-            this.Votes = new HashSet<Vote>();
+            this.Notifications = new HashSet<Notification>();
         }
     
         public int Id { get; set; }
-        public string Email { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vote> Votes { get; set; }
-        public virtual Inbox Inbox { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

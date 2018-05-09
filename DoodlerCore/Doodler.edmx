@@ -7,26 +7,407 @@
     <Schema Namespace="Doodler.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="DoodlerStoreContainer">
     <EntitySet Name="Users" EntityType="Doodler.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Polls" EntityType="Doodler.Store.Polls" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Answers" EntityType="Doodler.Store.Answers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Votes" EntityType="Doodler.Store.Votes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Notifications" EntityType="Doodler.Store.Notifications" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Inboxes" EntityType="Doodler.Store.Inboxes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Polls_DatePoll" EntityType="Doodler.Store.Polls_DatePoll" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Polls_TextPoll" EntityType="Doodler.Store.Polls_TextPoll" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Answers_DateAnswer" EntityType="Doodler.Store.Answers_DateAnswer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Answers_TextAnswer" EntityType="Doodler.Store.Answers_TextAnswer" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserPoll" Association="Doodler.Store.UserPoll">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Poll" EntitySet="Polls" />
+    </AssociationSet>
+    <AssociationSet Name="PollAnswer" Association="Doodler.Store.PollAnswer">
+      <End Role="Poll" EntitySet="Polls" />
+      <End Role="Answer" EntitySet="Answers" />
+    </AssociationSet>
+    <AssociationSet Name="UserVote" Association="Doodler.Store.UserVote">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Vote" EntitySet="Votes" />
+    </AssociationSet>
+    <AssociationSet Name="VoteAnswer" Association="Doodler.Store.VoteAnswer">
+      <End Role="Vote" EntitySet="Votes" />
+      <End Role="Answer" EntitySet="Answers" />
+    </AssociationSet>
+    <AssociationSet Name="PollVote" Association="Doodler.Store.PollVote">
+      <End Role="Poll" EntitySet="Polls" />
+      <End Role="Vote" EntitySet="Votes" />
+    </AssociationSet>
+    <AssociationSet Name="InboxUser" Association="Doodler.Store.InboxUser">
+      <End Role="Inbox" EntitySet="Inboxes" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="InboxNotification" Association="Doodler.Store.InboxNotification">
+      <End Role="Inbox" EntitySet="Inboxes" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DatePoll_inherits_Poll" Association="Doodler.Store.FK_DatePoll_inherits_Poll">
+      <End Role="Poll" EntitySet="Polls" />
+      <End Role="DatePoll" EntitySet="Polls_DatePoll" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TextPoll_inherits_Poll" Association="Doodler.Store.FK_TextPoll_inherits_Poll">
+      <End Role="Poll" EntitySet="Polls" />
+      <End Role="TextPoll" EntitySet="Polls_TextPoll" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DateAnswer_inherits_Answer" Association="Doodler.Store.FK_DateAnswer_inherits_Answer">
+      <End Role="Answer" EntitySet="Answers" />
+      <End Role="DateAnswer" EntitySet="Answers_DateAnswer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TextAnswer_inherits_Answer" Association="Doodler.Store.FK_TextAnswer_inherits_Answer">
+      <End Role="Answer" EntitySet="Answers" />
+      <End Role="TextAnswer" EntitySet="Answers_TextAnswer" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Inbox_Id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="Polls">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="EndsAt" Type="datetime" Nullable="false" />
+    <Property Name="Creator_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Answers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PollAnswer_Answer_Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Votes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+    <Property Name="Answer_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Poll_Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Notifications">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Sender" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SentAt" Type="datetime" Nullable="false" />
+    <Property Name="IsRead" Type="bit" Nullable="false" />
+    <Property Name="Inbox_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Inboxes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Polls_DatePoll">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Polls_TextPoll">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Answers_DateAnswer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Answers_TextAnswer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <Association Name="UserPoll">
+    <End Role="User" Type="Doodler.Store.Users" Multiplicity="1" />
+    <End Role="Poll" Type="Doodler.Store.Polls" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Poll">
+        <PropertyRef Name="Creator_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PollAnswer">
+    <End Role="Poll" Type="Doodler.Store.Polls" Multiplicity="1" />
+    <End Role="Answer" Type="Doodler.Store.Answers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Poll">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Answer">
+        <PropertyRef Name="PollAnswer_Answer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserVote">
+    <End Role="User" Type="Doodler.Store.Users" Multiplicity="1" />
+    <End Role="Vote" Type="Doodler.Store.Votes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vote">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VoteAnswer">
+    <End Role="Vote" Type="Doodler.Store.Votes" Multiplicity="*" />
+    <End Role="Answer" Type="Doodler.Store.Answers" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Answer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vote">
+        <PropertyRef Name="Answer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PollVote">
+    <End Role="Poll" Type="Doodler.Store.Polls" Multiplicity="1" />
+    <End Role="Vote" Type="Doodler.Store.Votes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Poll">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vote">
+        <PropertyRef Name="Poll_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InboxUser">
+    <End Role="Inbox" Type="Doodler.Store.Inboxes" Multiplicity="1" />
+    <End Role="User" Type="Doodler.Store.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inbox">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="Inbox_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InboxNotification">
+    <End Role="Inbox" Type="Doodler.Store.Inboxes" Multiplicity="1" />
+    <End Role="Notification" Type="Doodler.Store.Notifications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inbox">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="Inbox_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DatePoll_inherits_Poll">
+    <End Role="Poll" Type="Doodler.Store.Polls" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DatePoll" Type="Doodler.Store.Polls_DatePoll" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Poll">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DatePoll">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TextPoll_inherits_Poll">
+    <End Role="Poll" Type="Doodler.Store.Polls" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TextPoll" Type="Doodler.Store.Polls_TextPoll" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Poll">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TextPoll">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DateAnswer_inherits_Answer">
+    <End Role="Answer" Type="Doodler.Store.Answers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DateAnswer" Type="Doodler.Store.Answers_DateAnswer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Answer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DateAnswer">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TextAnswer_inherits_Answer">
+    <End Role="Answer" Type="Doodler.Store.Answers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TextAnswer" Type="Doodler.Store.Answers_TextAnswer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Answer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TextAnswer">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Doodler" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="DoodlerContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="Doodler.User" />
+          <EntitySet Name="Polls" EntityType="Doodler.Poll" />
+          <AssociationSet Name="UserPoll" Association="Doodler.UserPoll">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Poll" EntitySet="Polls" />
+          </AssociationSet>
+          <EntitySet Name="Answers" EntityType="Doodler.Answer" />
+          <EntitySet Name="Votes" EntityType="Doodler.Vote" />
+          <AssociationSet Name="PollAnswer" Association="Doodler.PollAnswer">
+            <End Role="Poll" EntitySet="Polls" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="UserVote" Association="Doodler.UserVote">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Vote" EntitySet="Votes" />
+          </AssociationSet>
+          <AssociationSet Name="VoteAnswer" Association="Doodler.VoteAnswer">
+            <End Role="Vote" EntitySet="Votes" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="PollVote" Association="Doodler.PollVote">
+            <End Role="Poll" EntitySet="Polls" />
+            <End Role="Vote" EntitySet="Votes" />
+          </AssociationSet>
+          <EntitySet Name="Notifications" EntityType="Doodler.Notification" />
+          <EntitySet Name="Inboxes" EntityType="Doodler.Inbox" />
+          <AssociationSet Name="InboxUser" Association="Doodler.InboxUser">
+            <End Role="Inbox" EntitySet="Inboxes" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="InboxNotification" Association="Doodler.InboxNotification">
+            <End Role="Inbox" EntitySet="Inboxes" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <NavigationProperty Name="Votes" Relationship="Doodler.UserVote" FromRole="User" ToRole="Vote" />
+          <NavigationProperty Name="Inbox" Relationship="Doodler.InboxUser" FromRole="User" ToRole="Inbox" />
         </EntityType>
+        <EntityType Name="Poll" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
+          <Property Name="EndsAt" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Creator" Relationship="Doodler.UserPoll" FromRole="Poll" ToRole="User" />
+          <NavigationProperty Name="Answers" Relationship="Doodler.PollAnswer" FromRole="Poll" ToRole="Answer" />
+          <NavigationProperty Name="Votes" Relationship="Doodler.PollVote" FromRole="Poll" ToRole="Vote" />
+        </EntityType>
+        <EntityType Name="DatePoll" BaseType="Doodler.Poll" >
+        </EntityType>
+        <EntityType Name="TextPoll" BaseType="Doodler.Poll" >
+        </EntityType>
+        <Association Name="UserPoll">
+          <End Type="Doodler.User" Role="User" Multiplicity="1" />
+          <End Type="Doodler.Poll" Role="Poll" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Answer" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+        </EntityType>
+        <EntityType Name="DateAnswer" BaseType="Doodler.Answer" />
+        <EntityType Name="TextAnswer" BaseType="Doodler.Answer" />
+        <EntityType Name="Vote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="User" Relationship="Doodler.UserVote" FromRole="Vote" ToRole="User" />
+          <NavigationProperty Name="Answer" Relationship="Doodler.VoteAnswer" FromRole="Vote" ToRole="Answer" />
+          <NavigationProperty Name="Poll" Relationship="Doodler.PollVote" FromRole="Vote" ToRole="Poll" />
+        </EntityType>
+        <Association Name="PollAnswer">
+          <End Type="Doodler.Poll" Role="Poll" Multiplicity="1" />
+          <End Type="Doodler.Answer" Role="Answer" Multiplicity="*" />
+        </Association>
+        <Association Name="UserVote">
+          <End Type="Doodler.User" Role="User" Multiplicity="1" />
+          <End Type="Doodler.Vote" Role="Vote" Multiplicity="*" />
+        </Association>
+        <Association Name="VoteAnswer">
+          <End Type="Doodler.Vote" Role="Vote" Multiplicity="1" />
+          <End Type="Doodler.Answer" Role="Answer" Multiplicity="1" />
+        </Association>
+        <Association Name="PollVote">
+          <End Type="Doodler.Poll" Role="Poll" Multiplicity="1" />
+          <End Type="Doodler.Vote" Role="Vote" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Sender" Type="String" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" />
+          <NavigationProperty Name="Inbox" Relationship="Doodler.InboxNotification" FromRole="Notification" ToRole="Inbox" />
+          <Property Name="SentAt" Type="DateTime" Nullable="false" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Inbox">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Notifications" Relationship="Doodler.InboxNotification" FromRole="Inbox" ToRole="Notification" />
+        </EntityType>
+        <Association Name="InboxUser">
+          <End Type="Doodler.Inbox" Role="Inbox" Multiplicity="1" />
+          <End Type="Doodler.User" Role="User" Multiplicity="*" />
+        </Association>
+        <Association Name="InboxNotification">
+          <End Type="Doodler.Inbox" Role="Inbox" Multiplicity="1" />
+          <End Type="Doodler.Notification" Role="Notification" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -37,9 +418,130 @@
       <EntityTypeMapping TypeName="IsTypeOf(Doodler.User)">
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Polls">
+      <EntityTypeMapping TypeName="IsTypeOf(Doodler.Poll)">
+        <MappingFragment StoreEntitySet="Polls">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="EndsAt" ColumnName="EndsAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Doodler.DatePoll)">
+        <MappingFragment StoreEntitySet="Polls_DatePoll">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Doodler.TextPoll)">
+        <MappingFragment StoreEntitySet="Polls_TextPoll">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Answers">
+      <EntityTypeMapping TypeName="IsTypeOf(Doodler.Answer)">
+        <MappingFragment StoreEntitySet="Answers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Doodler.DateAnswer)">
+        <MappingFragment StoreEntitySet="Answers_DateAnswer">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Doodler.TextAnswer)">
+        <MappingFragment StoreEntitySet="Answers_TextAnswer">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Votes">
+      <EntityTypeMapping TypeName="IsTypeOf(Doodler.Vote)">
+        <MappingFragment StoreEntitySet="Votes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notifications">
+      <EntityTypeMapping TypeName="IsTypeOf(Doodler.Notification)">
+        <MappingFragment StoreEntitySet="Notifications">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Sender" ColumnName="Sender" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="SentAt" ColumnName="SentAt" />
+          <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inboxes">
+      <EntityTypeMapping TypeName="IsTypeOf(Doodler.Inbox)">
+        <MappingFragment StoreEntitySet="Inboxes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserPoll" TypeName="Doodler.UserPoll" StoreEntitySet="Polls">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="Creator_Id" />
+      </EndProperty>
+      <EndProperty Name="Poll">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PollAnswer" TypeName="Doodler.PollAnswer" StoreEntitySet="Answers">
+      <EndProperty Name="Poll">
+        <ScalarProperty Name="Id" ColumnName="PollAnswer_Answer_Id" />
+      </EndProperty>
+      <EndProperty Name="Answer">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserVote" TypeName="Doodler.UserVote" StoreEntitySet="Votes">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Vote">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="VoteAnswer" TypeName="Doodler.VoteAnswer" StoreEntitySet="Votes">
+      <EndProperty Name="Answer">
+        <ScalarProperty Name="Id" ColumnName="Answer_Id" />
+      </EndProperty>
+      <EndProperty Name="Vote">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PollVote" TypeName="Doodler.PollVote" StoreEntitySet="Votes">
+      <EndProperty Name="Poll">
+        <ScalarProperty Name="Id" ColumnName="Poll_Id" />
+      </EndProperty>
+      <EndProperty Name="Vote">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="InboxUser" TypeName="Doodler.InboxUser" StoreEntitySet="Users">
+      <EndProperty Name="Inbox">
+        <ScalarProperty Name="Id" ColumnName="Inbox_Id" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="InboxNotification" TypeName="Doodler.InboxNotification" StoreEntitySet="Notifications">
+      <EndProperty Name="Inbox">
+        <ScalarProperty Name="Id" ColumnName="Inbox_Id" />
+      </EndProperty>
+      <EndProperty Name="Notification">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
