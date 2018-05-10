@@ -11,6 +11,7 @@
     d:DesignWidth="250"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
+    IsEnabled="{Binding IsViewEnabled}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -21,159 +22,165 @@
         <viewModels:RegisterViewModel />
     </UserControl.DataContext>
 
-    <Grid Margin="15">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+    <md:DialogHost Margin="15" IsOpen="{Binding IsErrorDialogOpen}">
+        <md:DialogHost.DialogContent>
+            <TextBlock Text="Invalid Email or Password!" />
+        </md:DialogHost.DialogContent>
 
-        <StackPanel
-            Grid.Row="0"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Orientation="Horizontal">
-            <md:PackIcon
-                Width="40"
-                Height="40"
-                Foreground="{StaticResource MaterialDesignGray}"
-                Kind="AccountPlus" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-            <TextBlock
-                VerticalAlignment="Center"
-                Foreground="{StaticResource MaterialDesignGray}"
-                Style="{StaticResource MaterialDesignHeadlineTextBlock}"
-                Text="Doodler Register" />
-        </StackPanel>
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Orientation="Horizontal">
+                <md:PackIcon
+                    Width="40"
+                    Height="40"
+                    Foreground="{StaticResource MaterialDesignGray}"
+                    Kind="AccountPlus" />
 
-        <Separator
-            Grid.Row="1"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Margin="15"
-            Foreground="{StaticResource MaterialDesignLightGray}"
-            Opacity="0.3" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{StaticResource MaterialDesignGray}"
+                    Style="{StaticResource MaterialDesignHeadlineTextBlock}"
+                    Text="Doodler Register" />
+            </StackPanel>
 
-        <!--  EMAIL BOX  -->
-        <StackPanel
-            Grid.Row="2"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Margin="15"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
-            <md:PackIcon
+            <Separator
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Margin="15"
+                Foreground="{StaticResource MaterialDesignLightGray}"
+                Opacity="0.3" />
+
+            <!--  EMAIL BOX  -->
+            <StackPanel
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Margin="15"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <md:PackIcon
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Foreground="{Binding ElementName=EmailBox, Path=BorderBrush}"
+                    Kind="Email" />
+
+                <TextBox
+                    Name="EmailBox"
+                    Width="170"
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    md:HintAssist.Hint="Email">
+                    <Binding Path="Email" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <impl:EmailValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </StackPanel>
+
+
+            <!--  USERNAME BOX  -->
+            <StackPanel
+                Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Margin="15"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <md:PackIcon
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Foreground="{Binding ElementName=UsernameBox, Path=BorderBrush}"
+                    Kind="Account" />
+
+                <TextBox
+                    Name="UsernameBox"
+                    Width="170"
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    md:HintAssist.Hint="Username">
+                    <Binding Path="Username" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <impl:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </StackPanel>
+
+
+            <!--  PASSWORD BOX  -->
+            <StackPanel
+                Grid.Row="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Margin="15"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <md:PackIcon
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Foreground="{Binding ElementName=PasswordBox, Path=BorderBrush}"
+                    Kind="Key" />
+
+                <TextBox
+                    Name="PasswordBox"
+                    Width="170"
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    md:HintAssist.Hint="Password">
+                    <Binding Path="Password" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <impl:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </StackPanel>
+
+
+            <!--  BUTTONS  -->
+            <Button
+                Grid.Row="5"
+                Grid.Column="0"
+                Width="30"
+                Height="30"
+                Margin="15"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Command="{x:Static md:Transitioner.MovePreviousCommand}"
+                Content="{md:PackIcon Kind=Account}"
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                ToolTip="Login" />
+
+            <Button
+                Grid.Row="5"
+                Grid.Column="2"
+                Width="30"
+                Height="30"
+                Margin="15"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Foreground="{Binding ElementName=EmailBox, Path=BorderBrush}"
-                Kind="Email" />
-
-            <TextBox
-                Name="EmailBox"
-                Width="170"
-                Margin="5"
-                VerticalAlignment="Center"
-                md:HintAssist.Hint="Email">
-                <Binding Path="Email" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <impl:EmailValidationRule ValidatesOnTargetUpdated="True" />
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox>
-        </StackPanel>
-
-
-        <!--  USERNAME BOX  -->
-        <StackPanel
-            Grid.Row="3"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Margin="15"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
-            <md:PackIcon
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Foreground="{Binding ElementName=UsernameBox, Path=BorderBrush}"
-                Kind="Account" />
-
-            <TextBox
-                Name="UsernameBox"
-                Width="170"
-                Margin="5"
-                VerticalAlignment="Center"
-                md:HintAssist.Hint="Username">
-                <Binding Path="Username" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <impl:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox>
-        </StackPanel>
-
-
-        <!--  PASSWORD BOX  -->
-        <StackPanel
-            Grid.Row="4"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Margin="15"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
-            <md:PackIcon
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Foreground="{Binding ElementName=PasswordBox, Path=BorderBrush}"
-                Kind="Key" />
-
-            <TextBox
-                Name="PasswordBox"
-                Width="170"
-                Margin="5"
-                VerticalAlignment="Center"
-                md:HintAssist.Hint="Password">
-                <Binding Path="Password" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <impl:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox>
-        </StackPanel>
-
-
-        <!--  BUTTONS  -->
-        <Button
-            Grid.Row="5"
-            Grid.Column="0"
-            Width="30"
-            Height="30"
-            Margin="15"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            Command="{x:Static md:Transitioner.MovePreviousCommand}"
-            Content="{md:PackIcon Kind=Account}"
-            Style="{StaticResource MaterialDesignFloatingActionButton}"
-            ToolTip="Login" />
-
-        <Button
-            Grid.Row="5"
-            Grid.Column="2"
-            Width="30"
-            Height="30"
-            Margin="15"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Command="{Binding RegisterCommand}"
-            Content="{md:PackIcon Kind=Send}"
-            Style="{StaticResource MaterialDesignFloatingActionButton}"
-            ToolTip="Register" />
-    </Grid>
+                VerticalAlignment="Bottom"
+                Command="{Binding RegisterCommand}"
+                Content="{md:PackIcon Kind=Send}"
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                ToolTip="Register" />
+        </Grid>
+    </md:DialogHost>
 </UserControl>

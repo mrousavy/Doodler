@@ -10,7 +10,14 @@ namespace Doodler.ViewModels
         private string _email = string.Empty;
         private string _username = string.Empty;
         private string _password = string.Empty;
+        private bool _isErrorDialogOpen;
+        private bool _isViewEnabled = true;
 
+        public bool IsViewEnabled
+        {
+            get => _isViewEnabled;
+            set => Set(ref _isViewEnabled, value);
+        }
         public string Email
         {
             get => _email;
@@ -26,6 +33,11 @@ namespace Doodler.ViewModels
             get => _password;
             set => Set(ref _password, value);
         }
+        public bool IsErrorDialogOpen
+        {
+            get => _isErrorDialogOpen;
+            set => Set(ref _isErrorDialogOpen, value);
+        }
         public ICommand RegisterCommand { get; }
         public RegisterModel Model { get; }
         #endregion
@@ -38,7 +50,16 @@ namespace Doodler.ViewModels
 
         private async void RegisterAction(object o)
         {
-            await Model.TryRegisterAsync(Email, Username, Password);
+            IsViewEnabled = false;
+            bool successful = await Model.TryRegisterAsync(Email, Username, Password);
+            if (!successful)
+            {
+                IsErrorDialogOpen = true;
+            } else
+            {
+                // TODO: Open Next View
+            }
+            IsViewEnabled = true;
         }
     }
 }

@@ -47,7 +47,8 @@ namespace DoodlerCore
             {
                 Email = email,
                 Username = name,
-                Password = password
+                Password = password,
+                Inbox = new Inbox()
             };
             Context.Users.Add(user);
             return user;
