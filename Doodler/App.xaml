@@ -5,6 +5,7 @@
     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
     xmlns:lib="clr-namespace:DoodlerCore;assembly=DoodlerCore"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:viewModels="clr-namespace:Doodler.ViewModels"
     xmlns:views="clr-namespace:Doodler.Views"
     Exit="AppExit"
     StartupUri="LoginWindow.xaml">
@@ -133,6 +134,16 @@
                         </md:Card.ContextMenu>
                     </md:Card>
                 </md:TransitioningContent>
+            </DataTemplate>
+
+            <!--  ERROR DIALOG VM -> VIEW  -->
+            <DataTemplate DataType="{x:Type viewModels:ErrorDialogViewModel}">
+                <views:ErrorDialogView Text="{Binding Message}" />
+            </DataTemplate>
+
+            <!--  ADD POLL VM -> VIEW  -->
+            <DataTemplate DataType="{x:Type viewModels:AddPollViewModel}">
+                <views:AddPollView />
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
