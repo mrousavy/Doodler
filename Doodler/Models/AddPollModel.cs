@@ -13,6 +13,7 @@ namespace Doodler.Models
             using (var service = Statics.NewService())
             {
                 await service.CreatePollAsync(creator, title, endDate, answers);
+                await service.SaveAsync();
             }
         }
     }

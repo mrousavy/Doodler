@@ -48,12 +48,6 @@
                         VerticalAlignment="Stretch"
                         Cursor="Hand"
                         TextOptions.TextFormattingMode="Ideal">
-                        <md:Card.InputBindings>
-                            <MouseBinding
-                                Command="{Binding Path=DataContext.OpenCommand, RelativeSource={RelativeSource AncestorType={x:Type views:PollsView}}}"
-                                CommandParameter="{Binding}"
-                                Gesture="LeftClick" />
-                        </md:Card.InputBindings>
                         <md:Card.Style>
                             <Style TargetType="{x:Type md:Card}">
                                 <Style.Triggers>
@@ -119,20 +113,6 @@
                                     Value="{Binding Votes.Count}" />
                             </Grid>
                         </md:Ripple>
-                        <md:Card.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem
-                                    Command="{Binding DataContext.EditCommand, Source={x:Reference ItemsControl}}"
-                                    CommandParameter="{Binding}"
-                                    Header="Edit Poll"
-                                    Icon="{md:PackIcon Kind=Pencil}" />
-                                <MenuItem
-                                    Command="{Binding DataContext.RemoveCommand, Source={x:Reference ItemsControl}}"
-                                    CommandParameter="{Binding}"
-                                    Header="Delete Poll"
-                                    Icon="{md:PackIcon Kind=Close}" />
-                            </ContextMenu>
-                        </md:Card.ContextMenu>
                     </md:Card>
                 </md:TransitioningContent>
             </DataTemplate>

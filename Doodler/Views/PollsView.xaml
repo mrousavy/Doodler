@@ -92,8 +92,6 @@
                 Margin="15"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Background="{DynamicResource PrimaryHueMidBrush}"
-                BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                 Command="{Binding AddCommand}"
                 Content="{md:PackIcon Kind=Plus}"
                 Style="{StaticResource MaterialDesignFloatingActionButton}"
