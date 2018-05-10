@@ -34,7 +34,10 @@ namespace DoodlerCore
 
         public async Task<User> LoginAsync(string email, string password)
         {
-            return await Context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password)
+            return await Context.Users
+                       .Include(u => u.Inbox)
+                       .Include(u => u.Votes)
+                       .FirstOrDefaultAsync(u => u.Email == email && u.Password == password)
                        ?? throw new InvalidCredentialException("Invalid Email or Password!");
         }
 

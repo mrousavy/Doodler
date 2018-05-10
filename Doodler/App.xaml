@@ -8,6 +8,7 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:viewModels="clr-namespace:Doodler.ViewModels"
     xmlns:views="clr-namespace:Doodler.Views"
+    DispatcherUnhandledException="AppError"
     Exit="AppExit"
     StartupUri="LoginWindow.xaml">
     <Application.Resources>
