@@ -5,6 +5,7 @@
     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
     xmlns:lib="clr-namespace:DoodlerCore;assembly=DoodlerCore"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:viewModels="clr-namespace:Doodler.ViewModels"
     xmlns:views="clr-namespace:Doodler.Views"
     Exit="AppExit"
@@ -144,6 +145,65 @@
             <!--  ADD POLL VM -> VIEW  -->
             <DataTemplate DataType="{x:Type viewModels:AddPollViewModel}">
                 <views:AddPollView />
+            </DataTemplate>
+
+            <!--  REMOVE LIST ITEM BUTTON  -->
+            <DataTemplate x:Key="RemoveButton">
+                <Button
+                    Width="18"
+                    Height="18"
+                    Padding="-15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}, Path=DataContext.RemoveListItemCommand}"
+                    CommandParameter="{Binding}"
+                    Content="{md:PackIcon Kind=Close}"
+                    Foreground="Red"
+                    ToolTip="Remove" />
+            </DataTemplate>
+
+            <!--  DATETIME LIST ENTRY  -->
+            <DataTemplate x:Key="DateTimeItem" DataType="{x:Type lib:DateAnswer}">
+                <Grid IsSharedSizeScope="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" SharedSizeGroup="DataColumn" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <DatePicker
+                        Grid.Column="0"
+                        Width="150"
+                        Margin="5"
+                        SelectedDate="{Binding Date}" />
+                    <ContentControl
+                        Grid.Column="1"
+                        Margin="5"
+                        HorizontalAlignment="Right"
+                        ContentTemplate="{StaticResource RemoveButton}" />
+                </Grid>
+            </DataTemplate>
+
+            <!--  TEXT LIST ENTRY  -->
+            <DataTemplate x:Key="TextItem" DataType="{x:Type lib:TextAnswer}">
+                <Grid IsSharedSizeScope="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" SharedSizeGroup="DataColumn" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox
+                        Grid.Column="0"
+                        Width="150"
+                        Margin="5"
+                        Text="{Binding Text}" />
+                    <ContentControl
+                        Grid.Column="1"
+                        Margin="5"
+                        HorizontalAlignment="Right"
+                        ContentTemplate="{StaticResource RemoveButton}" />
+                </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

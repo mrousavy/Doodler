@@ -12,13 +12,13 @@ namespace DoodlerCore
     public enum PollType
     {
         /// <summary>
-        ///     A poll with Dates as answers
-        /// </summary>
-        DatePoll,
-        /// <summary>
         ///     A poll with Text as answers
         /// </summary>
-        TextPoll
+        TextPoll,
+        /// <summary>
+        ///     A poll with Dates as answers
+        /// </summary>
+        DatePoll
     }
 
     /// <inheritdoc />
