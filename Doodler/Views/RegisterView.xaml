@@ -55,6 +55,7 @@
                     Kind="AccountPlus" />
 
                 <TextBlock
+                    Margin="5,0,0,0"
                     VerticalAlignment="Center"
                     Foreground="{StaticResource MaterialDesignGray}"
                     Style="{StaticResource MaterialDesignHeadlineTextBlock}"

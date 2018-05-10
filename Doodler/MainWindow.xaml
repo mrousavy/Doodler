@@ -5,7 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:views="clr-namespace:Doodler.Views"
     Title="Doodler Login"
     Width="285"
@@ -27,10 +26,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <dragablz:TabablzControl>
-            <dragablz:TabablzControl.InterTabController>
-                <dragablz:InterTabController />
-            </dragablz:TabablzControl.InterTabController>
+        <dragablz:TabablzControl FixedHeaderCount="2">
             <TabItem Header="Login" IsSelected="True">
                 <views:LoginView />
             </TabItem>
