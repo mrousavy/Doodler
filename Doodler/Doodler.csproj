@@ -78,17 +78,22 @@
     <Compile Include="Implementation\RelayCommand.cs" />
     <Compile Include="Implementation\ViewModelBase.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\PollsModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Preferences.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Statics.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\PollsViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="Views\ErrorDialogView.xaml.cs">
       <DependentUpon>ErrorDialogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PollsView.xaml.cs">
+      <DependentUpon>PollsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RegisterView.xaml.cs">
       <DependentUpon>RegisterView.xaml</DependentUpon>
@@ -110,6 +115,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PollsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
