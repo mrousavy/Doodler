@@ -75,7 +75,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
     <Property Name="CreatedAt" Type="datetime" Nullable="false" />
     <Property Name="EndsAt" Type="datetime" Nullable="false" />
@@ -85,23 +85,23 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="PollAnswer_Answer_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PollAnswer_Answer_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Votes">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="User_Id" Type="int" Nullable="false" />
-    <Property Name="Answer_Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Poll_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Answer_Id" Type="int" Nullable="false" />
+    <Property Name="Poll_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Notifications">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Sender" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
     <Property Name="SentAt" Type="datetime" Nullable="false" />
@@ -118,27 +118,27 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Polls_TextPoll">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Answers_DateAnswer">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Date" Type="datetime" Nullable="false" />
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Answers_TextAnswer">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="UserPoll">
     <End Role="User" Type="Doodler.Store.Users" Multiplicity="1" />
@@ -335,7 +335,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
           <Property Name="EndsAt" Type="DateTime" Nullable="false" />
@@ -355,7 +355,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="DateAnswer" BaseType="Doodler.Answer" >
           <Property Name="Date" Type="DateTime" Nullable="false" />
@@ -367,7 +367,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="User" Relationship="Doodler.UserVote" FromRole="Vote" ToRole="User" />
           <NavigationProperty Name="Answer" Relationship="Doodler.VoteAnswer" FromRole="Vote" ToRole="Answer" />
           <NavigationProperty Name="Poll" Relationship="Doodler.PollVote" FromRole="Vote" ToRole="Poll" />
@@ -381,7 +381,7 @@
           <End Type="Doodler.Vote" Role="Vote" Multiplicity="*" />
         </Association>
         <Association Name="VoteAnswer">
-          <End Type="Doodler.Vote" Role="Vote" Multiplicity="1" />
+          <End Type="Doodler.Vote" Role="Vote" Multiplicity="*" />
           <End Type="Doodler.Answer" Role="Answer" Multiplicity="1" />
         </Association>
         <Association Name="PollVote">
@@ -392,7 +392,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Sender" Type="String" Nullable="false" />
           <Property Name="Text" Type="String" Nullable="false" />
           <NavigationProperty Name="Inbox" Relationship="Doodler.InboxNotification" FromRole="Notification" ToRole="Inbox" />

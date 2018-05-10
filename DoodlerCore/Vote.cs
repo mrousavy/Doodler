@@ -14,7 +14,7 @@ namespace DoodlerCore
     
     public partial class Vote
     {
-        public System.Guid Id { get; set; }
+        public int Id { get; set; }
     
         public virtual User User { get; set; }
         public virtual Answer Answer { get; set; }

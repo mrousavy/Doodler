@@ -53,7 +53,7 @@ namespace Doodler.ViewModels
         {
             IsViewEnabled = false;
             bool successful = await Model.TryRegisterAsync(Email, Username, Password);
-            if (!successful)
+            if (successful)
             {
                 Statics.Preferences.LastEmail = Email;
                 Statics.Preferences.LastPassword = Password;
