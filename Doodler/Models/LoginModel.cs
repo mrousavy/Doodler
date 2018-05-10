@@ -11,6 +11,7 @@ namespace Doodler.Models
             {
                 try
                 {
+                    await Statics.CreateDatabaseAsync(service);
                     var user = await service.LoginAsync(email, password);
                     return true;
                 } catch (InvalidCredentialException)

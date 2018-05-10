@@ -126,5 +126,35 @@ namespace DoodlerCore
         /// <returns>The found <see cref="Poll"/>s</returns>
         Task<IList<Poll>> GetAllPollsForUserAsync(User user);
         #endregion
+
+        #region Data Service
+        /// <summary>
+        ///     Gets the currently used SQL connection string
+        /// </summary>
+        string ConnectionString { get; }
+        /// <summary>
+        ///     Checks whether the database has pending changes
+        /// </summary>
+        bool IsDirty { get; }
+        /// <summary>
+        ///     Save all pending changes async
+        /// </summary>
+        /// <returns>The number of rows affected</returns>
+        Task<int> SaveAsync();
+        /// <summary>
+        ///     Save all pending changes
+        /// </summary>
+        /// <returns>The number of rows affected</returns>
+        int Save();
+        /// <summary>
+        ///     Check whether the database exists or not
+        /// </summary>
+        /// <returns>True if the database exists</returns>
+        bool Exists();
+        /// <summary>
+        ///     Create the database if it does not exist yet
+        /// </summary>
+        void Create();
+        #endregion
     }
 }

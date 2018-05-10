@@ -171,7 +171,7 @@
             Margin="15"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Command="{Binding LoginCommand}"
+            Command="{Binding RegisterCommand}"
             Content="{md:PackIcon Kind=Send}"
             Style="{StaticResource MaterialDesignFloatingActionButton}"
             ToolTip="Register" />
