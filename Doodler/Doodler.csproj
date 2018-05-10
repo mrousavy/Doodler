@@ -73,6 +73,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Implementation\CountToVisibilityConverter.cs" />
     <Compile Include="Implementation\EmailValidationRule.cs" />
     <Compile Include="Implementation\NotEmptyValidationRule.cs" />
     <Compile Include="Implementation\RelayCommand.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Statics.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PollsViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="Views\ErrorDialogView.xaml.cs">
@@ -91,6 +93,9 @@
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PollsView.xaml.cs">
       <DependentUpon>PollsView.xaml</DependentUpon>
@@ -115,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
