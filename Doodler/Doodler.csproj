@@ -75,6 +75,8 @@
     </ApplicationDefinition>
     <Compile Include="Implementation\CountToVisibilityConverter.cs" />
     <Compile Include="Implementation\EmailValidationRule.cs" />
+    <Compile Include="Implementation\EnumBindingSourceExtension.cs" />
+    <Compile Include="Implementation\EnumDescriptionTypeConverter.cs" />
     <Compile Include="Implementation\NotEmptyValidationRule.cs" />
     <Compile Include="Implementation\RelayCommand.cs" />
     <Compile Include="Implementation\ViewModelBase.cs" />
