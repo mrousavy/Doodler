@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using Doodler.Implementation;
 using Doodler.Models;
+using Doodler.Views;
 
 namespace Doodler.ViewModels
 {
@@ -52,7 +53,8 @@ namespace Doodler.ViewModels
                 IsErrorDialogOpen = true;
             } else
             {
-                // TODO: Open Next View
+                var window = new MainWindow();
+                window.ShowDialog();
             }
             IsViewEnabled = true;
         }
