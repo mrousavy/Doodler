@@ -14,5 +14,6 @@ namespace DoodlerCore
     
     public partial class DateAnswer : Answer
     {
+        public System.DateTime Date { get; set; }
     }
 }

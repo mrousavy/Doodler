@@ -130,12 +130,14 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="Answers_TextAnswer">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <Association Name="UserPoll">
@@ -355,8 +357,12 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
         </EntityType>
-        <EntityType Name="DateAnswer" BaseType="Doodler.Answer" />
-        <EntityType Name="TextAnswer" BaseType="Doodler.Answer" />
+        <EntityType Name="DateAnswer" BaseType="Doodler.Answer" >
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TextAnswer" BaseType="Doodler.Answer" >
+          <Property Name="Text" Type="String" Nullable="false" />
+        </EntityType>
         <EntityType Name="Vote">
           <Key>
             <PropertyRef Name="Id" />
@@ -453,11 +459,13 @@
       <EntityTypeMapping TypeName="IsTypeOf(Doodler.DateAnswer)">
         <MappingFragment StoreEntitySet="Answers_DateAnswer">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(Doodler.TextAnswer)">
         <MappingFragment StoreEntitySet="Answers_TextAnswer">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

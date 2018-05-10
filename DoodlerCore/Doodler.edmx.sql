@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/10/2018 13:38:30
+-- Date Created: 05/10/2018 19:08:53
 -- Generated from EDMX file: D:\Projects\Doodler\DoodlerCore\Doodler.edmx
 -- --------------------------------------------------
 
@@ -157,12 +157,14 @@ GO
 
 -- Creating table 'Answers_DateAnswer'
 CREATE TABLE [dbo].[Answers_DateAnswer] (
+    [Date] datetime  NOT NULL,
     [Id] uniqueidentifier  NOT NULL
 );
 GO
 
 -- Creating table 'Answers_TextAnswer'
 CREATE TABLE [dbo].[Answers_TextAnswer] (
+    [Text] nvarchar(max)  NOT NULL,
     [Id] uniqueidentifier  NOT NULL
 );
 GO
