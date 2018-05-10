@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:viewModels="clr-namespace:Doodler.ViewModels"
+    xmlns:views="clr-namespace:Doodler.Views"
     d:DesignHeight="370"
     d:DesignWidth="250"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -22,12 +23,12 @@
         <viewModels:RegisterViewModel />
     </UserControl.DataContext>
 
-    <md:DialogHost Margin="15" IsOpen="{Binding IsErrorDialogOpen}">
+    <md:DialogHost IsOpen="{Binding IsErrorDialogOpen}">
         <md:DialogHost.DialogContent>
-            <TextBlock Text="Invalid Email or Password!" />
+            <views:ErrorDialogView Text="This Email is already registered!" />
         </md:DialogHost.DialogContent>
 
-        <Grid>
+        <Grid Margin="15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -156,19 +157,6 @@
 
 
             <!--  BUTTONS  -->
-            <Button
-                Grid.Row="5"
-                Grid.Column="0"
-                Width="30"
-                Height="30"
-                Margin="15"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Command="{x:Static md:Transitioner.MovePreviousCommand}"
-                Content="{md:PackIcon Kind=Account}"
-                Style="{StaticResource MaterialDesignFloatingActionButton}"
-                ToolTip="Login" />
-
             <Button
                 Grid.Row="5"
                 Grid.Column="2"

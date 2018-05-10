@@ -23,12 +23,12 @@
         <viewModels:LoginViewModel />
     </UserControl.DataContext>
 
-    <md:DialogHost Margin="15" IsOpen="{Binding IsErrorDialogOpen}">
+    <md:DialogHost IsOpen="{Binding IsErrorDialogOpen}">
         <md:DialogHost.DialogContent>
             <views:ErrorDialogView Text="Invalid Email or Password!" />
         </md:DialogHost.DialogContent>
 
-        <Grid>
+        <Grid Margin="15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -127,19 +127,6 @@
 
 
             <!--  BUTTONS  -->
-            <Button
-                Grid.Row="4"
-                Grid.Column="0"
-                Width="30"
-                Height="30"
-                Margin="15"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Command="{x:Static md:Transitioner.MoveNextCommand}"
-                Content="{md:PackIcon Kind=AccountPlus}"
-                Style="{StaticResource MaterialDesignFloatingActionButton}"
-                ToolTip="Register" />
-
             <Button
                 Grid.Row="4"
                 Grid.Column="2"
