@@ -14,7 +14,7 @@ namespace DoodlerCore
     
     public partial class Notification
     {
-        public System.Guid Id { get; set; }
+        public int Id { get; set; }
         public string Sender { get; set; }
         public string Text { get; set; }
         public System.DateTime SentAt { get; set; }

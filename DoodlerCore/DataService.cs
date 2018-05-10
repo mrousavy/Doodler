@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core;
+using System.Linq;
 using System.Security.Authentication;
 using System.Threading.Tasks;
 
@@ -33,7 +34,10 @@ namespace DoodlerCore
 
         public async Task<User> LoginAsync(string email, string password)
         {
-            return await Context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password)
+            return await Context.Users
+                       .Include(u => u.Inbox)
+                       .Include(u => u.Votes)
+                       .FirstOrDefaultAsync(u => u.Email == email && u.Password == password)
                        ?? throw new InvalidCredentialException("Invalid Email or Password!");
         }
 
@@ -86,9 +90,38 @@ namespace DoodlerCore
             throw new NotImplementedException();
         }
 
-        public Task<Poll> CreatePollAsync<TAnswer>(string title, PollType type, IEnumerable<TAnswer> answers) where TAnswer : Answer
+        public Task<Poll> CreatePollAsync<TAnswer>(User creator, string title, DateTime endDate, IEnumerable<TAnswer> answers) where TAnswer : Answer
         {
-            throw new NotImplementedException();
+            var abstractAnswers = answers as ICollection<Answer>;
+            if (typeof(TAnswer) == typeof(DateAnswer))
+            {
+                // Date Poll
+                Poll poll = new DatePoll
+                {
+                    Creator = creator,
+                    Answers = abstractAnswers,
+                    CreatedAt = DateTime.Now,
+                    EndsAt = endDate,
+                    Title = title,
+                    Votes = new List<Vote>()
+                };
+                Context.Polls.Add(poll);
+                return Task.FromResult(poll);
+            } else
+            {
+                // Text Poll
+                Poll poll = new TextPoll
+                {
+                    Creator = creator,
+                    Answers = abstractAnswers,
+                    CreatedAt = DateTime.Now,
+                    EndsAt = endDate,
+                    Title = title,
+                    Votes = new List<Vote>()
+                };
+                Context.Polls.Add(poll);
+                return Task.FromResult(poll);
+            }
         }
 
         public Task DeletePollAsync(Poll poll)
@@ -106,17 +139,26 @@ namespace DoodlerCore
             throw new NotImplementedException();
         }
 
-        public Task<IList<Poll>> GetAllPollsAsync()
+        public async Task<IList<Poll>> GetAllPollsAsync() => await Context.Polls
+            .Include(p => p.Answers)
+            .Include(p => p.Creator)
+            .Include(p => p.Votes)
+            .ToListAsync();
+
+        public async Task<IList<Poll>> GetAllPollsForUserAsync(int userId) => await Context.Polls
+                .Where(p => p.Creator.Id == userId)
+                .Include(p => p.Answers)
+                .Include(p => p.Creator)
+                .Include(p => p.Votes)
+                .ToListAsync();
+
+        public Task<IList<Poll>> GetAllPollsForUserAsync(User user) => GetAllPollsForUserAsync(user.Id);
+        public Task VoteOnPoll<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer
         {
             throw new NotImplementedException();
         }
 
-        public Task<IList<Poll>> GetAllPollsForUserAsync(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IList<Poll>> GetAllPollsForUserAsync(User user)
+        public Task RemoveVote<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer
         {
             throw new NotImplementedException();
         }

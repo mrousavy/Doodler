@@ -13,6 +13,9 @@ namespace Doodler
         // TODO: BAD RAW PASSWORD STORING
         public string Password { get; set; }
 
+        public string LastEmail { get; set; }
+        public string LastPassword { get; set; }
+
         public static string ConfigDir { get; } =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Doodler");
 

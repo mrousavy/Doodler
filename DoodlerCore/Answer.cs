@@ -14,6 +14,6 @@ namespace DoodlerCore
     
     public abstract partial class Answer
     {
-        public System.Guid Id { get; set; }
+        public int Id { get; set; }
     }
 }

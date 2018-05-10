@@ -12,7 +12,7 @@ namespace Doodler.Models
                 try
                 {
                     await Statics.CreateDatabaseAsync(service);
-                    var user = await service.RegisterAsync(email, username, password);
+                    Statics.CurrentUser = await service.RegisterAsync(email, username, password);
                     await service.SaveAsync();
                     return true;
                 } catch (EmailExistsException)

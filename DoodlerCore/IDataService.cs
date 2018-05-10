@@ -12,13 +12,13 @@ namespace DoodlerCore
     public enum PollType
     {
         /// <summary>
-        ///     A poll with Dates as answers
-        /// </summary>
-        DatePoll,
-        /// <summary>
         ///     A poll with Text as answers
         /// </summary>
-        TextPoll
+        TextPoll,
+        /// <summary>
+        ///     A poll with Dates as answers
+        /// </summary>
+        DatePoll
     }
 
     /// <inheritdoc />
@@ -81,15 +81,17 @@ namespace DoodlerCore
         #endregion
 
         #region Poll
+
         /// <summary>
         ///     Create a new date or text poll on the database
         /// </summary>
         /// <typeparam name="TAnswer">The type of the Answers, must be compliant with the <see cref="PollType"/> parameter</typeparam>
+        /// <param name="creator">The creator of this poll</param>
         /// <param name="title">The title of the poll shown to all users</param>
-        /// <param name="type">The <see cref="PollType"/> indicating whether this is a date or text poll</param>
+        /// <param name="endDate">The date this poll ends at</param>
         /// <param name="answers">The possible answers for this poll</param>
         /// <returns>The newly created <see cref="Poll"/> object</returns>
-        Task<Poll> CreatePollAsync<TAnswer>(string title, PollType type, IEnumerable<TAnswer> answers)
+        Task<Poll> CreatePollAsync<TAnswer>(User creator, string title, DateTime endDate, IEnumerable<TAnswer> answers)
             where TAnswer : Answer;
         /// <summary>
         ///     Delete a given poll from the database
@@ -125,6 +127,24 @@ namespace DoodlerCore
         /// <param name="user">The poll creator</param>
         /// <returns>The found <see cref="Poll"/>s</returns>
         Task<IList<Poll>> GetAllPollsForUserAsync(User user);
+        /// <summary>
+        ///     Vote on a poll
+        /// </summary>
+        /// <typeparam name="TAnswer">The type of the Answer (<see cref="DateAnswer"/> or <see cref="TextAnswer"/>)</typeparam>
+        /// <param name="user">The user that is voting on this poll</param>
+        /// <param name="poll">The poll to vote on</param>
+        /// <param name="answer">The selected answer of this poll</param>
+        /// <returns></returns>
+        Task VoteOnPoll<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer;
+        /// <summary>
+        ///     Remove a vote from a poll
+        /// </summary>
+        /// <typeparam name="TAnswer">The type of the Answer (<see cref="DateAnswer"/> or <see cref="TextAnswer"/>)</typeparam>
+        /// <param name="user">The user that is voting on this poll</param>
+        /// <param name="poll">The poll to vote on</param>
+        /// <param name="answer">The selected answer of this poll</param>
+        /// <returns></returns>
+        Task RemoveVote<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer;
         #endregion
 
         #region Data Service

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/10/2018 13:38:30
+-- Date Created: 05/10/2018 22:26:17
 -- Generated from EDMX file: D:\Projects\Doodler\DoodlerCore\Doodler.edmx
 -- --------------------------------------------------
 
@@ -102,7 +102,7 @@ GO
 
 -- Creating table 'Polls'
 CREATE TABLE [dbo].[Polls] (
-    [Id] uniqueidentifier  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [Title] nvarchar(max)  NOT NULL,
     [CreatedAt] datetime  NOT NULL,
     [EndsAt] datetime  NOT NULL,
@@ -112,23 +112,23 @@ GO
 
 -- Creating table 'Answers'
 CREATE TABLE [dbo].[Answers] (
-    [Id] uniqueidentifier  NOT NULL,
-    [PollAnswer_Answer_Id] uniqueidentifier  NOT NULL
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [PollAnswer_Answer_Id] int  NOT NULL
 );
 GO
 
 -- Creating table 'Votes'
 CREATE TABLE [dbo].[Votes] (
-    [Id] uniqueidentifier  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [User_Id] int  NOT NULL,
-    [Answer_Id] uniqueidentifier  NOT NULL,
-    [Poll_Id] uniqueidentifier  NOT NULL
+    [Answer_Id] int  NOT NULL,
+    [Poll_Id] int  NOT NULL
 );
 GO
 
 -- Creating table 'Notifications'
 CREATE TABLE [dbo].[Notifications] (
-    [Id] uniqueidentifier  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [Sender] nvarchar(max)  NOT NULL,
     [Text] nvarchar(max)  NOT NULL,
     [SentAt] datetime  NOT NULL,
@@ -145,25 +145,27 @@ GO
 
 -- Creating table 'Polls_DatePoll'
 CREATE TABLE [dbo].[Polls_DatePoll] (
-    [Id] uniqueidentifier  NOT NULL
+    [Id] int  NOT NULL
 );
 GO
 
 -- Creating table 'Polls_TextPoll'
 CREATE TABLE [dbo].[Polls_TextPoll] (
-    [Id] uniqueidentifier  NOT NULL
+    [Id] int  NOT NULL
 );
 GO
 
 -- Creating table 'Answers_DateAnswer'
 CREATE TABLE [dbo].[Answers_DateAnswer] (
-    [Id] uniqueidentifier  NOT NULL
+    [Date] datetime  NOT NULL,
+    [Id] int  NOT NULL
 );
 GO
 
 -- Creating table 'Answers_TextAnswer'
 CREATE TABLE [dbo].[Answers_TextAnswer] (
-    [Id] uniqueidentifier  NOT NULL
+    [Text] nvarchar(max)  NOT NULL,
+    [Id] int  NOT NULL
 );
 GO
 

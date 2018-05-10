@@ -14,5 +14,6 @@ namespace DoodlerCore
     
     public partial class TextAnswer : Answer
     {
+        public string Text { get; set; }
     }
 }

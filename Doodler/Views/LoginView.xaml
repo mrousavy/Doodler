@@ -58,7 +58,7 @@
                     VerticalAlignment="Center"
                     Foreground="{StaticResource MaterialDesignGray}"
                     Style="{StaticResource MaterialDesignHeadlineTextBlock}"
-                    Text="Doodler Login" />
+                    Text="Login" />
             </StackPanel>
 
             <Separator

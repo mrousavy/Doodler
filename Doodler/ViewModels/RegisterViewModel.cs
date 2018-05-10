@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using Doodler.Implementation;
 using Doodler.Models;
+using Doodler.Views;
 
 namespace Doodler.ViewModels
 {
@@ -52,12 +53,15 @@ namespace Doodler.ViewModels
         {
             IsViewEnabled = false;
             bool successful = await Model.TryRegisterAsync(Email, Username, Password);
-            if (!successful)
+            if (successful)
             {
-                IsErrorDialogOpen = true;
+                Statics.Preferences.LastEmail = Email;
+                Statics.Preferences.LastPassword = Password;
+                var window = new MainWindow();
+                window.ShowDialog();
             } else
             {
-                // TODO: Open Next View
+                IsErrorDialogOpen = true;
             }
             IsViewEnabled = true;
         }
