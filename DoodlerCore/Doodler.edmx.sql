@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/09/2018 17:46:16
+-- Date Created: 05/10/2018 13:38:30
 -- Generated from EDMX file: D:\Projects\Doodler\DoodlerCore\Doodler.edmx
 -- --------------------------------------------------
 
@@ -17,6 +17,39 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_UserPoll]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Polls] DROP CONSTRAINT [FK_UserPoll];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PollAnswer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Answers] DROP CONSTRAINT [FK_PollAnswer];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserVote]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Votes] DROP CONSTRAINT [FK_UserVote];
+GO
+IF OBJECT_ID(N'[dbo].[FK_VoteAnswer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Votes] DROP CONSTRAINT [FK_VoteAnswer];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PollVote]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Votes] DROP CONSTRAINT [FK_PollVote];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InboxUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_InboxUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InboxNotification]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Notifications] DROP CONSTRAINT [FK_InboxNotification];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DatePoll_inherits_Poll]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Polls_DatePoll] DROP CONSTRAINT [FK_DatePoll_inherits_Poll];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TextPoll_inherits_Poll]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Polls_TextPoll] DROP CONSTRAINT [FK_TextPoll_inherits_Poll];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DateAnswer_inherits_Answer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Answers_DateAnswer] DROP CONSTRAINT [FK_DateAnswer_inherits_Answer];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TextAnswer_inherits_Answer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Answers_TextAnswer] DROP CONSTRAINT [FK_TextAnswer_inherits_Answer];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -24,6 +57,33 @@ GO
 
 IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users];
+GO
+IF OBJECT_ID(N'[dbo].[Polls]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Polls];
+GO
+IF OBJECT_ID(N'[dbo].[Answers]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Answers];
+GO
+IF OBJECT_ID(N'[dbo].[Votes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Votes];
+GO
+IF OBJECT_ID(N'[dbo].[Notifications]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Notifications];
+GO
+IF OBJECT_ID(N'[dbo].[Inboxes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Inboxes];
+GO
+IF OBJECT_ID(N'[dbo].[Polls_DatePoll]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Polls_DatePoll];
+GO
+IF OBJECT_ID(N'[dbo].[Polls_TextPoll]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Polls_TextPoll];
+GO
+IF OBJECT_ID(N'[dbo].[Answers_DateAnswer]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Answers_DateAnswer];
+GO
+IF OBJECT_ID(N'[dbo].[Answers_TextAnswer]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Answers_TextAnswer];
 GO
 
 -- --------------------------------------------------
