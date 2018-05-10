@@ -5,12 +5,16 @@ namespace Doodler.Implementation
 {
     public class NotEmptyValidationRule : ValidationRule
     {
+        private const string InvalidMessage = ""; // "Can't be empty!";
+
+        private const string InvalidTypeMessage = ""; // "Please enter a valid string!";
+
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value is string s)
-                return new ValidationResult(!string.IsNullOrWhiteSpace(s), "Can't be empty!");
+                return new ValidationResult(!string.IsNullOrWhiteSpace(s), InvalidMessage);
             else
-                return new ValidationResult(false, "Please enter a valid string!");
+                return new ValidationResult(false, InvalidTypeMessage);
         }
     }
 }

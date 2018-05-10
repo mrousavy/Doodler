@@ -28,10 +28,16 @@
 
         <dragablz:TabablzControl FixedHeaderCount="2">
             <TabItem Header="Login" IsSelected="True">
-                <views:LoginView />
+                <views:LoginView
+                    Width="250"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" />
             </TabItem>
             <TabItem Header="Register">
-                <views:RegisterView />
+                <views:RegisterView
+                    Width="250"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" />
             </TabItem>
         </dragablz:TabablzControl>
     </Grid>

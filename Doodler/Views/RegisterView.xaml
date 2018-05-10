@@ -59,7 +59,7 @@
                     VerticalAlignment="Center"
                     Foreground="{StaticResource MaterialDesignGray}"
                     Style="{StaticResource MaterialDesignHeadlineTextBlock}"
-                    Text="Doodler Register" />
+                    Text="Register" />
             </StackPanel>
 
             <Separator
