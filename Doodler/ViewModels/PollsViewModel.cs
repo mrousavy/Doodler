@@ -2,7 +2,9 @@
 using Doodler.Implementation;
 using DoodlerCore;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Doodler.Models;
+using Doodler.Views;
 
 namespace Doodler.ViewModels
 {
@@ -14,16 +16,23 @@ namespace Doodler.ViewModels
 
         private ObservableCollection<Poll> _polls;
 
-        private bool _isViewEnabled;
+        private bool _isViewEnabled = true;
 
         private bool _showErrorDialog;
 
-        private string _errorDialogMessage;
+        private ICommand _addCommand;
 
-        public string ErrorDialogMessage
+        private object _dialogViewModel;
+
+        public object DialogViewModel
         {
-            get => _errorDialogMessage;
-            set => Set(ref _errorDialogMessage, value);
+            get => _dialogViewModel;
+            set => Set(ref _dialogViewModel, value);
+        }
+        public ICommand AddCommand
+        {
+            get => _addCommand;
+            set => Set(ref _addCommand, value);
         }
         public bool ShowErrorDialog
         {
@@ -50,8 +59,15 @@ namespace Doodler.ViewModels
 
         public PollsViewModel()
         {
+            AddCommand = new RelayCommand(AddAction);
             Model = new PollsModel();
             Load();
+        }
+
+        private void AddAction(object o)
+        {
+            DialogViewModel = new AddPollViewModel();
+            ShowErrorDialog = true;
         }
 
         private async void Load()
@@ -62,7 +78,7 @@ namespace Doodler.ViewModels
                 Polls = new ObservableCollection<Poll>(list);
             } catch (Exception ex)
             {
-                ErrorDialogMessage = ex.Message;
+                DialogViewModel = new ErrorDialogViewModel(ex.Message);
                 ShowErrorDialog = true;
             }
         }

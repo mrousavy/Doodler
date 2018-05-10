@@ -27,16 +27,9 @@
         <impl:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
     </UserControl.Resources>
 
-    <md:DialogHost IsOpen="{Binding ShowErrorDialog}">
-        <md:DialogHost.DialogContent>
-            <local:ErrorDialogView Text="{Binding ErrorDialogMessage}" />
-        </md:DialogHost.DialogContent>
+    <md:DialogHost DialogContent="{Binding DialogViewModel}" IsOpen="{Binding ShowErrorDialog}">
 
         <Grid Margin="15" IsEnabled="{Binding IsViewEnabled}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
@@ -44,7 +37,6 @@
 
             <ScrollViewer
                 Name="ScrollViewer"
-                Grid.Row="0"
                 Grid.Column="0"
                 Margin="10"
                 HorizontalScrollBarVisibility="Disabled"
@@ -93,6 +85,19 @@
                         ItemsSource="{Binding Polls}" />
                 </Grid>
             </ScrollViewer>
+
+            <Button
+                Width="45"
+                Height="45"
+                Margin="15"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Background="{DynamicResource PrimaryHueMidBrush}"
+                BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                Command="{Binding AddCommand}"
+                Content="{md:PackIcon Kind=Plus}"
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                ToolTip="New Poll" />
         </Grid>
     </md:DialogHost>
 </UserControl>
