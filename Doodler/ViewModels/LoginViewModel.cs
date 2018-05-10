@@ -41,6 +41,8 @@ namespace Doodler.ViewModels
         public LoginViewModel()
         {
             LoginCommand = new RelayCommand(LoginAction);
+            Email = Statics.Preferences.LastEmail;
+            Password = Statics.Preferences.LastPassword;
             Model = new LoginModel();
         }
 
@@ -48,13 +50,15 @@ namespace Doodler.ViewModels
         {
             IsViewEnabled = false;
             bool successful = await Model.TryLoginAsync(Email, Password);
-            if (!successful)
+            if (successful)
             {
-                IsErrorDialogOpen = true;
-            } else
-            {
+                Statics.Preferences.LastEmail = Email;
+                Statics.Preferences.LastPassword = Password;
                 var window = new MainWindow();
                 window.ShowDialog();
+            } else
+            {
+                IsErrorDialogOpen = true;
             }
             IsViewEnabled = true;
         }

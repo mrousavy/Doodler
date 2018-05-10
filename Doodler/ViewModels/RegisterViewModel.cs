@@ -55,11 +55,13 @@ namespace Doodler.ViewModels
             bool successful = await Model.TryRegisterAsync(Email, Username, Password);
             if (!successful)
             {
-                IsErrorDialogOpen = true;
-            } else
-            {
+                Statics.Preferences.LastEmail = Email;
+                Statics.Preferences.LastPassword = Password;
                 var window = new MainWindow();
                 window.ShowDialog();
+            } else
+            {
+                IsErrorDialogOpen = true;
             }
             IsViewEnabled = true;
         }
