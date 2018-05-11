@@ -19,7 +19,8 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Grid Margin="15">
+
+    <Grid Margin="15" IsEnabled="{Binding IsViewEnabled}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />

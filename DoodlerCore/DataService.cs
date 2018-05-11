@@ -155,7 +155,14 @@ namespace DoodlerCore
         public Task<IList<Poll>> GetAllPollsForUserAsync(User user) => GetAllPollsForUserAsync(user.Id);
         public Task VoteOnPoll<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer
         {
-            throw new NotImplementedException();
+            var vote = new Vote
+            {
+                Poll = poll,
+                Answer = answer,
+                User = user
+            };
+            poll.Votes.Add(vote);
+            return Task.CompletedTask;
         }
 
         public Task RemoveVote<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer

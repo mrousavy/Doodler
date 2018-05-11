@@ -14,7 +14,13 @@ namespace Doodler.ViewModels
         private Poll _poll;
         private ICommand _voteCommand;
         private ObservableCollection<PollModel.AnswerWrapper> _answers;
+        private bool _isViewEnabled = true;
 
+        public bool IsViewEnabled
+        {
+            get => _isViewEnabled;
+            set => Set(ref _isViewEnabled, value);
+        }
         public ObservableCollection<PollModel.AnswerWrapper> Answers
         {
             get => _answers;
@@ -31,9 +37,10 @@ namespace Doodler.ViewModels
             set
             {
                 Set(ref _poll, value);
-                UpdateAnswers();
+                PollChanged();
             }
         }
+        public PollModel Model { get; set; }
         #endregion
 
         public PollViewModel()
@@ -41,15 +48,25 @@ namespace Doodler.ViewModels
             VoteCommand = new RelayCommand(VoteAction);
         }
 
-        private void UpdateAnswers()
+        private void PollChanged()
         {
             if (Poll != null)
-                Answers = new ObservableCollection<PollModel.AnswerWrapper>(Poll.Answers.Select(a => new PollModel.AnswerWrapper(a)));
+            {
+                Answers = new ObservableCollection<PollModel.AnswerWrapper>(
+                    Poll.Answers.Select(a => new PollModel.AnswerWrapper(a)));
+                Model = new PollModel(Poll);
+            }
         }
 
-        private void VoteAction(object o)
+        private async void VoteAction(object o)
         {
+            IsViewEnabled = false;
             var selected = Answers.FirstOrDefault(a => a.Selected);
+            if (selected != null)
+            {
+                await Model.VoteAsync(selected.Answer);
+            }
+            IsViewEnabled = true;
         }
     }
 }

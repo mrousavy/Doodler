@@ -1,11 +1,28 @@
 ﻿using Doodler.Implementation;
 using DoodlerCore;
 using System;
+using System.Threading.Tasks;
 
 namespace Doodler.Models
 {
     public class PollModel
     {
+        public Poll Poll { get; }
+
+        public PollModel(Poll poll)
+        {
+            Poll = poll;
+        }
+
+        public async Task VoteAsync(Answer answer)
+        {
+            using (var service = Statics.NewService())
+            {
+                await service.VoteOnPoll(Statics.CurrentUser, Poll, answer);
+                await service.SaveAsync();
+            }
+        }
+
         public class AnswerWrapper : ViewModelBase
         {
             private object _value;
