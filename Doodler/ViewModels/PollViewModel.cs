@@ -1,8 +1,10 @@
 ﻿using Doodler.Implementation;
 using Doodler.Models;
 using DoodlerCore;
+using MaterialDesignThemes.Wpf;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Doodler.ViewModels
@@ -66,6 +68,9 @@ namespace Doodler.ViewModels
             {
                 await Model.VoteAsync(selected.Answer);
             }
+
+            if (DialogHost.CloseDialogCommand.CanExecute(null, o as IInputElement))
+                DialogHost.CloseDialogCommand.Execute(null, o as IInputElement);
             IsViewEnabled = true;
         }
     }

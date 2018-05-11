@@ -10,6 +10,8 @@
     Title="Doodler"
     Width="800"
     Height="450"
+    MinWidth="400"
+    MinHeight="200"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="14"
@@ -18,8 +20,6 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     WindowStartupLocation="CenterScreen"
-    MinHeight="200"
-    MinWidth="400"
     mc:Ignorable="d">
 
     <Window.DataContext>

@@ -29,12 +29,10 @@
     </UserControl.Resources>
 
     <md:DialogHost DialogContent="{Binding DialogViewModel}" IsOpen="{Binding ShowErrorDialog}">
-
         <Grid Margin="15" IsEnabled="{Binding IsViewEnabled}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-
 
             <ScrollViewer
                 Name="ScrollViewer"

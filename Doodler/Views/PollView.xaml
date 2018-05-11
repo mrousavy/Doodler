@@ -98,8 +98,8 @@
             Grid.Column="2"
             Margin="5"
             Command="{Binding VoteCommand}"
+            CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
             Content="Vote"
-            Style="{StaticResource MaterialDesignFlatButton}"
-            ToolTip="Add" />
+            Style="{StaticResource MaterialDesignFlatButton}" />
     </Grid>
 </UserControl>

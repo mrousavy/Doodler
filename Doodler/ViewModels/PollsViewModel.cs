@@ -3,7 +3,6 @@ using Doodler.Models;
 using DoodlerCore;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 
 namespace Doodler.ViewModels
@@ -66,11 +65,8 @@ namespace Doodler.ViewModels
 
         private void AddAction(object o)
         {
-
-            DialogViewModel = new PollViewModel { Poll = Polls.First() };
+            DialogViewModel = new AddPollViewModel();
             ShowErrorDialog = true;
-            //DialogViewModel = new AddPollViewModel();
-            //ShowErrorDialog = true;
         }
 
         private async void Load()
