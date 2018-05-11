@@ -23,6 +23,13 @@ namespace Doodler.ViewModels
 
         private object _dialogViewModel;
 
+        private ICommand _openCommand;
+
+        public ICommand OpenCommand
+        {
+            get => _openCommand;
+            set => Set(ref _openCommand, value);
+        }
         public object DialogViewModel
         {
             get => _dialogViewModel;
@@ -59,8 +66,15 @@ namespace Doodler.ViewModels
         public PollsViewModel()
         {
             AddCommand = new RelayCommand(AddAction);
+            OpenCommand = new RelayCommand<Poll>(OpenAction);
             Model = new PollsModel();
             Load();
+        }
+
+        private void OpenAction(Poll poll)
+        {
+            DialogViewModel = new PollViewModel { Poll = poll };
+            ShowErrorDialog = true;
         }
 
         private void AddAction(object o)

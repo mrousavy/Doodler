@@ -155,9 +155,12 @@ namespace DoodlerCore
         public Task<IList<Poll>> GetAllPollsForUserAsync(User user) => GetAllPollsForUserAsync(user.Id);
         public Task VoteOnPoll<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer
         {
+            Context.Polls.Find(poll.Id);
+            Context.Polls.Find(user.Id);
+            Context.Polls.Find(answer.Id);
+
             var vote = new Vote
             {
-                Poll = poll,
                 Answer = answer,
                 User = user
             };
