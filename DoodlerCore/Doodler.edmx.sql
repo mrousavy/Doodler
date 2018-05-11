@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/10/2018 22:26:17
+-- Date Created: 05/11/2018 14:52:53
 -- Generated from EDMX file: D:\Projects\Doodler\DoodlerCore\Doodler.edmx
 -- --------------------------------------------------
 
@@ -31,12 +31,6 @@ IF OBJECT_ID(N'[dbo].[FK_VoteAnswer]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_PollVote]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Votes] DROP CONSTRAINT [FK_PollVote];
-GO
-IF OBJECT_ID(N'[dbo].[FK_InboxUser]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_InboxUser];
-GO
-IF OBJECT_ID(N'[dbo].[FK_InboxNotification]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Notifications] DROP CONSTRAINT [FK_InboxNotification];
 GO
 IF OBJECT_ID(N'[dbo].[FK_DatePoll_inherits_Poll]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Polls_DatePoll] DROP CONSTRAINT [FK_DatePoll_inherits_Poll];
@@ -67,12 +61,6 @@ GO
 IF OBJECT_ID(N'[dbo].[Votes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Votes];
 GO
-IF OBJECT_ID(N'[dbo].[Notifications]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Notifications];
-GO
-IF OBJECT_ID(N'[dbo].[Inboxes]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Inboxes];
-GO
 IF OBJECT_ID(N'[dbo].[Polls_DatePoll]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Polls_DatePoll];
 GO
@@ -95,8 +83,7 @@ CREATE TABLE [dbo].[Users] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Email] nvarchar(max)  NOT NULL,
     [Username] nvarchar(max)  NOT NULL,
-    [Password] nvarchar(max)  NOT NULL,
-    [Inbox_Id] int  NOT NULL
+    [Password] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -106,7 +93,7 @@ CREATE TABLE [dbo].[Polls] (
     [Title] nvarchar(max)  NOT NULL,
     [CreatedAt] datetime  NOT NULL,
     [EndsAt] datetime  NOT NULL,
-    [Creator_Id] int  NOT NULL
+    [Creator_Id] int  NULL
 );
 GO
 
@@ -123,23 +110,6 @@ CREATE TABLE [dbo].[Votes] (
     [User_Id] int  NOT NULL,
     [Answer_Id] int  NOT NULL,
     [Poll_Id] int  NOT NULL
-);
-GO
-
--- Creating table 'Notifications'
-CREATE TABLE [dbo].[Notifications] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Sender] nvarchar(max)  NOT NULL,
-    [Text] nvarchar(max)  NOT NULL,
-    [SentAt] datetime  NOT NULL,
-    [IsRead] bit  NOT NULL,
-    [Inbox_Id] int  NOT NULL
-);
-GO
-
--- Creating table 'Inboxes'
-CREATE TABLE [dbo].[Inboxes] (
-    [Id] int IDENTITY(1,1) NOT NULL
 );
 GO
 
@@ -194,18 +164,6 @@ GO
 -- Creating primary key on [Id] in table 'Votes'
 ALTER TABLE [dbo].[Votes]
 ADD CONSTRAINT [PK_Votes]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'Notifications'
-ALTER TABLE [dbo].[Notifications]
-ADD CONSTRAINT [PK_Notifications]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'Inboxes'
-ALTER TABLE [dbo].[Inboxes]
-ADD CONSTRAINT [PK_Inboxes]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -310,36 +268,6 @@ GO
 CREATE INDEX [IX_FK_PollVote]
 ON [dbo].[Votes]
     ([Poll_Id]);
-GO
-
--- Creating foreign key on [Inbox_Id] in table 'Users'
-ALTER TABLE [dbo].[Users]
-ADD CONSTRAINT [FK_InboxUser]
-    FOREIGN KEY ([Inbox_Id])
-    REFERENCES [dbo].[Inboxes]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_InboxUser'
-CREATE INDEX [IX_FK_InboxUser]
-ON [dbo].[Users]
-    ([Inbox_Id]);
-GO
-
--- Creating foreign key on [Inbox_Id] in table 'Notifications'
-ALTER TABLE [dbo].[Notifications]
-ADD CONSTRAINT [FK_InboxNotification]
-    FOREIGN KEY ([Inbox_Id])
-    REFERENCES [dbo].[Inboxes]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_InboxNotification'
-CREATE INDEX [IX_FK_InboxNotification]
-ON [dbo].[Notifications]
-    ([Inbox_Id]);
 GO
 
 -- Creating foreign key on [Id] in table 'Polls_DatePoll'

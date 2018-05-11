@@ -10,8 +10,6 @@
     <EntitySet Name="Polls" EntityType="Doodler.Store.Polls" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Answers" EntityType="Doodler.Store.Answers" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Votes" EntityType="Doodler.Store.Votes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Notifications" EntityType="Doodler.Store.Notifications" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Inboxes" EntityType="Doodler.Store.Inboxes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Polls_DatePoll" EntityType="Doodler.Store.Polls_DatePoll" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Polls_TextPoll" EntityType="Doodler.Store.Polls_TextPoll" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Answers_DateAnswer" EntityType="Doodler.Store.Answers_DateAnswer" store:Type="Tables" Schema="dbo" />
@@ -35,14 +33,6 @@
     <AssociationSet Name="PollVote" Association="Doodler.Store.PollVote">
       <End Role="Poll" EntitySet="Polls" />
       <End Role="Vote" EntitySet="Votes" />
-    </AssociationSet>
-    <AssociationSet Name="InboxUser" Association="Doodler.Store.InboxUser">
-      <End Role="Inbox" EntitySet="Inboxes" />
-      <End Role="User" EntitySet="Users" />
-    </AssociationSet>
-    <AssociationSet Name="InboxNotification" Association="Doodler.Store.InboxNotification">
-      <End Role="Inbox" EntitySet="Inboxes" />
-      <End Role="Notification" EntitySet="Notifications" />
     </AssociationSet>
     <AssociationSet Name="FK_DatePoll_inherits_Poll" Association="Doodler.Store.FK_DatePoll_inherits_Poll">
       <End Role="Poll" EntitySet="Polls" />
@@ -69,7 +59,6 @@
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Inbox_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Polls">
     <Key>
@@ -79,7 +68,7 @@
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
     <Property Name="CreatedAt" Type="datetime" Nullable="false" />
     <Property Name="EndsAt" Type="datetime" Nullable="false" />
-    <Property Name="Creator_Id" Type="int" Nullable="false" />
+    <Property Name="Creator_Id" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Answers">
     <Key>
@@ -96,23 +85,6 @@
     <Property Name="User_Id" Type="int" Nullable="false" />
     <Property Name="Answer_Id" Type="int" Nullable="false" />
     <Property Name="Poll_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Notifications">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Sender" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="SentAt" Type="datetime" Nullable="false" />
-    <Property Name="IsRead" Type="bit" Nullable="false" />
-    <Property Name="Inbox_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Inboxes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="Polls_DatePoll">
     <Key>
@@ -141,7 +113,7 @@
     <Property Name="Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="UserPoll">
-    <End Role="User" Type="Doodler.Store.Users" Multiplicity="1" />
+    <End Role="User" Type="Doodler.Store.Users" Multiplicity="0..1" />
     <End Role="Poll" Type="Doodler.Store.Polls" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
@@ -197,30 +169,6 @@
       </Principal>
       <Dependent Role="Vote">
         <PropertyRef Name="Poll_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="InboxUser">
-    <End Role="Inbox" Type="Doodler.Store.Inboxes" Multiplicity="1" />
-    <End Role="User" Type="Doodler.Store.Users" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Inbox">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="Inbox_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="InboxNotification">
-    <End Role="Inbox" Type="Doodler.Store.Inboxes" Multiplicity="1" />
-    <End Role="Notification" Type="Doodler.Store.Notifications" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Inbox">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Notification">
-        <PropertyRef Name="Inbox_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -309,16 +257,6 @@
             <End Role="Poll" EntitySet="Polls" />
             <End Role="Vote" EntitySet="Votes" />
           </AssociationSet>
-          <EntitySet Name="Notifications" EntityType="Doodler.Notification" />
-          <EntitySet Name="Inboxes" EntityType="Doodler.Inbox" />
-          <AssociationSet Name="InboxUser" Association="Doodler.InboxUser">
-            <End Role="Inbox" EntitySet="Inboxes" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="InboxNotification" Association="Doodler.InboxNotification">
-            <End Role="Inbox" EntitySet="Inboxes" />
-            <End Role="Notification" EntitySet="Notifications" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -329,7 +267,6 @@
           <Property Name="Username" Type="String" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" />
           <NavigationProperty Name="Votes" Relationship="Doodler.UserVote" FromRole="User" ToRole="Vote" />
-          <NavigationProperty Name="Inbox" Relationship="Doodler.InboxUser" FromRole="User" ToRole="Inbox" />
         </EntityType>
         <EntityType Name="Poll" Abstract="true">
           <Key>
@@ -348,7 +285,7 @@
         <EntityType Name="TextPoll" BaseType="Doodler.Poll" >
         </EntityType>
         <Association Name="UserPoll">
-          <End Type="Doodler.User" Role="User" Multiplicity="1" />
+          <End Type="Doodler.User" Role="User" Multiplicity="0..1" />
           <End Type="Doodler.Poll" Role="Poll" Multiplicity="*" />
         </Association>
         <EntityType Name="Answer" Abstract="true">
@@ -387,32 +324,6 @@
         <Association Name="PollVote">
           <End Type="Doodler.Poll" Role="Poll" Multiplicity="1" />
           <End Type="Doodler.Vote" Role="Vote" Multiplicity="*" />
-        </Association>
-        <EntityType Name="Notification">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Sender" Type="String" Nullable="false" />
-          <Property Name="Text" Type="String" Nullable="false" />
-          <NavigationProperty Name="Inbox" Relationship="Doodler.InboxNotification" FromRole="Notification" ToRole="Inbox" />
-          <Property Name="SentAt" Type="DateTime" Nullable="false" />
-          <Property Name="IsRead" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Inbox">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Notifications" Relationship="Doodler.InboxNotification" FromRole="Inbox" ToRole="Notification" />
-        </EntityType>
-        <Association Name="InboxUser">
-          <End Type="Doodler.Inbox" Role="Inbox" Multiplicity="1" />
-          <End Type="Doodler.User" Role="User" Multiplicity="*" />
-        </Association>
-        <Association Name="InboxNotification">
-          <End Type="Doodler.Inbox" Role="Inbox" Multiplicity="1" />
-          <End Type="Doodler.Notification" Role="Notification" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -476,24 +387,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Notifications">
-      <EntityTypeMapping TypeName="IsTypeOf(Doodler.Notification)">
-        <MappingFragment StoreEntitySet="Notifications">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Sender" ColumnName="Sender" />
-          <ScalarProperty Name="Text" ColumnName="Text" />
-          <ScalarProperty Name="SentAt" ColumnName="SentAt" />
-          <ScalarProperty Name="IsRead" ColumnName="IsRead" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Inboxes">
-      <EntityTypeMapping TypeName="IsTypeOf(Doodler.Inbox)">
-        <MappingFragment StoreEntitySet="Inboxes">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <AssociationSetMapping Name="UserPoll" TypeName="Doodler.UserPoll" StoreEntitySet="Polls">
       <EndProperty Name="User">
         <ScalarProperty Name="Id" ColumnName="Creator_Id" />
@@ -501,6 +394,7 @@
       <EndProperty Name="Poll">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+      <Condition ColumnName="Creator_Id" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="PollAnswer" TypeName="Doodler.PollAnswer" StoreEntitySet="Answers">
       <EndProperty Name="Poll">
@@ -531,22 +425,6 @@
         <ScalarProperty Name="Id" ColumnName="Poll_Id" />
       </EndProperty>
       <EndProperty Name="Vote">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="InboxUser" TypeName="Doodler.InboxUser" StoreEntitySet="Users">
-      <EndProperty Name="Inbox">
-        <ScalarProperty Name="Id" ColumnName="Inbox_Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="InboxNotification" TypeName="Doodler.InboxNotification" StoreEntitySet="Notifications">
-      <EndProperty Name="Inbox">
-        <ScalarProperty Name="Id" ColumnName="Inbox_Id" />
-      </EndProperty>
-      <EndProperty Name="Notification">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

@@ -35,7 +35,6 @@ namespace DoodlerCore
         public async Task<User> LoginAsync(string email, string password)
         {
             return await Context.Users
-                       .Include(u => u.Inbox)
                        .Include(u => u.Votes)
                        .FirstOrDefaultAsync(u => u.Email == email && u.Password == password)
                        ?? throw new InvalidCredentialException("Invalid Email or Password!");
@@ -51,8 +50,7 @@ namespace DoodlerCore
             {
                 Email = email,
                 Username = name,
-                Password = password,
-                Inbox = new Inbox()
+                Password = password
             };
             Context.Users.Add(user);
             return user;
@@ -155,9 +153,9 @@ namespace DoodlerCore
         public Task<IList<Poll>> GetAllPollsForUserAsync(User user) => GetAllPollsForUserAsync(user.Id);
         public Task VoteOnPoll<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer
         {
-            Context.Polls.Find(poll.Id);
-            Context.Polls.Find(user.Id);
-            Context.Polls.Find(answer.Id);
+            Context.Users.Attach(user);
+            Context.Polls.Attach(poll);
+            Context.Answers.Attach(answer);
 
             var vote = new Vote
             {
@@ -165,6 +163,7 @@ namespace DoodlerCore
                 Answer = answer,
                 User = user
             };
+
             Context.Votes.Add(vote);
             return Task.CompletedTask;
         }

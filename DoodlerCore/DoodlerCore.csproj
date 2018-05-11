@@ -77,12 +77,6 @@
     <Compile Include="DoodlerContextImplementation.cs" />
     <Compile Include="EmailExistsException.cs" />
     <Compile Include="IDataService.cs" />
-    <Compile Include="Inbox.cs">
-      <DependentUpon>Doodler.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Notification.cs">
-      <DependentUpon>Doodler.tt</DependentUpon>
-    </Compile>
     <Compile Include="Poll.cs">
       <DependentUpon>Doodler.tt</DependentUpon>
     </Compile>

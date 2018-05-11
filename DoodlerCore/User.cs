@@ -27,6 +27,5 @@ namespace DoodlerCore
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vote> Votes { get; set; }
-        public virtual Inbox Inbox { get; set; }
     }
 }
