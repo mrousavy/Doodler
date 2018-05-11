@@ -5,7 +5,6 @@
     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
     xmlns:lib="clr-namespace:DoodlerCore;assembly=DoodlerCore"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:viewModels="clr-namespace:Doodler.ViewModels"
     xmlns:views="clr-namespace:Doodler.Views"
     DispatcherUnhandledException="AppError"
@@ -89,20 +88,20 @@
                                     VerticalAlignment="Center"
                                     Foreground="{StaticResource MaterialDesignGray}"
                                     Style="{StaticResource MaterialDesignTitleTextBlock}"
-                                    Text="{Binding Title, Mode=OneTime}" />
+                                    Text="{Binding Title, Mode=OneWay}" />
                                 <TextBlock
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     Margin="5"
                                     VerticalAlignment="Center"
-                                    Text="{Binding Creator.Username, Mode=OneTime}"
+                                    Text="{Binding Creator.Username, Mode=OneWay}"
                                     ToolTip="Poll Creator" />
                                 <TextBlock
                                     Grid.Row="1"
                                     Grid.Column="2"
                                     Margin="5"
                                     VerticalAlignment="Center"
-                                    Text="{Binding EndsAt, Mode=OneTime, StringFormat=dd.MM.yyyy}"
+                                    Text="{Binding EndsAt, Mode=OneWay, StringFormat=dd.MM.yyyy}"
                                     ToolTip="End date" />
                                 <ProgressBar
                                     Grid.Row="2"
@@ -112,7 +111,7 @@
                                     HorizontalAlignment="Stretch"
                                     Maximum="15"
                                     ToolTip="Answers"
-                                    Value="{Binding Votes.Count, Mode=OneTime}" />
+                                    Value="{Binding Votes.Count, Mode=OneWay}" />
                             </Grid>
                         </md:Ripple>
                     </md:Card>
@@ -127,6 +126,11 @@
             <!--  ADD POLL VM -> VIEW  -->
             <DataTemplate DataType="{x:Type viewModels:AddPollViewModel}">
                 <views:AddPollView />
+            </DataTemplate>
+
+            <!--  POLL VM -> VIEW  -->
+            <DataTemplate DataType="{x:Type viewModels:PollViewModel}">
+                <views:PollView Poll="{Binding Poll}" />
             </DataTemplate>
 
             <!--  REMOVE LIST ITEM BUTTON  -->

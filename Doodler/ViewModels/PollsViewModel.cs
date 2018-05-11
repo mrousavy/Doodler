@@ -1,10 +1,10 @@
-﻿using System;
-using Doodler.Implementation;
-using DoodlerCore;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
+﻿using Doodler.Implementation;
 using Doodler.Models;
-using Doodler.Views;
+using DoodlerCore;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
 
 namespace Doodler.ViewModels
 {
@@ -66,8 +66,11 @@ namespace Doodler.ViewModels
 
         private void AddAction(object o)
         {
-            DialogViewModel = new AddPollViewModel();
+
+            DialogViewModel = new PollViewModel { Poll = Polls.First() };
             ShowErrorDialog = true;
+            //DialogViewModel = new AddPollViewModel();
+            //ShowErrorDialog = true;
         }
 
         private async void Load()

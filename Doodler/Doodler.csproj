@@ -92,6 +92,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PollsViewModel.cs" />
+    <Compile Include="ViewModels\PollViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="Views\AddPollView.xaml.cs">
       <DependentUpon>AddPollView.xaml</DependentUpon>
@@ -107,6 +108,9 @@
     </Compile>
     <Compile Include="Views\PollsView.xaml.cs">
       <DependentUpon>PollsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PollView.xaml.cs">
+      <DependentUpon>PollView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RegisterView.xaml.cs">
       <DependentUpon>RegisterView.xaml</DependentUpon>
@@ -140,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PollsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PollView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
