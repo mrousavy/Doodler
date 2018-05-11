@@ -161,10 +161,11 @@ namespace DoodlerCore
 
             var vote = new Vote
             {
+                Poll = poll,
                 Answer = answer,
                 User = user
             };
-            poll.Votes.Add(vote);
+            Context.Votes.Add(vote);
             return Task.CompletedTask;
         }
 
