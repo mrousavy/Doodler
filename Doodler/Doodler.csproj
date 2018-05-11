@@ -82,6 +82,7 @@
     <Compile Include="Implementation\ViewModelBase.cs" />
     <Compile Include="Models\AddPollModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\PollModel.cs" />
     <Compile Include="Models\PollsModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Preferences.cs" />
