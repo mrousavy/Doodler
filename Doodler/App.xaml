@@ -44,7 +44,7 @@
                         <md:TransitionEffect Kind="FadeIn" Duration="0:0:0.150" />
                     </md:TransitioningContent.OpeningEffects>
                     <md:Card
-                        Width="400"
+                        Width="250"
                         Margin="0,0,0,8"
                         VerticalAlignment="Stretch"
                         Cursor="Hand"
@@ -68,7 +68,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
@@ -87,21 +87,22 @@
                                     Grid.ColumnSpan="2"
                                     Margin="5"
                                     VerticalAlignment="Center"
-                                    Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                    Text="{Binding Title}" />
+                                    Foreground="{StaticResource MaterialDesignGray}"
+                                    Style="{StaticResource MaterialDesignTitleTextBlock}"
+                                    Text="{Binding Title, Mode=OneTime}" />
                                 <TextBlock
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     Margin="5"
                                     VerticalAlignment="Center"
-                                    Text="{Binding Creator.Username}"
+                                    Text="{Binding Creator.Username, Mode=OneTime}"
                                     ToolTip="Poll Creator" />
                                 <TextBlock
                                     Grid.Row="1"
                                     Grid.Column="2"
                                     Margin="5"
                                     VerticalAlignment="Center"
-                                    Text="{Binding EndsAt}"
+                                    Text="{Binding EndsAt, Mode=OneTime, StringFormat=dd.MM.yyyy}"
                                     ToolTip="End date" />
                                 <ProgressBar
                                     Grid.Row="2"
@@ -109,9 +110,9 @@
                                     Grid.ColumnSpan="3"
                                     Margin="5"
                                     HorizontalAlignment="Stretch"
-                                    Maximum="{Binding Answers.Count}"
+                                    Maximum="15"
                                     ToolTip="Answers"
-                                    Value="{Binding Votes.Count}" />
+                                    Value="{Binding Votes.Count, Mode=OneTime}" />
                             </Grid>
                         </md:Ripple>
                     </md:Card>

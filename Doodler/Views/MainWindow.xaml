@@ -18,6 +18,8 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     WindowStartupLocation="CenterScreen"
+    MinHeight="200"
+    MinWidth="400"
     mc:Ignorable="d">
 
     <Window.DataContext>
