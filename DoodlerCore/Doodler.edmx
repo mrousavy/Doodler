@@ -18,10 +18,6 @@
       <End Role="User" EntitySet="Users" />
       <End Role="Poll" EntitySet="Polls" />
     </AssociationSet>
-    <AssociationSet Name="PollAnswer" Association="Doodler.Store.PollAnswer">
-      <End Role="Poll" EntitySet="Polls" />
-      <End Role="Answer" EntitySet="Answers" />
-    </AssociationSet>
     <AssociationSet Name="UserVote" Association="Doodler.Store.UserVote">
       <End Role="User" EntitySet="Users" />
       <End Role="Vote" EntitySet="Votes" />
@@ -33,6 +29,10 @@
     <AssociationSet Name="PollVote" Association="Doodler.Store.PollVote">
       <End Role="Poll" EntitySet="Polls" />
       <End Role="Vote" EntitySet="Votes" />
+    </AssociationSet>
+    <AssociationSet Name="PollAnswer" Association="Doodler.Store.PollAnswer">
+      <End Role="Poll" EntitySet="Polls" />
+      <End Role="Answer" EntitySet="Answers" />
     </AssociationSet>
     <AssociationSet Name="FK_DatePoll_inherits_Poll" Association="Doodler.Store.FK_DatePoll_inherits_Poll">
       <End Role="Poll" EntitySet="Polls" />
@@ -75,7 +75,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PollAnswer_Answer_Id" Type="int" Nullable="false" />
+    <Property Name="Poll_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Votes">
     <Key>
@@ -124,18 +124,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="PollAnswer">
-    <End Role="Poll" Type="Doodler.Store.Polls" Multiplicity="1" />
-    <End Role="Answer" Type="Doodler.Store.Answers" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Poll">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Answer">
-        <PropertyRef Name="PollAnswer_Answer_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="UserVote">
     <End Role="User" Type="Doodler.Store.Users" Multiplicity="1" />
     <End Role="Vote" Type="Doodler.Store.Votes" Multiplicity="*" />
@@ -168,6 +156,18 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Vote">
+        <PropertyRef Name="Poll_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PollAnswer">
+    <End Role="Poll" Type="Doodler.Store.Polls" Multiplicity="1" />
+    <End Role="Answer" Type="Doodler.Store.Answers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Poll">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Answer">
         <PropertyRef Name="Poll_Id" />
       </Dependent>
     </ReferentialConstraint>
@@ -241,10 +241,6 @@
           </AssociationSet>
           <EntitySet Name="Answers" EntityType="Doodler.Answer" />
           <EntitySet Name="Votes" EntityType="Doodler.Vote" />
-          <AssociationSet Name="PollAnswer" Association="Doodler.PollAnswer">
-            <End Role="Poll" EntitySet="Polls" />
-            <End Role="Answer" EntitySet="Answers" />
-          </AssociationSet>
           <AssociationSet Name="UserVote" Association="Doodler.UserVote">
             <End Role="User" EntitySet="Users" />
             <End Role="Vote" EntitySet="Votes" />
@@ -257,6 +253,10 @@
             <End Role="Poll" EntitySet="Polls" />
             <End Role="Vote" EntitySet="Votes" />
           </AssociationSet>
+          <AssociationSet Name="PollAnswer" Association="Doodler.PollAnswer">
+            <End Role="Poll" EntitySet="Polls" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -266,7 +266,6 @@
           <Property Name="Email" Type="String" Nullable="false" />
           <Property Name="Username" Type="String" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" />
-          <NavigationProperty Name="Votes" Relationship="Doodler.UserVote" FromRole="User" ToRole="Vote" />
         </EntityType>
         <EntityType Name="Poll" Abstract="true">
           <Key>
@@ -277,8 +276,6 @@
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
           <Property Name="EndsAt" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Creator" Relationship="Doodler.UserPoll" FromRole="Poll" ToRole="User" />
-          <NavigationProperty Name="Answers" Relationship="Doodler.PollAnswer" FromRole="Poll" ToRole="Answer" />
-          <NavigationProperty Name="Votes" Relationship="Doodler.PollVote" FromRole="Poll" ToRole="Vote" />
         </EntityType>
         <EntityType Name="DatePoll" BaseType="Doodler.Poll" >
         </EntityType>
@@ -293,6 +290,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Poll" Relationship="Doodler.PollAnswer" FromRole="Answer" ToRole="Poll" />
         </EntityType>
         <EntityType Name="DateAnswer" BaseType="Doodler.Answer" >
           <Property Name="Date" Type="DateTime" Nullable="false" />
@@ -309,10 +307,6 @@
           <NavigationProperty Name="Answer" Relationship="Doodler.VoteAnswer" FromRole="Vote" ToRole="Answer" />
           <NavigationProperty Name="Poll" Relationship="Doodler.PollVote" FromRole="Vote" ToRole="Poll" />
         </EntityType>
-        <Association Name="PollAnswer">
-          <End Type="Doodler.Poll" Role="Poll" Multiplicity="1" />
-          <End Type="Doodler.Answer" Role="Answer" Multiplicity="*" />
-        </Association>
         <Association Name="UserVote">
           <End Type="Doodler.User" Role="User" Multiplicity="1" />
           <End Type="Doodler.Vote" Role="Vote" Multiplicity="*" />
@@ -324,6 +318,10 @@
         <Association Name="PollVote">
           <End Type="Doodler.Poll" Role="Poll" Multiplicity="1" />
           <End Type="Doodler.Vote" Role="Vote" Multiplicity="*" />
+        </Association>
+        <Association Name="PollAnswer">
+          <End Type="Doodler.Poll" Role="Poll" Multiplicity="1" />
+          <End Type="Doodler.Answer" Role="Answer" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -396,14 +394,6 @@
       </EndProperty>
       <Condition ColumnName="Creator_Id" IsNull="false" />
     </AssociationSetMapping>
-    <AssociationSetMapping Name="PollAnswer" TypeName="Doodler.PollAnswer" StoreEntitySet="Answers">
-      <EndProperty Name="Poll">
-        <ScalarProperty Name="Id" ColumnName="PollAnswer_Answer_Id" />
-      </EndProperty>
-      <EndProperty Name="Answer">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="UserVote" TypeName="Doodler.UserVote" StoreEntitySet="Votes">
       <EndProperty Name="User">
         <ScalarProperty Name="Id" ColumnName="User_Id" />
@@ -425,6 +415,14 @@
         <ScalarProperty Name="Id" ColumnName="Poll_Id" />
       </EndProperty>
       <EndProperty Name="Vote">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PollAnswer" TypeName="Doodler.PollAnswer" StoreEntitySet="Answers">
+      <EndProperty Name="Poll">
+        <ScalarProperty Name="Id" ColumnName="Poll_Id" />
+      </EndProperty>
+      <EndProperty Name="Answer">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

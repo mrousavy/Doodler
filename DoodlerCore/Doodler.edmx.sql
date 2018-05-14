@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/11/2018 14:52:53
+-- Date Created: 05/14/2018 11:52:32
 -- Generated from EDMX file: D:\Projects\Doodler\DoodlerCore\Doodler.edmx
 -- --------------------------------------------------
 
@@ -100,7 +100,7 @@ GO
 -- Creating table 'Answers'
 CREATE TABLE [dbo].[Answers] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [PollAnswer_Answer_Id] int  NOT NULL
+    [Poll_Id] int  NOT NULL
 );
 GO
 
@@ -210,21 +210,6 @@ ON [dbo].[Polls]
     ([Creator_Id]);
 GO
 
--- Creating foreign key on [PollAnswer_Answer_Id] in table 'Answers'
-ALTER TABLE [dbo].[Answers]
-ADD CONSTRAINT [FK_PollAnswer]
-    FOREIGN KEY ([PollAnswer_Answer_Id])
-    REFERENCES [dbo].[Polls]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_PollAnswer'
-CREATE INDEX [IX_FK_PollAnswer]
-ON [dbo].[Answers]
-    ([PollAnswer_Answer_Id]);
-GO
-
 -- Creating foreign key on [User_Id] in table 'Votes'
 ALTER TABLE [dbo].[Votes]
 ADD CONSTRAINT [FK_UserVote]
@@ -267,6 +252,21 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_PollVote'
 CREATE INDEX [IX_FK_PollVote]
 ON [dbo].[Votes]
+    ([Poll_Id]);
+GO
+
+-- Creating foreign key on [Poll_Id] in table 'Answers'
+ALTER TABLE [dbo].[Answers]
+ADD CONSTRAINT [FK_PollAnswer]
+    FOREIGN KEY ([Poll_Id])
+    REFERENCES [dbo].[Polls]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PollAnswer'
+CREATE INDEX [IX_FK_PollAnswer]
+ON [dbo].[Answers]
     ([Poll_Id]);
 GO
 

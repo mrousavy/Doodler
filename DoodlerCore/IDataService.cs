@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Authentication;
 using System.Threading.Tasks;
 
 namespace DoodlerCore
@@ -127,6 +126,18 @@ namespace DoodlerCore
         /// <param name="user">The poll creator</param>
         /// <returns>The found <see cref="Poll"/>s</returns>
         Task<IList<Poll>> GetAllPollsForUserAsync(User user);
+        /// <summary>
+        ///     Find all votes submitted on the given poll
+        /// </summary>
+        /// <param name="poll">The poll</param>
+        /// <returns>The found <see cref="Vote"/>s</returns>
+        Task<IList<Vote>> GetVotesForPollAsync(Poll poll);
+        /// <summary>
+        ///     Get all answers on the given poll
+        /// </summary>
+        /// <param name="poll">The poll</param>
+        /// <returns>The found <see cref="Answer"/>s</returns>
+        Task<IList<Answer>> GetAnswersForPollAsync(Poll poll);
         /// <summary>
         ///     Vote on a poll
         /// </summary>

@@ -35,7 +35,6 @@ namespace DoodlerCore
         public async Task<User> LoginAsync(string email, string password)
         {
             return await Context.Users
-                       .Include(u => u.Votes)
                        .FirstOrDefaultAsync(u => u.Email == email && u.Password == password)
                        ?? throw new InvalidCredentialException("Invalid Email or Password!");
         }
@@ -90,36 +89,38 @@ namespace DoodlerCore
 
         public Task<Poll> CreatePollAsync<TAnswer>(User creator, string title, DateTime endDate, IEnumerable<TAnswer> answers) where TAnswer : Answer
         {
-            var abstractAnswers = answers as ICollection<Answer>;
+            Poll poll;
             if (typeof(TAnswer) == typeof(DateAnswer))
             {
                 // Date Poll
-                Poll poll = new DatePoll
+                poll = new DatePoll
                 {
                     Creator = creator,
-                    Answers = abstractAnswers,
                     CreatedAt = DateTime.Now,
                     EndsAt = endDate,
-                    Title = title,
-                    Votes = new List<Vote>()
+                    Title = title
                 };
                 Context.Polls.Add(poll);
-                return Task.FromResult(poll);
             } else
             {
                 // Text Poll
-                Poll poll = new TextPoll
+                poll = new TextPoll
                 {
                     Creator = creator,
-                    Answers = abstractAnswers,
                     CreatedAt = DateTime.Now,
                     EndsAt = endDate,
-                    Title = title,
-                    Votes = new List<Vote>()
+                    Title = title
                 };
                 Context.Polls.Add(poll);
-                return Task.FromResult(poll);
             }
+
+            foreach (var answer in answers)
+            {
+                answer.Poll = poll;
+                Context.Answers.Add(answer);
+            }
+
+            return Task.FromResult(poll);
         }
 
         public Task DeletePollAsync(Poll poll)
@@ -138,19 +139,28 @@ namespace DoodlerCore
         }
 
         public async Task<IList<Poll>> GetAllPollsAsync() => await Context.Polls
-            .Include(p => p.Answers)
             .Include(p => p.Creator)
-            .Include(p => p.Votes)
             .ToListAsync();
 
         public async Task<IList<Poll>> GetAllPollsForUserAsync(int userId) => await Context.Polls
                 .Where(p => p.Creator.Id == userId)
-                .Include(p => p.Answers)
                 .Include(p => p.Creator)
-                .Include(p => p.Votes)
                 .ToListAsync();
 
         public Task<IList<Poll>> GetAllPollsForUserAsync(User user) => GetAllPollsForUserAsync(user.Id);
+
+        public async Task<IList<Vote>> GetVotesForPollAsync(Poll poll) => await Context.Votes
+            .Where(v => v.Poll.Id == poll.Id)
+            .Include(v => v.Poll)
+            .Include(v => v.Answer)
+            .Include(v => v.User)
+            .ToListAsync();
+
+        public async Task<IList<Answer>> GetAnswersForPollAsync(Poll poll) => await Context.Answers
+            .Where(a => a.Poll.Id == poll.Id)
+            .Include(v => v.Poll)
+            .ToListAsync();
+
         public Task VoteOnPoll<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer
         {
             Context.Users.Attach(user);

@@ -18,10 +18,10 @@
         <EntityTypeShape EntityType="Doodler.TextAnswer" Width="1.5" PointX="11" PointY="6.75" />
         <InheritanceConnector EntityType="Doodler.TextAnswer" />
         <EntityTypeShape EntityType="Doodler.Vote" Width="1.5" PointX="6.25" PointY="1.625" />
-        <AssociationConnector Association="Doodler.PollAnswer" />
         <AssociationConnector Association="Doodler.UserVote" />
         <AssociationConnector Association="Doodler.VoteAnswer" />
         <AssociationConnector Association="Doodler.PollVote" />
+        <AssociationConnector Association="Doodler.PollAnswer" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

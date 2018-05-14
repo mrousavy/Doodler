@@ -14,22 +14,11 @@ namespace DoodlerCore
     
     public abstract partial class Poll
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Poll()
-        {
-            this.Answers = new HashSet<Answer>();
-            this.Votes = new HashSet<Vote>();
-        }
-    
         public int Id { get; set; }
         public string Title { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public System.DateTime EndsAt { get; set; }
     
         public virtual User Creator { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Answer> Answers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

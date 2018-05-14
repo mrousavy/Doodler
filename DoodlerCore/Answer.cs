@@ -15,5 +15,7 @@ namespace DoodlerCore
     public abstract partial class Answer
     {
         public int Id { get; set; }
+    
+        public virtual Poll Poll { get; set; }
     }
 }
