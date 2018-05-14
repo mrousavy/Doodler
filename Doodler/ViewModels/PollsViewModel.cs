@@ -25,6 +25,13 @@ namespace Doodler.ViewModels
 
         private ICommand _openCommand;
 
+        private int _usersCount;
+
+        public int UsersCount
+        {
+            get => _usersCount;
+            set => Set(ref _usersCount, value);
+        }
         public ICommand OpenCommand
         {
             get => _openCommand;
@@ -94,6 +101,7 @@ namespace Doodler.ViewModels
         {
             try
             {
+                UsersCount = await Model.GetUsersCountAsync();
                 var list = await Model.GetAllPollsAsync();
                 Polls = new ObservableCollection<Poll>(list);
             } catch (Exception ex)

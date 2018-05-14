@@ -28,9 +28,9 @@ namespace DoodlerCore
     {
         #region User
         /// <summary>
-        ///     Login with the given email and password, if login fails this will throw an <see cref="InvalidCredentialException"/>
+        ///     Login with the given email and password, if login fails this will throw an <see cref="System.Security.Authentication.InvalidCredentialException"/>
         /// </summary>
-        /// <exception cref="InvalidCredentialException">Thrown if the email or password is incorrect</exception>
+        /// <exception cref="System.Security.Authentication.InvalidCredentialException">Thrown if the email or password is incorrect</exception>
         /// <param name="email">The user's email address</param>
         /// <param name="password">The user's password</param>
         /// <returns>The <see cref="User"/> object on the database</returns>
@@ -65,6 +65,11 @@ namespace DoodlerCore
         /// </summary>
         /// <returns>The found <see cref="User"/>s</returns>
         Task<IList<User>> GetAllUsersAsync();
+        /// <summary>
+        ///     Find the count of all users on this database
+        /// </summary>
+        /// <returns>The amount of found <see cref="User"/>s</returns>
+        Task<int> GetUsersCountAsync();
         /// <summary>
         ///     Find all users that voted on the given poll
         /// </summary>

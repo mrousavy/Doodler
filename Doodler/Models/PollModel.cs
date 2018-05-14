@@ -18,19 +18,19 @@ namespace Doodler.Models
             }
         }
 
-        public Task<IList<Vote>> GetVotesAsync(Poll poll)
+        public async Task<IList<Vote>> GetVotesAsync(Poll poll)
         {
             using (var service = Statics.NewService())
             {
-                return service.GetVotesForPollAsync(poll);
+                return await service.GetVotesForPollAsync(poll);
             }
         }
 
-        public Task<IList<Answer>> GetAnswersAsync(Poll poll)
+        public async Task<IList<Answer>> GetAnswersAsync(Poll poll)
         {
             using (var service = Statics.NewService())
             {
-                return service.GetAnswersForPollAsync(poll);
+                return await service.GetAnswersForPollAsync(poll);
             }
         }
 
@@ -63,7 +63,7 @@ namespace Doodler.Models
             }
 
 
-            public AnswerWrapper(Answer answer, int votes)
+            public AnswerWrapper(Answer answer, int votes, bool selected)
             {
                 Answer = answer;
                 switch (answer)
@@ -81,6 +81,8 @@ namespace Doodler.Models
                 if (votes < 0)
                     throw new ArgumentException(nameof(votes));
                 Votes = votes;
+
+                Selected = selected;
             }
         }
     }

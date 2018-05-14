@@ -22,8 +22,14 @@ namespace Doodler.ViewModels
         private int _transitionerIndex;
         private IList<Vote> _votes;
         private bool _canVote;
-        private Task LoadingTask { get; set; }
+        private ICommand _closeCommand;
+        private int _usersCount;
 
+        public int UsersCount
+        {
+            get => _usersCount;
+            set => Set(ref _usersCount, value);
+        }
         public bool CanVote
         {
             get => _canVote;
@@ -54,6 +60,11 @@ namespace Doodler.ViewModels
             get => _voteCommand;
             set => Set(ref _voteCommand, value);
         }
+        public ICommand CloseCommand
+        {
+            get => _closeCommand;
+            set => Set(ref _closeCommand, value);
+        }
         public Poll Poll
         {
             get => _poll;
@@ -65,7 +76,17 @@ namespace Doodler.ViewModels
         public PollViewModel()
         {
             VoteCommand = new RelayCommand(VoteAction);
+            CloseCommand = new RelayCommand(CloseAction);
             Model = new PollModel();
+        }
+
+        private void CloseAction(object o)
+        {
+            if (o is IInputElement element)
+            {
+                if (DialogHost.CloseDialogCommand.CanExecute(null, element))
+                    DialogHost.CloseDialogCommand.Execute(null, element);
+            }
         }
 
         public async Task LoadAsync()
@@ -78,10 +99,11 @@ namespace Doodler.ViewModels
             {
                 Votes = await service.GetVotesForPollAsync(Poll);
                 answers = await service.GetAnswersForPollAsync(Poll);
+                UsersCount = await service.GetUsersCountAsync();
             }
             Answers = new ObservableCollection<PollModel.AnswerWrapper>(answers
                 .Select(a => new PollModel.AnswerWrapper(a,
-                    Votes.Count(v => v.Answer.Id == a.Id)))
+                    Votes.Count(v => v.Answer.Id == a.Id), Votes.Any(v => v.Answer.Id == a.Id && v.User.Id == Statics.CurrentUser.Id)))
             );
 
             CanVote = Votes.All(v => v.User.Id != Statics.CurrentUser.Id);
@@ -95,16 +117,11 @@ namespace Doodler.ViewModels
             if (selected != null)
             {
                 await Model.VoteAsync(Poll, selected.Answer);
+
+                TransitionerIndex = 1;
+                CanVote = false;
             }
-
-            TransitionerIndex = 1;
             IsViewEnabled = true;
-        }
-
-        private void Close(IInputElement element)
-        {
-            if (DialogHost.CloseDialogCommand.CanExecute(null, element))
-                DialogHost.CloseDialogCommand.Execute(null, element);
         }
     }
 }

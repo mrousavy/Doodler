@@ -109,9 +109,9 @@
                                     Grid.ColumnSpan="3"
                                     Margin="5"
                                     HorizontalAlignment="Stretch"
-                                    Maximum="15"
+                                    Maximum="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.UsersCount}"
                                     ToolTip="Answers"
-                                    Value="{Binding Votes.Count, Mode=OneWay}" />
+                                    Value="1" />
                             </Grid>
                         </md:Ripple>
 

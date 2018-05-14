@@ -25,6 +25,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -52,7 +53,7 @@
         <StackPanel
             Grid.Row="1"
             Grid.Column="0"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="3"
             Orientation="Horizontal">
             <TextBlock
                 Margin="5,5,15,5"
@@ -71,8 +72,10 @@
         <md:Transitioner
             Grid.Row="2"
             Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="15"
             SelectedIndex="{Binding TransitionerIndex}">
-            <ItemsControl Margin="15" ItemsSource="{Binding Answers}">
+            <ItemsControl ItemsSource="{Binding Answers}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <RadioButton
@@ -82,37 +85,70 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <ItemsControl Margin="15" ItemsSource="{Binding Answers}">
+            <ItemsControl ItemsSource="{Binding Answers}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <ProgressBar
-                            Width="140"
-                            Maximum="100"
-                            Value="5" />
-                        <!--  {Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Votes.Count}  -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <RadioButton
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="{Binding Value}"
+                                GroupName="Answers"
+                                IsChecked="{Binding Selected}"
+                                IsEnabled="False" />
+
+                            <ProgressBar
+                                Grid.Column="1"
+                                Width="150"
+                                Margin="15"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                Maximum="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Votes.Count}"
+                                Value="{Binding Votes}" />
+
+                            <TextBlock
+                                Grid.Column="2"
+                                Margin="5"
+                                Foreground="{StaticResource MaterialDesignLightGray}"
+                                Text="{Binding Votes, StringFormat={}{0} Votes}" />
+                        </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </md:Transitioner>
 
+        <!--  TODO: This progressbar ?  -->
         <ProgressBar
             Grid.Row="3"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Margin="5"
             HorizontalAlignment="Stretch"
-            Maximum="15"
+            Maximum="{Binding UsersCount}"
             ToolTip="Answers"
-            Value="{Binding Poll.Votes.Count, Mode=OneWay, FallbackValue=5}" />
+            Value="{Binding Votes.Count, Mode=OneWay, FallbackValue=5}" />
 
         <Button
             Grid.Row="3"
             Grid.Column="2"
             Margin="5"
             Command="{Binding VoteCommand}"
-            CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
             Content="Vote"
             IsEnabled="{Binding CanVote}"
+            Style="{StaticResource MaterialDesignFlatButton}" />
+
+        <Button
+            Grid.Row="3"
+            Grid.Column="3"
+            Margin="5"
+            Command="{Binding CloseCommand}"
+            CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+            Content="Close"
             Style="{StaticResource MaterialDesignFlatButton}" />
     </Grid>
 </UserControl>

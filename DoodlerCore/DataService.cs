@@ -77,6 +77,8 @@ namespace DoodlerCore
             throw new NotImplementedException();
         }
 
+        public async Task<int> GetUsersCountAsync() => await Context.Users.CountAsync();
+
         public Task<IList<User>> GetAllUsersForPollAsync(Guid pollId)
         {
             throw new NotImplementedException();
