@@ -101,6 +101,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Doodler.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="DataServiceClassDiagram.cd" />
     <None Include="Doodler.edmx.diagram">
       <DependentUpon>Doodler.edmx</DependentUpon>
     </None>

@@ -10,3 +10,5 @@
 </p>
 
 [Einteilung](https://docs.google.com/spreadsheets/d/1mnLEfydfwJCbYYD7tkKyigKelMGrNASt4ikNzSylRrY)
+
+![Code map](CodeMap.png)
