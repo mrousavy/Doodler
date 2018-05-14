@@ -76,9 +76,11 @@ namespace Doodler.ViewModels
             Load();
         }
 
-        private void OpenAction(Poll poll)
+        private async void OpenAction(Poll poll)
         {
-            DialogViewModel = new PollViewModel { Poll = poll };
+            var vm = new PollViewModel { Poll = poll };
+            await vm.LoadAsync();
+            DialogViewModel = vm;
             ShowEmbedDialog = true;
         }
 

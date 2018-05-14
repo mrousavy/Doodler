@@ -21,8 +21,8 @@ namespace Doodler.ViewModels
         private bool _isViewEnabled = true;
         private int _transitionerIndex;
         private IList<Vote> _votes;
-
         private bool _canVote;
+        private Task LoadingTask { get; set; }
 
         public bool CanVote
         {
@@ -57,11 +57,7 @@ namespace Doodler.ViewModels
         public Poll Poll
         {
             get => _poll;
-            set
-            {
-                Set(ref _poll, value);
-                var _ = LoadAsync();
-            }
+            set => Set(ref _poll, value);
         }
         public PollModel Model { get; set; }
         #endregion
@@ -74,14 +70,21 @@ namespace Doodler.ViewModels
 
         public async Task LoadAsync()
         {
-            Votes = await Model.GetVotesAsync(Poll);
-            var answers = await Model.GetAnswersAsync(Poll);
+            if (Poll == null)
+                return;
+
+            IList<Answer> answers;
+            using (var service = Statics.NewService())
+            {
+                Votes = await service.GetVotesForPollAsync(Poll);
+                answers = await service.GetAnswersForPollAsync(Poll);
+            }
             Answers = new ObservableCollection<PollModel.AnswerWrapper>(answers
                 .Select(a => new PollModel.AnswerWrapper(a,
                     Votes.Count(v => v.Answer.Id == a.Id)))
             );
 
-            CanVote = Votes.Any(v => v.User.Id == Statics.CurrentUser.Id);
+            CanVote = Votes.All(v => v.User.Id != Statics.CurrentUser.Id);
             TransitionerIndex = CanVote ? 0 : 1;
         }
 

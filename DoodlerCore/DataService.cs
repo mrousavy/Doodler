@@ -163,15 +163,18 @@ namespace DoodlerCore
 
         public Task VoteOnPoll<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer
         {
-            Context.Users.Attach(user);
-            Context.Polls.Attach(poll);
-            Context.Answers.Attach(answer);
+            if (user == null)
+                throw new ArgumentException(nameof(user));
+            if (poll == null)
+                throw new ArgumentException(nameof(poll));
+            if (answer == null)
+                throw new ArgumentException(nameof(answer));
 
             var vote = new Vote
             {
-                Poll = poll,
-                Answer = answer,
-                User = user
+                Poll = Context.Polls.Find(poll.Id),
+                Answer = Context.Answers.Find(answer.Id),
+                User = Context.Users.Find(user.Id)
             };
 
             Context.Votes.Add(vote);
