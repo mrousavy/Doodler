@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DoodlerCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DoodlerCore;
 
 namespace Doodler.Models
 {

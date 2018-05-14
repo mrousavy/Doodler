@@ -1,25 +1,36 @@
 ﻿using Doodler.Implementation;
 using DoodlerCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Doodler.Models
 {
     public class PollModel
     {
-        public Poll Poll { get; }
 
-        public PollModel(Poll poll)
-        {
-            Poll = poll;
-        }
-
-        public async Task VoteAsync(Answer answer)
+        public async Task VoteAsync(Poll poll, Answer answer)
         {
             using (var service = Statics.NewService())
             {
-                await service.VoteOnPoll(Statics.CurrentUser, Poll, answer);
+                await service.VoteOnPoll(Statics.CurrentUser, poll, answer);
                 await service.SaveAsync();
+            }
+        }
+
+        public Task<IList<Vote>> GetVotesAsync(Poll poll)
+        {
+            using (var service = Statics.NewService())
+            {
+                return service.GetVotesForPollAsync(poll);
+            }
+        }
+
+        public Task<IList<Answer>> GetAnswersAsync(Poll poll)
+        {
+            using (var service = Statics.NewService())
+            {
+                return service.GetAnswersForPollAsync(poll);
             }
         }
 
@@ -27,9 +38,14 @@ namespace Doodler.Models
         {
             private object _value;
             private bool _selected;
-
             private Answer _answer;
+            private int _votes;
 
+            public int Votes
+            {
+                get => _votes;
+                set => Set(ref _votes, value);
+            }
             public Answer Answer
             {
                 get => _answer;
@@ -47,7 +63,7 @@ namespace Doodler.Models
             }
 
 
-            public AnswerWrapper(Answer answer)
+            public AnswerWrapper(Answer answer, int votes)
             {
                 Answer = answer;
                 if (answer is TextAnswer textAnswer)
@@ -56,6 +72,10 @@ namespace Doodler.Models
                     Value = dateAnswer.Date;
                 else
                     throw new ArgumentException(nameof(answer));
+
+                if (votes < 0)
+                    throw new ArgumentException(nameof(votes));
+                Votes = votes;
             }
         }
     }
