@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/14/2018 11:52:32
+-- Date Created: 05/14/2018 12:10:21
 -- Generated from EDMX file: D:\Projects\Doodler\DoodlerCore\Doodler.edmx
 -- --------------------------------------------------
 
@@ -20,9 +20,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserPoll]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Polls] DROP CONSTRAINT [FK_UserPoll];
 GO
-IF OBJECT_ID(N'[dbo].[FK_PollAnswer]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Answers] DROP CONSTRAINT [FK_PollAnswer];
-GO
 IF OBJECT_ID(N'[dbo].[FK_UserVote]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Votes] DROP CONSTRAINT [FK_UserVote];
 GO
@@ -31,6 +28,9 @@ IF OBJECT_ID(N'[dbo].[FK_VoteAnswer]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_PollVote]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Votes] DROP CONSTRAINT [FK_PollVote];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PollAnswer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Answers] DROP CONSTRAINT [FK_PollAnswer];
 GO
 IF OBJECT_ID(N'[dbo].[FK_DatePoll_inherits_Poll]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Polls_DatePoll] DROP CONSTRAINT [FK_DatePoll_inherits_Poll];

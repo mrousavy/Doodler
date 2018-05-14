@@ -66,12 +66,17 @@ namespace Doodler.Models
             public AnswerWrapper(Answer answer, int votes)
             {
                 Answer = answer;
-                if (answer is TextAnswer textAnswer)
-                    Value = textAnswer.Text;
-                else if (answer is DateAnswer dateAnswer)
-                    Value = dateAnswer.Date;
-                else
-                    throw new ArgumentException(nameof(answer));
+                switch (answer)
+                {
+                    case TextAnswer textAnswer:
+                        Value = textAnswer.Text;
+                        break;
+                    case DateAnswer dateAnswer:
+                        Value = dateAnswer.Date;
+                        break;
+                    default:
+                        throw new ArgumentException(nameof(answer));
+                }
 
                 if (votes < 0)
                     throw new ArgumentException(nameof(votes));
