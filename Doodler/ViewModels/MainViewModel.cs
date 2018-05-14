@@ -5,6 +5,7 @@ namespace Doodler.ViewModels
     public class MainViewModel : ViewModelBase
     {
         #region Properties
+
         private int _transitionerIndex;
 
         public int TransitionerIndex
@@ -12,6 +13,7 @@ namespace Doodler.ViewModels
             get => _transitionerIndex;
             set => Set(ref _transitionerIndex, value);
         }
+
         #endregion
     }
 }

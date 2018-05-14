@@ -6,6 +6,16 @@ namespace Doodler.Implementation
     public class EnumBindingSourceExtension : MarkupExtension
     {
         private Type _enumType;
+
+        public EnumBindingSourceExtension()
+        {
+        }
+
+        public EnumBindingSourceExtension(Type enumType)
+        {
+            EnumType = enumType;
+        }
+
         public Type EnumType
         {
             get => _enumType;
@@ -21,13 +31,6 @@ namespace Doodler.Implementation
 
                 _enumType = value;
             }
-        }
-
-        public EnumBindingSourceExtension() { }
-
-        public EnumBindingSourceExtension(Type enumType)
-        {
-            EnumType = enumType;
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)

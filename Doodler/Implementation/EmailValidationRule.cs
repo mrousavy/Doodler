@@ -18,8 +18,7 @@ namespace Doodler.Implementation
         {
             if (value is string email)
                 return new ValidationResult(Regex.IsMatch(email, EmailRegex), InvalidMessage);
-            else
-                return new ValidationResult(false, InvalidTypeMessage);
+            return new ValidationResult(false, InvalidTypeMessage);
         }
     }
 }

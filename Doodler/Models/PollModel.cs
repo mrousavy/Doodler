@@ -1,14 +1,13 @@
-﻿using Doodler.Implementation;
-using DoodlerCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Doodler.Implementation;
+using DoodlerCore;
 
 namespace Doodler.Models
 {
     public class PollModel
     {
-
         public async Task VoteAsync(Poll poll, Answer answer)
         {
             using (var service = Statics.NewService())
@@ -36,31 +35,10 @@ namespace Doodler.Models
 
         public class AnswerWrapper : ViewModelBase
         {
-            private object _value;
-            private bool _selected;
             private Answer _answer;
+            private bool _selected;
+            private object _value;
             private int _votes;
-
-            public int Votes
-            {
-                get => _votes;
-                set => Set(ref _votes, value);
-            }
-            public Answer Answer
-            {
-                get => _answer;
-                set => Set(ref _answer, value);
-            }
-            public bool Selected
-            {
-                get => _selected;
-                set => Set(ref _selected, value);
-            }
-            public object Value
-            {
-                get => _value;
-                set => Set(ref _value, value);
-            }
 
 
             public AnswerWrapper(Answer answer, int votes, bool selected)
@@ -83,6 +61,30 @@ namespace Doodler.Models
                 Votes = votes;
 
                 Selected = selected;
+            }
+
+            public int Votes
+            {
+                get => _votes;
+                set => Set(ref _votes, value);
+            }
+
+            public Answer Answer
+            {
+                get => _answer;
+                set => Set(ref _answer, value);
+            }
+
+            public bool Selected
+            {
+                get => _selected;
+                set => Set(ref _selected, value);
+            }
+
+            public object Value
+            {
+                get => _value;
+                set => Set(ref _value, value);
             }
         }
     }

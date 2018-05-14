@@ -1,11 +1,11 @@
-﻿using Doodler.ViewModels;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using Doodler.ViewModels;
 
 namespace Doodler.Views
 {
     /// <summary>
-    /// Interaction logic for PollsView.xaml
+    ///     Interaction logic for PollsView.xaml
     /// </summary>
     public partial class PollsView : UserControl
     {

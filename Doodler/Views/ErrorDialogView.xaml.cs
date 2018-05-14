@@ -3,10 +3,17 @@
 namespace Doodler.Views
 {
     /// <summary>
-    /// Interaction logic for ErrorDialogView.xaml
+    ///     Interaction logic for ErrorDialogView.xaml
     /// </summary>
-    public partial class ErrorDialogView 
+    public partial class ErrorDialogView
     {
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register(nameof(Text), typeof(string),
+                typeof(ErrorDialogView), new FrameworkPropertyMetadata
+                {
+                    BindsTwoWayByDefault = true
+                });
+
         public ErrorDialogView()
         {
             InitializeComponent();
@@ -18,12 +25,5 @@ namespace Doodler.Views
             get => (string) GetValue(TextProperty);
             set => SetValue(TextProperty, value);
         }
-
-        public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register(nameof(Text), typeof(string),
-                typeof(ErrorDialogView), new FrameworkPropertyMetadata
-                {
-                    BindsTwoWayByDefault = true
-                });
     }
 }

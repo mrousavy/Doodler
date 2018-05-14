@@ -176,9 +176,12 @@
                         <Style.Triggers>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=EmailBox}" Value="False" />
-                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=UsernameBox}" Value="False" />
-                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=PasswordBox}" Value="False" />
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=EmailBox}"
+                                               Value="False" />
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=UsernameBox}"
+                                               Value="False" />
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=PasswordBox}"
+                                               Value="False" />
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="IsEnabled" Value="True" />
                             </MultiDataTrigger>

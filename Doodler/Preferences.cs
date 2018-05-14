@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace Doodler
 {
@@ -51,13 +51,11 @@ namespace Doodler
             {
                 string content = File.ReadAllText(filename);
                 return JsonConvert.DeserializeObject<Preferences>(content);
-            } else
-            {
-                var preferences = new Preferences();
-                Save(preferences);
-                return preferences;
             }
 
+            var preferences = new Preferences();
+            Save(preferences);
+            return preferences;
         }
     }
 }

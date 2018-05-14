@@ -1,80 +1,14 @@
-﻿using Doodler.Implementation;
-using Doodler.Models;
-using DoodlerCore;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Doodler.Implementation;
+using Doodler.Models;
+using DoodlerCore;
 
 namespace Doodler.ViewModels
 {
     public class PollsViewModel : ViewModelBase
     {
-        #region Properties
-
-        private int _tileColumns;
-
-        private ObservableCollection<Poll> _polls;
-
-        private bool _isViewEnabled = true;
-
-        private bool _showEmbedDialog;
-
-        private ICommand _addCommand;
-
-        private object _dialogViewModel;
-
-        private ICommand _openCommand;
-
-        private int _usersCount;
-
-        public int UsersCount
-        {
-            get => _usersCount;
-            set => Set(ref _usersCount, value);
-        }
-        public ICommand OpenCommand
-        {
-            get => _openCommand;
-            set => Set(ref _openCommand, value);
-        }
-        public object DialogViewModel
-        {
-            get => _dialogViewModel;
-            set => Set(ref _dialogViewModel, value);
-        }
-        public ICommand AddCommand
-        {
-            get => _addCommand;
-            set => Set(ref _addCommand, value);
-        }
-        public bool ShowEmbedDialog
-        {
-            get => _showEmbedDialog;
-            set
-            {
-                Set(ref _showEmbedDialog, value);
-                if (!value)
-                    Load(); // Reload when dialog closes
-            }
-        }
-        public bool IsViewEnabled
-        {
-            get => _isViewEnabled;
-            set => Set(ref _isViewEnabled, value);
-        }
-        public ObservableCollection<Poll> Polls
-        {
-            get => _polls;
-            set => Set(ref _polls, value);
-        }
-        public int TileColumns
-        {
-            get => _tileColumns;
-            set => Set(ref _tileColumns, value);
-        }
-        public PollsModel Model { get; }
-        #endregion
-
         public PollsViewModel()
         {
             AddCommand = new RelayCommand(AddAction);
@@ -85,7 +19,7 @@ namespace Doodler.ViewModels
 
         private async void OpenAction(Poll poll)
         {
-            var vm = new PollViewModel { Poll = poll };
+            var vm = new PollViewModel {Poll = poll};
             await vm.LoadAsync();
             DialogViewModel = vm;
             ShowEmbedDialog = true;
@@ -110,5 +44,80 @@ namespace Doodler.ViewModels
                 ShowEmbedDialog = true;
             }
         }
+
+        #region Properties
+
+        private int _tileColumns;
+
+        private ObservableCollection<Poll> _polls;
+
+        private bool _isViewEnabled = true;
+
+        private bool _showEmbedDialog;
+
+        private ICommand _addCommand;
+
+        private object _dialogViewModel;
+
+        private ICommand _openCommand;
+
+        private int _usersCount;
+
+        public int UsersCount
+        {
+            get => _usersCount;
+            set => Set(ref _usersCount, value);
+        }
+
+        public ICommand OpenCommand
+        {
+            get => _openCommand;
+            set => Set(ref _openCommand, value);
+        }
+
+        public object DialogViewModel
+        {
+            get => _dialogViewModel;
+            set => Set(ref _dialogViewModel, value);
+        }
+
+        public ICommand AddCommand
+        {
+            get => _addCommand;
+            set => Set(ref _addCommand, value);
+        }
+
+        public bool ShowEmbedDialog
+        {
+            get => _showEmbedDialog;
+            set
+            {
+                Set(ref _showEmbedDialog, value);
+                if (!value)
+                    Load(); // Reload when dialog closes
+            }
+        }
+
+        public bool IsViewEnabled
+        {
+            get => _isViewEnabled;
+            set => Set(ref _isViewEnabled, value);
+        }
+
+        public ObservableCollection<Poll> Polls
+        {
+            get => _polls;
+            set => Set(ref _polls, value);
+        }
+
+        public int TileColumns
+        {
+            get => _tileColumns;
+            set => Set(ref _tileColumns, value);
+        }
+
+        public PollsModel Model { get; }
+
+        #endregion
     }
 }

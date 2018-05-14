@@ -1,5 +1,5 @@
-﻿using DoodlerCore;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using DoodlerCore;
 
 namespace Doodler.Models
 {

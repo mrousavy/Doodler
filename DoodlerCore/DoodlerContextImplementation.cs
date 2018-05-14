@@ -4,6 +4,7 @@
     {
         public DoodlerContainer(string connectionString)
             : base(connectionString)
-        { }
+        {
+        }
     }
 }

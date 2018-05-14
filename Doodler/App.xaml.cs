@@ -6,7 +6,7 @@ using System.Windows.Threading;
 namespace Doodler
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    ///     Interaction logic for App.xaml
     /// </summary>
     public partial class App
     {
@@ -24,7 +24,7 @@ namespace Doodler
 
             try
             {
-                MessageBox.Show(message, "Unknown error",  MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(message, "Unknown error", MessageBoxButton.OK, MessageBoxImage.Error);
             } catch
             {
                 // can't display anything UI related anymore
