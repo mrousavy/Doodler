@@ -143,22 +143,22 @@ namespace DoodlerCore
             .ToListAsync();
 
         public async Task<IList<Poll>> GetAllPollsForUserAsync(int userId) => await Context.Polls
-                .Where(p => p.Creator.Id == userId)
-                .Include(p => p.Creator)
-                .ToListAsync();
+            .Include(p => p.Creator)
+            .Where(p => p.Creator.Id == userId)
+            .ToListAsync();
 
         public Task<IList<Poll>> GetAllPollsForUserAsync(User user) => GetAllPollsForUserAsync(user.Id);
 
         public async Task<IList<Vote>> GetVotesForPollAsync(Poll poll) => await Context.Votes
-            .Where(v => v.Poll.Id == poll.Id)
             .Include(v => v.Poll)
             .Include(v => v.Answer)
             .Include(v => v.User)
+            .Where(v => v.Poll.Id == poll.Id)
             .ToListAsync();
 
         public async Task<IList<Answer>> GetAnswersForPollAsync(Poll poll) => await Context.Answers
-            .Where(a => a.Poll.Id == poll.Id)
             .Include(v => v.Poll)
+            .Where(a => a.Poll.Id == poll.Id)
             .ToListAsync();
 
         public Task VoteOnPoll<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer

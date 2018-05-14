@@ -321,7 +321,8 @@
         </Association>
         <Association Name="PollAnswer">
           <End Type="Doodler.Poll" Role="Poll" Multiplicity="1" />
-          <End Type="Doodler.Answer" Role="Answer" Multiplicity="*" />
+          <End Type="Doodler.Answer" Role="Answer" Multiplicity="*" >
+          </End>
         </Association>
       </Schema>
     </edmx:ConceptualModels>

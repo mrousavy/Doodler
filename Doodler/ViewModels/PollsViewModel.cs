@@ -17,7 +17,7 @@ namespace Doodler.ViewModels
 
         private bool _isViewEnabled = true;
 
-        private bool _showErrorDialog;
+        private bool _showEmbedDialog;
 
         private ICommand _addCommand;
 
@@ -40,10 +40,15 @@ namespace Doodler.ViewModels
             get => _addCommand;
             set => Set(ref _addCommand, value);
         }
-        public bool ShowErrorDialog
+        public bool ShowEmbedDialog
         {
-            get => _showErrorDialog;
-            set => Set(ref _showErrorDialog, value);
+            get => _showEmbedDialog;
+            set
+            {
+                Set(ref _showEmbedDialog, value);
+                if (!value)
+                    Load(); // Reload when dialog closes
+            }
         }
         public bool IsViewEnabled
         {
@@ -74,13 +79,13 @@ namespace Doodler.ViewModels
         private void OpenAction(Poll poll)
         {
             DialogViewModel = new PollViewModel { Poll = poll };
-            ShowErrorDialog = true;
+            ShowEmbedDialog = true;
         }
 
         private void AddAction(object o)
         {
             DialogViewModel = new AddPollViewModel();
-            ShowErrorDialog = true;
+            ShowEmbedDialog = true;
         }
 
         private async void Load()
@@ -92,7 +97,7 @@ namespace Doodler.ViewModels
             } catch (Exception ex)
             {
                 DialogViewModel = new ErrorDialogViewModel(ex.Message);
-                ShowErrorDialog = true;
+                ShowEmbedDialog = true;
             }
         }
     }

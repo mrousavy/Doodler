@@ -28,7 +28,7 @@
         <impl:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
     </UserControl.Resources>
 
-    <md:DialogHost DialogContent="{Binding DialogViewModel}" IsOpen="{Binding ShowErrorDialog}">
+    <md:DialogHost DialogContent="{Binding DialogViewModel}" IsOpen="{Binding ShowEmbedDialog}">
         <Grid Margin="15" IsEnabled="{Binding IsViewEnabled}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
