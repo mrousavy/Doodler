@@ -168,6 +168,7 @@
                 VerticalAlignment="Bottom"
                 Command="{Binding RegisterCommand}"
                 Content="{md:PackIcon Kind=Send}"
+                IsDefault="True"
                 ToolTip="Register">
                 <Button.Style>
                     <Style BasedOn="{StaticResource MaterialDesignFloatingActionButton}" TargetType="Button">

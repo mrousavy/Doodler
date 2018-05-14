@@ -138,6 +138,7 @@
                 VerticalAlignment="Bottom"
                 Command="{Binding LoginCommand}"
                 Content="{md:PackIcon Kind=Send}"
+                IsDefault="True"
                 ToolTip="Login">
                 <Button.Style>
                     <Style BasedOn="{StaticResource MaterialDesignFloatingActionButton}" TargetType="Button">

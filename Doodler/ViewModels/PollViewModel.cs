@@ -2,8 +2,10 @@
 using Doodler.Models;
 using DoodlerCore;
 using MaterialDesignThemes.Wpf;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -17,7 +19,26 @@ namespace Doodler.ViewModels
         private ICommand _voteCommand;
         private ObservableCollection<PollModel.AnswerWrapper> _answers;
         private bool _isViewEnabled = true;
+        private int _transitionerIndex;
+        private IList<Vote> _votes;
 
+        private bool _canVote;
+
+        public bool CanVote
+        {
+            get => _canVote;
+            set => Set(ref _canVote, value);
+        }
+        public IList<Vote> Votes
+        {
+            get => _votes;
+            set => Set(ref _votes, value);
+        }
+        public int TransitionerIndex
+        {
+            get => _transitionerIndex;
+            set => Set(ref _transitionerIndex, value);
+        }
         public bool IsViewEnabled
         {
             get => _isViewEnabled;
@@ -39,7 +60,7 @@ namespace Doodler.ViewModels
             set
             {
                 Set(ref _poll, value);
-                PollChanged();
+                var _ = LoadAsync();
             }
         }
         public PollModel Model { get; set; }
@@ -48,16 +69,20 @@ namespace Doodler.ViewModels
         public PollViewModel()
         {
             VoteCommand = new RelayCommand(VoteAction);
+            Model = new PollModel();
         }
 
-        private void PollChanged()
+        public async Task LoadAsync()
         {
-            if (Poll != null)
-            {
-                Answers = new ObservableCollection<PollModel.AnswerWrapper>(
-                    Poll.Answers.Select(a => new PollModel.AnswerWrapper(a)));
-                Model = new PollModel(Poll);
-            }
+            Votes = await Model.GetVotesAsync(Poll);
+            var answers = await Model.GetAnswersAsync(Poll);
+            Answers = new ObservableCollection<PollModel.AnswerWrapper>(answers
+                .Select(a => new PollModel.AnswerWrapper(a,
+                    Votes.Count(v => v.Answer.Id == a.Id)))
+            );
+
+            CanVote = Votes.Any(v => v.User.Id == Statics.CurrentUser.Id);
+            TransitionerIndex = CanVote ? 0 : 1;
         }
 
         private async void VoteAction(object o)
@@ -66,12 +91,17 @@ namespace Doodler.ViewModels
             var selected = Answers.FirstOrDefault(a => a.Selected);
             if (selected != null)
             {
-                await Model.VoteAsync(selected.Answer);
+                await Model.VoteAsync(Poll, selected.Answer);
             }
 
-            if (DialogHost.CloseDialogCommand.CanExecute(null, o as IInputElement))
-                DialogHost.CloseDialogCommand.Execute(null, o as IInputElement);
+            TransitionerIndex = 1;
             IsViewEnabled = true;
+        }
+
+        private void Close(IInputElement element)
+        {
+            if (DialogHost.CloseDialogCommand.CanExecute(null, element))
+                DialogHost.CloseDialogCommand.Execute(null, element);
         }
     }
 }
