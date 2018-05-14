@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoodlerCore", "DoodlerCore\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoodlerTests", "DoodlerTests\DoodlerTests.csproj", "{C0D88B1F-AF06-4E02-8E59-E67028CA18CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Doodler.CLI", "Doodler.CLI\Doodler.CLI.csproj", "{C1CB5956-4635-4B6B-8063-D63523D8BB5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C0D88B1F-AF06-4E02-8E59-E67028CA18CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0D88B1F-AF06-4E02-8E59-E67028CA18CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0D88B1F-AF06-4E02-8E59-E67028CA18CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1CB5956-4635-4B6B-8063-D63523D8BB5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1CB5956-4635-4B6B-8063-D63523D8BB5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1CB5956-4635-4B6B-8063-D63523D8BB5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1CB5956-4635-4B6B-8063-D63523D8BB5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
