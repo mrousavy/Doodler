@@ -1,7 +1,8 @@
 ﻿using System;
 
-namespace DoodlerCore
+namespace DoodlerCore.Exceptions
 {
+    // TODO: Docs
     public class EmailExistsException : Exception
     {
         public EmailExistsException(string email) : base("The given email address already exists!")

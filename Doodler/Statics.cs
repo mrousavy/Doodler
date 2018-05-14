@@ -20,6 +20,6 @@ namespace Doodler
         public static User CurrentUser { get; set; }
 
         public static IDataService NewService() => new DataService(Database, Server, Username, Password);
-        public static Task CreateDatabaseAsync(IDataService service) => Task.Run(() => service.Create());
+        public static Task CreateDatabaseAsync(IDataService service) => service.EnsureCreatedAsync();
     }
 }

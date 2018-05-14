@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Core;
 using System.Linq;
 using System.Security.Authentication;
 using System.Threading.Tasks;
+using DoodlerCore.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoodlerCore
 {
@@ -13,11 +13,11 @@ namespace DoodlerCore
         public DataService(string database, string server, string username, string password)
         {
             ConnectionString = BuildConnectionString(database, server, username, password);
-            Context = new DoodlerContainer(ConnectionString);
-            Context.Configuration.LazyLoadingEnabled = false;
+            Context = new DoodlerContext(ConnectionString);
+            // TODO: Context.Configuration.LazyLoadingEnabled = false;
         }
 
-        private DoodlerContainer Context { get; }
+        private DoodlerContext Context { get; }
 
         public void Dispose()
         {
@@ -50,14 +50,14 @@ namespace DoodlerCore
         public async Task DeleteUserAsync(User user)
         {
             var original = await Context.Users.FindAsync(user.Id) ??
-                           throw new ObjectNotFoundException($"The user {user.Username} could not be found!");
+                           throw new IdNotFoundException($"The user {user.Username} could not be found!");
             Context.Users.Remove(original);
         }
 
         public async Task EditUserAsync(User user)
         {
             var original = await Context.Users.FindAsync(user.Id) ??
-                           throw new ObjectNotFoundException($"The user {user.Username} could not be found!");
+                           throw new IdNotFoundException($"The user {user.Username} could not be found!");
             Context.Entry(original).CurrentValues.SetValues(user);
         }
 
@@ -165,17 +165,9 @@ namespace DoodlerCore
         public Task<int> SaveAsync() => Context.SaveChangesAsync();
         public int Save() => Context.SaveChanges();
 
-        public bool Exists() => Context.Database.Exists();
-
-        public void Create()
-        {
-            Context.Database.CreateIfNotExists();
-        }
+        public Task EnsureCreatedAsync() => Context.Database.EnsureCreatedAsync();
 
         private static string BuildConnectionString(string database, string server, string username, string password) =>
-            "metadata=res://*/Doodler.csdl|res://*/Doodler.ssdl|res://*/Doodler.msl;" +
-            $"provider=System.Data.SqlClient;provider connection string=\"data source={server};" +
-            $"initial catalog={database};persist security info=True;user id={username};password={password};" +
-            "MultipleActiveResultSets=True;App=EntityFramework\"";
+            $"Server={server};Database={database};User={username};Password={password};Trusted_Connection=False;";
     }
 }

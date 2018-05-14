@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DoodlerCore;
+using DoodlerCore.Exceptions;
 
 namespace Doodler.Models
 {

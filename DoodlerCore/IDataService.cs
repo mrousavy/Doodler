@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using DoodlerCore.Exceptions;
 
 namespace DoodlerCore
 {
@@ -215,15 +216,9 @@ namespace DoodlerCore
         int Save();
 
         /// <summary>
-        ///     Check whether the database exists or not
+        ///     Ensures that the database is created
         /// </summary>
-        /// <returns>True if the database exists</returns>
-        bool Exists();
-
-        /// <summary>
-        ///     Create the database if it does not exist yet
-        /// </summary>
-        void Create();
+        Task EnsureCreatedAsync();
 
         #endregion
     }
