@@ -1,14 +1,13 @@
 ﻿using Doodler.ViewModels;
 using DoodlerCore;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Doodler.Views
 {
     /// <summary>
     /// Interaction logic for PollView.xaml
     /// </summary>
-    public partial class PollView : UserControl
+    public partial class PollView
     {
         public PollView()
         {

@@ -68,20 +68,32 @@
                 ToolTip="End date" />
         </StackPanel>
 
-        <ItemsControl
+        <md:Transitioner
             Grid.Row="2"
             Grid.Column="1"
-            Margin="15"
-            ItemsSource="{Binding Answers}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <RadioButton
-                        Content="{Binding Value}"
-                        GroupName="Answers"
-                        IsChecked="{Binding Selected}" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            SelectedIndex="{Binding TransitionerIndex}">
+            <ItemsControl Margin="15" ItemsSource="{Binding Answers}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton
+                            Content="{Binding Value}"
+                            GroupName="Answers"
+                            IsChecked="{Binding Selected}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <ItemsControl Margin="15" ItemsSource="{Binding Answers}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ProgressBar
+                            Width="140"
+                            Maximum="100"
+                            Value="5" />
+                        <!--  {Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Votes.Count}  -->
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </md:Transitioner>
 
         <ProgressBar
             Grid.Row="3"
@@ -100,6 +112,7 @@
             Command="{Binding VoteCommand}"
             CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
             Content="Vote"
+            IsEnabled="{Binding CanVote}"
             Style="{StaticResource MaterialDesignFlatButton}" />
     </Grid>
 </UserControl>
