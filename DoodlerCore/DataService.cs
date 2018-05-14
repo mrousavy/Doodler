@@ -37,12 +37,7 @@ namespace DoodlerCore
             if (exists)
                 throw new EmailExistsException(email);
 
-            var user = new User
-            {
-                Email = email,
-                Username = name,
-                Password = password
-            };
+            var user = new User(email, name, password);
             Context.Users.Add(user);
             return user;
         }
@@ -74,30 +69,8 @@ namespace DoodlerCore
         public Task<Poll> CreatePollAsync<TAnswer>(User creator, string title, DateTime endDate,
             IEnumerable<TAnswer> answers) where TAnswer : Answer
         {
-            Poll poll;
-            if (typeof(TAnswer) == typeof(DateAnswer))
-            {
-                // Date Poll
-                poll = new DatePoll
-                {
-                    Creator = creator,
-                    CreatedAt = DateTime.Now,
-                    EndsAt = endDate,
-                    Title = title
-                };
-                Context.Polls.Add(poll);
-            } else
-            {
-                // Text Poll
-                poll = new TextPoll
-                {
-                    Creator = creator,
-                    CreatedAt = DateTime.Now,
-                    EndsAt = endDate,
-                    Title = title
-                };
-                Context.Polls.Add(poll);
-            }
+            var poll = new Poll(title, Context.Users.Find(creator.Id), endDate);
+            Context.Polls.Add(poll);
 
             foreach (var answer in answers)
             {
@@ -137,7 +110,7 @@ namespace DoodlerCore
             .Where(a => a.Poll.Id == poll.Id)
             .ToListAsync();
 
-        public Task VoteOnPoll<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer
+        public async Task VoteOnPoll<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer
         {
             if (user == null)
                 throw new ArgumentException(nameof(user));
@@ -146,15 +119,12 @@ namespace DoodlerCore
             if (answer == null)
                 throw new ArgumentException(nameof(answer));
 
-            var vote = new Vote
-            {
-                Poll = Context.Polls.Find(poll.Id),
-                Answer = Context.Answers.Find(answer.Id),
-                User = Context.Users.Find(user.Id)
-            };
+            var originalUser = await Context.Users.FindAsync(user.Id);
+            var originalPoll = await Context.Polls.FindAsync(poll.Id);
+            var originalAnswer = await Context.Answers.FindAsync(answer.Id);
+            var vote = new Vote(originalUser, originalPoll, originalAnswer);
 
             Context.Votes.Add(vote);
-            return Task.CompletedTask;
         }
 
         public Task RemoveVote<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer =>

@@ -98,7 +98,7 @@
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
                                 Content="{Binding Value}"
-                                GroupName="Answers"
+                                GroupName="Votes"
                                 IsChecked="{Binding Selected}"
                                 IsEnabled="False" />
 
