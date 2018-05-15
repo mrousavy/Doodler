@@ -10,6 +10,22 @@
   </blockquote>
 </p>
 
+## Build and Run
+### Windows
+1. `git clone https://github.com/mrousavy/Doodler/` 
+2. Open the Project in Visual Studio
+3. Build all (<kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>B</kbd>)
+4. Run/Debug the `Doodler` Project
+5. For the DB Connection configure the `%AppData%\Doodler\config.json` config
+
+### Linux
+```
+git clone https://github.com/mrousavy/Doodler/
+cd Doodler/DoodlerCore
+dotnet restore
+dotnet run # Any arguments to Doodler.CLI are passed here
+```
+
 [Einteilung](https://docs.google.com/spreadsheets/d/1mnLEfydfwJCbYYD7tkKyigKelMGrNASt4ikNzSylRrY)
 
 ![Code map](CodeMap.png)
