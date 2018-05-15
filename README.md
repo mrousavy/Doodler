@@ -19,7 +19,7 @@
 5. For the DB Connection configure the `%AppData%\Doodler\config.json` config
 
 ### Linux
-```
+```sh
 git clone https://github.com/mrousavy/Doodler/
 cd Doodler/DoodlerCore
 dotnet restore
