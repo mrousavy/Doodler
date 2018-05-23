@@ -1,4 +1,4 @@
-﻿using Doodler.CLI.Arguments;
+﻿using Doodler.CLI.Commands;
 using McMaster.Extensions.CommandLineUtils;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Doodler.CLI
         protected override async Task<int> OnExecuteAsync(CommandLineApplication app)
         {
             var user = await Statics.LoginUser();
-            app.Out.WriteLine($"Doodler - Signed in as {user.Username}");
+            app.Out.WriteLine($"Doodler - Signed in as {user.Username} (on {Statics.Server}.{Statics.Database})");
             // this shows help even if the --help option isn't specified
             app.ShowHelp();
             return 1;
