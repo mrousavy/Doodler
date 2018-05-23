@@ -26,6 +26,15 @@ dotnet restore
 dotnet run # Any arguments to Doodler.CLI are passed here
 ```
 
+## Unit Testing
+> XUnit
+```sh
+git clone https://github.com/mrousavy/Doodler/
+cd Doodler/DoodlerTests
+dotnet restore
+dotnet test
+```
+
 [Einteilung](https://docs.google.com/spreadsheets/d/1mnLEfydfwJCbYYD7tkKyigKelMGrNASt4ikNzSylRrY)
 
 ![Code map](CodeMap.png)
