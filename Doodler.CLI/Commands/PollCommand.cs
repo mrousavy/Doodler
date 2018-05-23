@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Doodler.CLI.Arguments
+namespace Doodler.CLI.Commands
 {
     [Command(Description = "Create a new Poll", Name = "poll")]
     public class PollCommand : CommandBase

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Doodler.CLI.Arguments
+namespace Doodler.CLI.Commands
 {
     [Command(Description = "Register to the Doodler system", Name = "register")]
     public class RegisterCommand : CommandBase
@@ -46,7 +46,7 @@ namespace Doodler.CLI.Arguments
                 {
                     throw new Exception("Invalid Username!");
                 }
-                string password = Prompt.GetPassword("Password:");
+                string password = Prompt.GetPassword("Choose a Password:");
                 string confirmPassword = Prompt.GetPassword("Confirm Password:");
                 if (password == confirmPassword)
                 {
@@ -59,6 +59,7 @@ namespace Doodler.CLI.Arguments
                     // Successfully registered
                     Statics.Preferences.LastEmail = Email;
                     Statics.Preferences.LastPassword = password;
+                    app.Out.WriteLine("Successfully registered!");
                     app.Out.WriteLine($"Hello, {Statics.CurrentUser.Username}!");
                     return 0;
                 } else

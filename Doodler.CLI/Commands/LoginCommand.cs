@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Doodler.CLI.Arguments
+namespace Doodler.CLI.Commands
 {
     [Command(Description = "Login to a given account", Name = "login")]
     public class LoginCommand : CommandBase
