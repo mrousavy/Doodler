@@ -1,12 +1,17 @@
-﻿using System;
+﻿using McMaster.Extensions.CommandLineUtils;
+using System;
 
 namespace Doodler.CLI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var app = new CommandLineApplication<Program> { Name = "Doodler" };
+            // TODO: Select Command from Doodler.CLI.Arguments
+            int exitCode = app.Execute(args);
+            Console.ReadKey();
+            return exitCode;
         }
     }
 }
