@@ -1,6 +1,6 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
-using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Doodler.CLI
 {
@@ -8,13 +8,6 @@ namespace Doodler.CLI
     public abstract class CommandBase
     {
         public abstract List<string> CreateArgs();
-
-        protected virtual int OnExecute(CommandLineApplication app)
-        {
-            var args = CreateArgs();
-
-            Console.WriteLine("=> doodler " + ArgumentEscaper.EscapeAndConcatenate(args));
-            return 0;
-        }
+        protected abstract Task<int> OnExecuteAsync(CommandLineApplication app);
     }
 }

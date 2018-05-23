@@ -19,6 +19,18 @@ namespace Doodler.CLI
 
         public static User CurrentUser { get; set; }
 
+        public static async Task<User> LoginUser()
+        {
+            if (CurrentUser == null)
+            {
+                using (var service = NewService())
+                {
+                    CurrentUser = await service.LoginAsync(LastEmail, LastPassword);
+                }
+            }
+            return CurrentUser;
+        }
+
         public static IDataService NewService() => new DataService(Database, Server, Username, Password);
         public static Task CreateDatabaseAsync(IDataService service) => service.EnsureCreatedAsync();
     }

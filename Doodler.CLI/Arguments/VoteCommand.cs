@@ -1,5 +1,6 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Doodler.CLI.Arguments
 {
@@ -16,8 +17,11 @@ namespace Doodler.CLI.Arguments
             return new List<string>();
         }
 
-        protected override int OnExecute(CommandLineApplication app)
+        protected override async Task<int> OnExecuteAsync(CommandLineApplication app)
         {
+            var user = await Statics.LoginUser();
+            // TODO: Vote on poll
+
             return 0;
         }
     }

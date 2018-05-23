@@ -2,6 +2,7 @@
 using McMaster.Extensions.CommandLineUtils;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Doodler.CLI
 {
@@ -13,8 +14,10 @@ namespace Doodler.CLI
     [Subcommand("vote", typeof(VoteCommand))]
     public class Program : CommandBase
     {
-        protected override int OnExecute(CommandLineApplication app)
+        protected override async Task<int> OnExecuteAsync(CommandLineApplication app)
         {
+            var user = await Statics.LoginUser();
+            app.Out.WriteLine($"Doodler - Signed in as {user.Username}");
             // this shows help even if the --help option isn't specified
             app.ShowHelp();
             return 1;

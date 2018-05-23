@@ -1,5 +1,7 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Doodler.CLI.Arguments
 {
@@ -7,14 +9,46 @@ namespace Doodler.CLI.Arguments
     public class LoginCommand : CommandBase
     {
         [Argument(0, Description = "The email of the user to sign in to")]
-        public string Email { get; }
+        public string Email { get; set; }
 
-        protected override int OnExecute(CommandLineApplication app)
+        private static bool IsValidEmail(string email)
         {
-            string password = Prompt.GetPassword("Password:");
-            // TODO: Sign in
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            } catch
+            {
+                return false;
+            }
+        }
 
-            return 0;
+        protected override async Task<int> OnExecuteAsync(CommandLineApplication app)
+        {
+            try
+            {
+                // Check credentials & sign in
+                if (!IsValidEmail(Email))
+                {
+                    throw new Exception("Invalid Email Address!");
+                }
+                string password = Prompt.GetPassword("Password:");
+                using (var service = Statics.NewService())
+                {
+                    Statics.CurrentUser = await service.LoginAsync(Email, password);
+                }
+
+                // Successfully signed in
+                Statics.Preferences.LastEmail = Email;
+                Statics.Preferences.LastPassword = password;
+                app.Out.WriteLine($"Hello, {Statics.CurrentUser.Username}!");
+                return 0;
+            } catch (Exception e)
+            {
+                // Error on sign in
+                app.Out.WriteLine($"Error signing in! {e.Message}");
+                return 1;
+            }
         }
 
         public override List<string> CreateArgs()

@@ -1,5 +1,6 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Doodler.CLI.Arguments
 {
@@ -16,10 +17,10 @@ namespace Doodler.CLI.Arguments
         public PollType Type { get; }
 
 
-        protected override int OnExecute(CommandLineApplication app)
+        protected override async Task<int> OnExecuteAsync(CommandLineApplication app)
         {
-            string password = Prompt.GetPassword("Password:");
-            // TODO: Sign in
+            var user = await Statics.LoginUser();
+            // TODO: Create poll
 
             return 0;
         }
