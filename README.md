@@ -10,6 +10,8 @@
   </blockquote>
 </p>
 
+For running and testing you will need to configure the database connection properties: Edit `%AppData%/Doodler/config.json`
+
 ## Build and Run
 ### Windows
 1. `git clone https://github.com/mrousavy/Doodler/` 
