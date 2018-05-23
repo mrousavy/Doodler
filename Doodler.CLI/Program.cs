@@ -38,6 +38,7 @@ namespace Doodler.CLI
         {
             int exitCode = CommandLineApplication.Execute<Program>(args);
 
+            Preferences.Save(Statics.Preferences);
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
             return exitCode;
