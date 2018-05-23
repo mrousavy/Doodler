@@ -21,7 +21,7 @@
 ### Linux
 ```sh
 git clone https://github.com/mrousavy/Doodler/
-cd Doodler/DoodlerCore
+cd Doodler/Doodler.CLI
 dotnet restore
 dotnet run # Any arguments to Doodler.CLI are passed here
 ```
