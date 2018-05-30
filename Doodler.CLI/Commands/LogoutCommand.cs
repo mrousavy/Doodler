@@ -18,10 +18,7 @@ namespace Doodler.CLI.Commands
         {
             try
             {
-                if(Statics.CurrentUser != null)
-                {
-                    throw new Exception("No User logged in");
-                }
+                
 
                 Statics.Preferences.LastEmail = null;
                 Statics.Preferences.LastPassword = null;
@@ -35,8 +32,6 @@ namespace Doodler.CLI.Commands
                 app.Out.WriteLine($"Error Logging in! {e.Message}");
                
             }
-
-            throw new NotImplementedException();
         }
     }
 }
