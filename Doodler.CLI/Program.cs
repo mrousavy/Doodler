@@ -10,7 +10,7 @@ namespace Doodler.CLI
     [VersionOption("--version", "1.0.0")]
     [Subcommand("login", typeof(LoginCommand))]
     [Subcommand("register", typeof(RegisterCommand))]
-    [Subcommand("new", typeof(PollCommand))]
+    [Subcommand("new", typeof(CreatePollCommand))]
     [Subcommand("vote", typeof(VoteCommand))]
     public class Program : CommandBase
     {

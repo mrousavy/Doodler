@@ -13,6 +13,10 @@ namespace DoodlerCore
         public TextAnswer(Poll poll) : base(poll)
         {
         }
+        public TextAnswer(string text)
+        {
+            Text = text;
+        }
         public TextAnswer()
         {
         }
