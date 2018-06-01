@@ -44,11 +44,13 @@ namespace Doodler.CLI.Commands
                     answers = Answers.Select(a => new TextAnswer(a));
                 }
 
+                Poll poll;
                 using (var service = Statics.NewService())
                 {
-                    await service.CreatePollAsync(user, Title, EndDate, answers);
+                    poll = await service.CreatePollAsync(user, Title, EndDate, answers);
                 }
 
+                app.Out.WriteLine($"Successfully created Poll! Id: {poll.Id}");
                 return 0;
             } catch (Exception ex)
             {
