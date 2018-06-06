@@ -10,15 +10,6 @@ namespace Doodler.CLI.Commands
     [Command(Description = "Create a new Poll", Name = "create")]
     public class CreatePollCommand : CommandBase
     {
-        public enum PollType
-        {
-            Date,
-            Text
-        }
-
-        [Argument(0, Description = "The Poll's type <Date|Text>")]
-        public PollType Type { get; set; }
-
         [Option(Description = "The amount of days until this poll gets closed")]
         public int DaysToClose { get; set; } = 7;
 
@@ -29,8 +20,12 @@ namespace Doodler.CLI.Commands
 
             try
             {
+                // Ask type
+                bool isTextPoll = Prompt.GetYesNo("Do you want to create a Text Poll?", true);
+
                 // Ask title
-                string title = Prompt.GetString($"What's the title of the {Type} poll?:");
+                string type = isTextPoll ? "text" : "date";
+                string title = Prompt.GetString($"What's the title of the {type} poll?:");
                 if (string.IsNullOrWhiteSpace(title))
                     throw new Exception("Invalid Title!");
 
@@ -40,7 +35,11 @@ namespace Doodler.CLI.Commands
                 {
                     // Add answers
                     string answer = Prompt.GetString("Answer: ");
-                    if (Type == PollType.Date)
+                    if (isTextPoll)
+                    {
+                        // Text answer
+                        answers.Add(new TextAnswer(answer));
+                    } else
                     {
                         // Date answer
                         bool successful = DateTime.TryParse(answer, out var date);
@@ -48,10 +47,6 @@ namespace Doodler.CLI.Commands
                             answers.Add(new DateAnswer(date));
                         else
                             app.Out.WriteLine("Invalid date time! Format: dd.MM.yyyy");
-                    } else
-                    {
-                        // Text answer
-                        answers.Add(new TextAnswer(answer));
                     }
 
                     addAnother = Prompt.GetYesNo("Do you want to add another Answer?", true);
