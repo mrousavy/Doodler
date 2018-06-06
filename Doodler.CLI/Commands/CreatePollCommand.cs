@@ -16,17 +16,11 @@ namespace Doodler.CLI.Commands
             Text
         }
 
-        [Option(Description = "The Poll's title")]
-        public string Title { get; set; }
-
-        [Option(Description = "The Date this Poll closes")]
-        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(7);
-
-        [Option(Description = "The Poll type <Date|Text>")]
+        [Argument(0, Description = "The Poll's type <Date|Text>")]
         public PollType Type { get; set; }
 
-        [Option(Description = "All possible poll answers (Date Answers have to be in format dd.MM.yyyy)")]
-        public string[] Answers { get; set; }
+        [Option(Description = "The amount of days until this poll gets closed")]
+        public int DaysToClose { get; set; } = 7;
 
 
         protected override async Task<int> OnExecuteAsync(CommandLineApplication app)
@@ -35,19 +29,39 @@ namespace Doodler.CLI.Commands
 
             try
             {
-                IEnumerable<Answer> answers;
-                if (Type == PollType.Date)
-                {
-                    answers = Answers.Select(a => new DateAnswer(DateTime.Parse(a)));
-                } else
-                {
-                    answers = Answers.Select(a => new TextAnswer(a));
-                }
+                // Ask title
+                string title = Prompt.GetString($"What's the title of the {Type} poll?:");
+                if (string.IsNullOrWhiteSpace(title))
+                    throw new Exception("Invalid Title!");
 
+                var answers = new List<Answer>();
+                bool addAnother;
+                do
+                {
+                    // Add answers
+                    string answer = Prompt.GetString("Answer: ");
+                    if (Type == PollType.Date)
+                    {
+                        // Date answer
+                        bool successful = DateTime.TryParse(answer, out var date);
+                        if (successful)
+                            answers.Add(new DateAnswer(date));
+                        else
+                            app.Out.WriteLine("Invalid date time! Format: dd.MM.yyyy");
+                    } else
+                    {
+                        // Text answer
+                        answers.Add(new TextAnswer(answer));
+                    }
+
+                    addAnother = Prompt.GetYesNo("Do you want to add another Answer?", true);
+                } while (addAnother);
+
+                // Create poll
                 Poll poll;
                 using (var service = Statics.NewService())
                 {
-                    poll = await service.CreatePollAsync(user, Title, EndDate, answers);
+                    poll = await service.CreatePollAsync(user, title, DateTime.Now.AddDays(DaysToClose), answers);
                 }
 
                 app.Out.WriteLine($"Successfully created Poll! Id: {poll.Id}");
