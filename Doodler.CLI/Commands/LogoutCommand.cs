@@ -25,13 +25,15 @@ namespace Doodler.CLI.Commands
                 Statics.CurrentUser = null;
                 app.Out.WriteLine("You sucessfully logged out");
                 app.Out.WriteLine("Have a nice day!");
+                return (Task.FromResult(0));
             }
             catch (Exception e)
             {
                 //Error on Logout
                 app.Out.WriteLine($"Error Logging in! {e.Message}");
-               
+                return (Task.FromResult(1));
             }
+          
         }
     }
 }
