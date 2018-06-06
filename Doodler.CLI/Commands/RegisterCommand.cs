@@ -8,13 +8,6 @@ namespace Doodler.CLI.Commands
     [Command(Description = "Register to the Doodler system", Name = "register")]
     public class RegisterCommand : CommandBase
     {
-        [Argument(0, Description = "The email of the user to register to")]
-        public string Email { get; set; }
-
-        [Argument(1, Description = "The username of the user to register to")]
-        public string Username { get; set; }
-
-
         public override List<string> CreateArgs()
         {
             // TODO: CreateArgs()
@@ -38,14 +31,18 @@ namespace Doodler.CLI.Commands
             try
             {
                 // Check credentials & sign in
-                if (!IsValidEmail(Email))
+                string email = Prompt.GetString("Enter your email address:");
+                if (!IsValidEmail(email))
                 {
                     throw new Exception("Invalid Email Address!");
                 }
-                if (string.IsNullOrWhiteSpace(Username))
+
+                string username = Prompt.GetString("Choose a display name or username:");
+                if (string.IsNullOrWhiteSpace(username))
                 {
                     throw new Exception("Invalid Username!");
                 }
+
                 string password = Prompt.GetPassword("Choose a Password:");
                 string confirmPassword = Prompt.GetPassword("Confirm Password:");
                 if (password == confirmPassword)
@@ -53,11 +50,11 @@ namespace Doodler.CLI.Commands
                     // Register
                     using (var service = Statics.NewService())
                     {
-                        Statics.CurrentUser = await service.RegisterAsync(Email, Username, password);
+                        Statics.CurrentUser = await service.RegisterAsync(email, username, password);
                     }
 
                     // Successfully registered
-                    Statics.Preferences.LastEmail = Email;
+                    Statics.Preferences.LastEmail = email;
                     Statics.Preferences.LastPassword = password;
                     app.Out.WriteLine("Successfully registered!");
                     app.Out.WriteLine($"Hello, {Statics.CurrentUser.Username}!");
