@@ -85,7 +85,7 @@ namespace DoodlerCore
 
         public Task EditPollAsync(Poll poll) => throw new NotImplementedException();
 
-        public Task<Poll> GetPollByIdAsync(Guid id) => throw new NotImplementedException();
+        public async Task<Poll> GetPollByIdAsync(int id) => await Context.Polls.FindAsync(id);
 
         public async Task<IList<Poll>> GetAllPollsAsync() => await Context.Polls
             .Include(p => p.Creator)
