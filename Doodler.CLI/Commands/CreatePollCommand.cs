@@ -19,10 +19,10 @@ namespace Doodler.CLI.Commands
         [Option(Description = "The Poll's title")]
         public string Title { get; set; }
 
-        [Option(Description = "The Date this Poll closes")]
+        //[Option(Description = "The Date this Poll closes")]
         public DateTime EndDate { get; set; } = DateTime.Now.AddDays(7);
 
-        [Option(Description = "The Poll type <Date|Text>")]
+        //[Option(Description = "The Poll type <Date|Text>")]
         public PollType Type { get; set; }
 
         [Option(Description = "All possible poll answers (Date Answers have to be in format dd.MM.yyyy)")]
