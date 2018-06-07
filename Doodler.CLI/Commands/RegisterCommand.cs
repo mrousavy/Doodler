@@ -27,7 +27,7 @@ namespace Doodler.CLI.Commands
             {
                 var addr = new System.Net.Mail.MailAddress(email);
                 return addr.Address == email;
-            } catch
+            } catch(Exception e)
             {
                 return false;
             }
@@ -54,6 +54,7 @@ namespace Doodler.CLI.Commands
                     using (var service = Statics.NewService())
                     {
                         Statics.CurrentUser = await service.RegisterAsync(Email, Username, password);
+                        service.SaveAsync();
                     }
 
                     // Successfully registered
