@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace DoodlerCore.Exceptions
 {
-    class PollExpiredException
+    public class PollExpiredException : Exception
     {
+        public PollExpiredException(DateTime dateTime):
+            base($"The Poll expired at {dateTime: dd.MM.yyyy H:mm}")
+        { }
     }
 }

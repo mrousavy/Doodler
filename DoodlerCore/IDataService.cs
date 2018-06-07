@@ -176,6 +176,9 @@ namespace DoodlerCore
         /// <param name="user">The user that is voting on this poll</param>
         /// <param name="poll">The poll to vote on</param>
         /// <param name="answer">The selected answer of this poll</param>
+        /// <exception cref="PollExpiredException">
+        ///     Thrown if the Date of the Poll is expired.
+        /// </exception>
         /// <returns></returns>
         Task VoteOnPoll<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer;
 

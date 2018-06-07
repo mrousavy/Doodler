@@ -118,9 +118,14 @@ namespace DoodlerCore
                 throw new ArgumentException(nameof(poll));
             if (answer == null)
                 throw new ArgumentException(nameof(answer));
+                        
 
             var originalUser = await Context.Users.FindAsync(user.Id);
             var originalPoll = await Context.Polls.FindAsync(poll.Id);
+            if (originalPoll.EndsAt < DateTime.Now)
+            {
+                throw new PollExpiredException(originalPoll.EndsAt);
+            }
             var originalAnswer = await Context.Answers.FindAsync(answer.Id);
             var vote = new Vote(originalUser, originalPoll, originalAnswer);
 
