@@ -191,6 +191,20 @@ namespace DoodlerCore
 
         #endregion
 
+        #region Vote
+        /// <summary>
+        ///     Delete the given vote async
+        /// </summary>
+        Task DeleteVoteAsync(Vote vote);
+        #endregion
+
+        #region Answer
+        /// <summary>
+        ///     Delete the given answer async
+        /// </summary>
+        Task DeleteAnswerAsync(Answer answer);
+        #endregion
+
         #region Data Service
 
         /// <summary>
