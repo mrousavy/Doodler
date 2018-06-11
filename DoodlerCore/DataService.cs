@@ -80,10 +80,21 @@ namespace DoodlerCore
 
             return Task.FromResult(poll);
         }
+        
+        public Task DeletePollAsync(Poll poll)
+        {
+            Context.Polls.Remove(Context.Polls.Find(poll.Id));
 
-        public Task DeletePollAsync(Poll poll) => throw new NotImplementedException();
+            return Task.FromResult(poll);
+        }
 
-        public Task EditPollAsync(Poll poll) => throw new NotImplementedException();
+        //public Task EditPollAsync(Poll poll) => throw new NotImplementedException();
+        public Task EditPollAsync(Poll poll)
+        {
+                //Context.Polls.E
+
+                return Task.FromResult(poll);
+        }
 
         public Task<Poll> GetPollByIdAsync(Guid id) => throw new NotImplementedException();
 
@@ -139,5 +150,20 @@ namespace DoodlerCore
 
         private static string BuildConnectionString(string database, string server, string username, string password) =>
             $"Server={server};Database={database};User={username};Password={password};Trusted_Connection=False;";
+
+
+        public Task DeleteVoteAsync(Vote vote)
+        {
+            Context.Votes.Remove(vote);
+            return Task.CompletedTask;
+        }
+        public Task DeleteAnswerAsync(Answer answer)
+        {
+            Context.Answers.Remove(answer);
+            return Task.CompletedTask;
+        }
+
+
+
     }
 }
