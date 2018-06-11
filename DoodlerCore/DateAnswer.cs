@@ -14,6 +14,10 @@ namespace DoodlerCore
         public DateAnswer(Poll poll) : base(poll)
         {
         }
+        public DateAnswer(DateTime date)
+        {
+            Date = date;
+        }
         public DateAnswer()
         {
         }

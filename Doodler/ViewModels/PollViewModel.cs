@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Doodler.Implementation;
+using Doodler.Models;
+using DoodlerCore;
+using MaterialDesignThemes.Wpf;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Doodler.Implementation;
-using Doodler.Models;
-using DoodlerCore;
-using MaterialDesignThemes.Wpf;
 
 namespace Doodler.ViewModels
 {
@@ -57,6 +57,7 @@ namespace Doodler.ViewModels
             if (selected != null)
             {
                 await Model.VoteAsync(Poll, selected.Answer);
+                await LoadAsync(); // reload first so answers update
 
                 TransitionerIndex = 1;
                 CanVote = false;
