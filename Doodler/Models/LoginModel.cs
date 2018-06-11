@@ -1,4 +1,5 @@
-﻿using System.Security.Authentication;
+﻿using System.Data.SqlClient;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 
 namespace Doodler.Models
@@ -7,18 +8,21 @@ namespace Doodler.Models
     {
         public async Task<bool> TryLoginAsync(string email, string password)
         {
-            using (var service = Statics.NewService())
+            try
             {
-                try
+                using (var service = Statics.NewService())
                 {
                     await Statics.CreateDatabaseAsync(service);
                     Statics.CurrentUser = await service.LoginAsync(email, password);
                     await service.SaveAsync();
                     return true;
-                } catch (InvalidCredentialException)
-                {
-                    return false;
                 }
+            } catch (InvalidCredentialException)
+            {
+                return false;
+            } catch (SqlException)
+            {
+                return false;
             }
         }
     }
