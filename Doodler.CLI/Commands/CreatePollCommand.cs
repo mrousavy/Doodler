@@ -1,4 +1,4 @@
-﻿using DoodlerCore;
+using DoodlerCore;
 using McMaster.Extensions.CommandLineUtils;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,6 @@ namespace Doodler.CLI.Commands
     {
         [Option(Description = "The amount of days until this poll gets closed")]
         public int DaysToClose { get; set; } = 7;
-
 
         protected override async Task<int> OnExecuteAsync(CommandLineApplication app)
         {
