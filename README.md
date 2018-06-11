@@ -21,11 +21,18 @@ For running and testing you will need to configure the database connection prope
 5. For the DB Connection configure the `%AppData%\Doodler\config.json` config
 
 ### Linux
+##### Docker
+```sh
+docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=yourStrong(!)Password' -p 1433:1433 -d microsoft/mssql-server-linux:latest
+```
+
+##### Doodler
 ```sh
 git clone https://github.com/mrousavy/Doodler/
 cd Doodler/Doodler.CLI
 dotnet restore
 dotnet run # Any arguments to Doodler.CLI are passed here
+vim ~/.config/Doodler/config.json # If not yet configured, set MSSQL Server IP, Database, Username & PW
 ```
 
 ## Unit Testing
