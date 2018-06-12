@@ -154,7 +154,6 @@ namespace DoodlerCore
         private static string BuildConnectionString(string database, string server, string username, string password) =>
             $"Server={server};Database={database};User={username};Password={password};Trusted_Connection=False;";
 
-
         public Task DeleteVoteAsync(Vote vote)
         {
             Context.Votes.Remove(vote);

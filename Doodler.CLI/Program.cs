@@ -13,7 +13,6 @@ namespace Doodler.CLI
     [Subcommand("register", typeof(RegisterCommand))]
     [Subcommand("create", typeof(CreatePollCommand))]
     [Subcommand("vote", typeof(VoteCommand))]
-
     [Subcommand("edit", typeof(EditPollCommand))]
     [Subcommand("delete", typeof(DeletePollCommand))]
     public class Program : CommandBase
@@ -55,6 +54,11 @@ namespace Doodler.CLI
                 Console.ReadKey();
             }
 
+            if (Debugger.IsAttached)
+            {
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+            }
             return exitCode;
         }
     }
