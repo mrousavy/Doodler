@@ -88,15 +88,24 @@ namespace DoodlerCore
             return Task.FromResult(poll);
         }
 
+<<<<<<< HEAD
         //public Task EditPollAsync(Poll poll) => throw new NotImplementedException();
         public Task EditPollAsync(Poll poll)
         {
                 //Context.Polls.E
+=======
+        public Task DeletePollAsync(Poll poll)
+        {
+            Context.Polls.Remove(Context.Polls.Find(poll.Id));
+
+            return Task.FromResult(poll);
+        }
+>>>>>>> 7f3ad37857289967f2f5e6e30ce4082cdf230a99
 
                 return Task.FromResult(poll);
         }
 
-        public Task<Poll> GetPollByIdAsync(Guid id) => throw new NotImplementedException();
+        public async Task<Poll> GetPollByIdAsync(int id) => await Context.Polls.FindAsync(id);
 
         public async Task<IList<Poll>> GetAllPollsAsync() => await Context.Polls
             .Include(p => p.Creator)
@@ -151,7 +160,10 @@ namespace DoodlerCore
         private static string BuildConnectionString(string database, string server, string username, string password) =>
             $"Server={server};Database={database};User={username};Password={password};Trusted_Connection=False;";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7f3ad37857289967f2f5e6e30ce4082cdf230a99
         public Task DeleteVoteAsync(Vote vote)
         {
             Context.Votes.Remove(vote);
@@ -162,8 +174,11 @@ namespace DoodlerCore
             Context.Answers.Remove(answer);
             return Task.CompletedTask;
         }
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 7f3ad37857289967f2f5e6e30ce4082cdf230a99
     }
 }

@@ -133,7 +133,7 @@ namespace DoodlerCore
         /// <exception cref="PollNotFoundException">Thrown if the poll could not be found on the database</exception>
         /// <param name="id">The poll ID to search for</param>
         /// <returns>The found <see cref="Poll" /> object</returns>
-        Task<Poll> GetPollByIdAsync(Guid id);
+        Task<Poll> GetPollByIdAsync(int id);
 
         /// <summary>
         ///     Find all polls created on the database
@@ -189,6 +189,20 @@ namespace DoodlerCore
         /// <returns></returns>
         Task RemoveVote<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer;
 
+        #endregion
+
+        #region Vote
+        /// <summary>
+        ///     Delete the given vote async
+        /// </summary>
+        Task DeleteVoteAsync(Vote vote);
+        #endregion
+
+        #region Answer
+        /// <summary>
+        ///     Delete the given answer async
+        /// </summary>
+        Task DeleteAnswerAsync(Answer answer);
         #endregion
 
         #region Data Service

@@ -2,6 +2,7 @@
 using McMaster.Extensions.CommandLineUtils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Doodler.CLI
@@ -10,9 +11,13 @@ namespace Doodler.CLI
     [VersionOption("--version", "1.0.0")]
     [Subcommand("login", typeof(LoginCommand))]
     [Subcommand("register", typeof(RegisterCommand))]
-    [Subcommand("new", typeof(CreatePollCommand))]
+    [Subcommand("create", typeof(CreatePollCommand))]
     [Subcommand("vote", typeof(VoteCommand))]
+<<<<<<< HEAD
     [Subcommand("edit", typeof(EditPollCommand))]
+=======
+    [Subcommand("delete", typeof(DeletePollCommand))]
+>>>>>>> 7f3ad37857289967f2f5e6e30ce4082cdf230a99
     public class Program : CommandBase
     {
         protected override async Task<int> OnExecuteAsync(CommandLineApplication app)
@@ -39,8 +44,12 @@ namespace Doodler.CLI
         {
             int exitCode = CommandLineApplication.Execute<Program>(args);
 
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
+            if (Debugger.IsAttached)
+            {
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+            }
+
             return exitCode;
         }
     }
