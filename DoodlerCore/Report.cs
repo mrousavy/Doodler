@@ -12,10 +12,13 @@ namespace DoodlerCore
 
         public string Description { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
         public Report(Poll reportedPoll, string description)
         {
             ReportedPoll = reportedPoll;
             Description = description;
+            CreatedAt = DateTime.Now;
         }
     }
 }
