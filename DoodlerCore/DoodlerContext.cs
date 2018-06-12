@@ -60,5 +60,6 @@ namespace DoodlerCore
         public DbSet<Poll> Polls { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Vote> Votes { get; set; }
+        public DbSet<Report> Reports { get; set; }
     }
 }
