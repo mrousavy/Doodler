@@ -182,6 +182,7 @@ namespace DoodlerCore
         /// <returns></returns>
         Task VoteOnPoll<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer;
 
+        /*
         /// <summary>
         ///     Remove a vote from a poll
         /// </summary>
@@ -191,6 +192,7 @@ namespace DoodlerCore
         /// <param name="answer">The selected answer of this poll</param>
         /// <returns></returns>
         Task RemoveVote<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer;
+        */
 
         #endregion
 
@@ -199,6 +201,14 @@ namespace DoodlerCore
         ///     Delete the given vote async
         /// </summary>
         Task DeleteVoteAsync(Vote vote);
+        
+        /// <summary>
+        ///     Get the Users
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="poll"></param>
+        /// <returns></returns>
+        Task<Vote> GetVoteFromUserForPoll(User user, Poll poll);
         #endregion
 
         #region Answer

@@ -80,7 +80,7 @@ namespace DoodlerCore
 
             return Task.FromResult(poll);
         }
-        
+
         public Task DeletePollAsync(Poll poll)
         {
             Context.Polls.Remove(Context.Polls.Find(poll.Id));
@@ -127,7 +127,7 @@ namespace DoodlerCore
                 throw new ArgumentException(nameof(poll));
             if (answer == null)
                 throw new ArgumentException(nameof(answer));
-                        
+
 
             var originalUser = await Context.Users.FindAsync(user.Id);
             var originalPoll = await Context.Polls.FindAsync(poll.Id);
@@ -141,8 +141,12 @@ namespace DoodlerCore
             Context.Votes.Add(vote);
         }
 
-        public Task RemoveVote<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer =>
-            throw new NotImplementedException();
+        public async Task<Vote> GetVoteFromUserForPoll(User user, Poll poll)
+        {
+            return await Context.Votes.Include(v => v.Poll)
+            .Include(v => v.Answer)
+            .Include(v => v.User).Where(v => v.User == user && v.Poll == poll).SingleAsync();
+        }
 
         public string ConnectionString { get; }
         public bool IsDirty => Context.ChangeTracker.HasChanges();
