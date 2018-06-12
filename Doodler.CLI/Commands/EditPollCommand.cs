@@ -45,13 +45,13 @@ namespace Doodler.CLI.Commands
 
                 string dateString = Prompt.GetString("Enter a new end-date (dd.MM.yyyy):", pollToEdit.EndsAt.ToString("dd.MM.yyyy"));
                 pollToEdit.EndsAt = DateTime.Parse(dateString);
-                //pollToEdit.
+                
                 using (var service = Statics.NewService())
                 {
                     var currentAnswers = await service.GetAnswersForPollAsync(pollToEdit);
 
-                   // foreach (var answer in currentAnswers)
-                     //   await service.DeleteAnswerAsync(answer);
+                    // foreach (var answer in currentAnswers)
+                    //   await service.DeleteAnswerAsync(answer);
                 }
 
                 //TODO: isTextPoll
@@ -78,10 +78,7 @@ namespace Doodler.CLI.Commands
 
                     addAnother = Prompt.GetYesNo("Do you want to add another Answer?", true);
                 } while (addAnother);
-
-    
-
-
+                
                 app.Out.WriteLine($"Successfully edited Poll \"{pollToEdit.Title}\"!");
                 return 0;
             }
