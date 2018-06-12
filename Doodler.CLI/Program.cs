@@ -15,6 +15,7 @@ namespace Doodler.CLI
     [Subcommand("vote", typeof(VoteCommand))]
     [Subcommand("edit", typeof(EditPollCommand))]
     [Subcommand("delete", typeof(DeletePollCommand))]
+    [Subcommand("unvote", typeof(DeleteVoteCommand))]
     public class Program : CommandBase
     {
         protected override async Task<int> OnExecuteAsync(CommandLineApplication app)
