@@ -1,4 +1,6 @@
-﻿using McMaster.Extensions.CommandLineUtils;
+﻿using DoodlerCore;
+using DoodlerCore.Exceptions;
+using McMaster.Extensions.CommandLineUtils;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,7 +12,6 @@ namespace Doodler.CLI.Commands
         [Argument(0, Description = "The Poll ID")]
         public int Id { get; }
 
-
         public override List<string> CreateArgs()
         {
             // TODO: CreateArgs()
@@ -21,8 +22,28 @@ namespace Doodler.CLI.Commands
         {
             var user = await Statics.LoginUser();
             // TODO: Vote on poll
+            Poll poll;
+            IEnumerable<Answer> answers;
+            try
+            {
 
-            return 0;
+                using (var service = Statics.NewService())
+                {
+                    poll = await service.GetPollByIdAsync(Id);
+                    // TODO: Get answers
+                }
+            }
+            catch (PollNotFoundException)
+            {
+                app.Out.WriteLine("This Id is not valid");
+                return 1;
+            }
+            // TODO: Ask user which answer (via index?)
+            int index = Prompt.GetInt("answer??");
+            // TODO: Vote on Poll
+
+                return 0;
         }
+
     }
 }
