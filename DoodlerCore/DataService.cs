@@ -81,11 +81,16 @@ namespace DoodlerCore
             return Task.FromResult(poll);
         }
 
-        public Task DeletePollAsync(Poll poll) => throw new NotImplementedException();
+        public Task DeletePollAsync(Poll poll)
+        {
+            Context.Polls.Remove(Context.Polls.Find(poll.Id));
+
+            return Task.FromResult(poll);
+        }
 
         public Task EditPollAsync(Poll poll) => throw new NotImplementedException();
 
-        public Task<Poll> GetPollByIdAsync(Guid id) => throw new NotImplementedException();
+        public async Task<Poll> GetPollByIdAsync(int id) => await Context.Polls.FindAsync(id);
 
         public async Task<IList<Poll>> GetAllPollsAsync() => await Context.Polls
             .Include(p => p.Creator)
@@ -118,9 +123,14 @@ namespace DoodlerCore
                 throw new ArgumentException(nameof(poll));
             if (answer == null)
                 throw new ArgumentException(nameof(answer));
+                        
 
             var originalUser = await Context.Users.FindAsync(user.Id);
             var originalPoll = await Context.Polls.FindAsync(poll.Id);
+            if (originalPoll.EndsAt < DateTime.Now)
+            {
+                throw new PollExpiredException(originalPoll.EndsAt);
+            }
             var originalAnswer = await Context.Answers.FindAsync(answer.Id);
             var vote = new Vote(originalUser, originalPoll, originalAnswer);
 
@@ -139,5 +149,16 @@ namespace DoodlerCore
 
         private static string BuildConnectionString(string database, string server, string username, string password) =>
             $"Server={server};Database={database};User={username};Password={password};Trusted_Connection=False;";
+
+        public Task DeleteVoteAsync(Vote vote)
+        {
+            Context.Votes.Remove(vote);
+            return Task.CompletedTask;
+        }
+        public Task DeleteAnswerAsync(Answer answer)
+        {
+            Context.Answers.Remove(answer);
+            return Task.CompletedTask;
+        }
     }
 }

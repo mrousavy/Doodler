@@ -114,7 +114,7 @@
                             <TextBlock
                                 Grid.Column="2"
                                 Margin="5"
-                                Foreground="{StaticResource MaterialDesignLightGray}"
+                                Foreground="{StaticResource MaterialDesignGray}"
                                 Text="{Binding Votes, StringFormat={}{0} Votes}" />
                         </Grid>
                     </DataTemplate>
