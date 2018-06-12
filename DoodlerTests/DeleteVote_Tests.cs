@@ -8,7 +8,7 @@ using Xunit;
 
 namespace DoodlerTests
 {
-    class DeleteVote_Tests
+    public class DeleteVote_Tests
     {
         public User CurrentUser { get; set; }
 
@@ -58,7 +58,7 @@ namespace DoodlerTests
                 await service.DeleteVoteAsync(vote);
 
                 Vote CurrentVote = await service.GetVoteFromUserForPoll(CurrentUser, poll);
-                Assert.Null(CurrentVote)   
+                Assert.Null(CurrentVote);
             }
         }
     }
