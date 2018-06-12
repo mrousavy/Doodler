@@ -11,5 +11,11 @@ namespace DoodlerCore
         public Poll ReportedPoll { get; set; }
 
         public string Description { get; set; }
+
+        public Report(Poll reportedPoll, string description)
+        {
+            ReportedPoll = reportedPoll;
+            Description = description;
+        }
     }
 }
