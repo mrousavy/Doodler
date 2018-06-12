@@ -155,5 +155,11 @@ namespace DoodlerCore
             Context.Answers.Remove(answer);
             return Task.CompletedTask;
         }
+
+        public Task ReportPollAsync(Poll poll, String text)
+        {
+            Context.Reports.AddAsync(new Report(poll, text));
+            return Task.CompletedTask;
+        }
     }
 }
