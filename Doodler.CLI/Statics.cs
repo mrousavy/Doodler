@@ -11,7 +11,7 @@ namespace Doodler.CLI
         public static string Server => Preferences.Server;
         public static string Username => Preferences.Username;
 
-        // TODO: BAD RAW PASSWORD STORING
+        // TODO: BAD RAW PASSWORD STRING
         public static string Password => Preferences.Password;
 
         public static string LastEmail => Preferences.LastEmail;
