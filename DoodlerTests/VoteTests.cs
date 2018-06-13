@@ -11,7 +11,7 @@ namespace DoodlerTests
 {
     public class VoteTests : IDisposable
     {
-
+        //user for the poll
         public User CurrentUser { get; set; }
 
         public VoteTests()
@@ -23,6 +23,7 @@ namespace DoodlerTests
         {
         }
 
+        //Fact what the test should return
         [Fact]
         public void testfact()
         {
@@ -31,6 +32,13 @@ namespace DoodlerTests
 
         }
 
+        /// <summary>
+        /// Tests if votes can be seen from the system
+        /// </summary>
+        /// <param name="title"> Title of the poll thats beeing tested </param>
+        /// <param name="answers"> String array with the answers </param>
+        /// <returns> Returns if the test was successful </returns>
+        
         public async Task TestVotes(string title, params string[] answers)
         {
             IList<DoodlerCore.Vote> vote;
@@ -38,9 +46,13 @@ namespace DoodlerTests
             // Create poll
             using (var service = Statics.NewService())
             {
-                
+                //creating answers for the poll
                 var textAnswers = answers.Select(answer => new TextAnswer(answer));
+
+                //creating the poll from the information 
                 poll = await service.CreatePollAsync(CurrentUser, title, DateTime.Now.AddDays(10), textAnswers);
+
+                //saveing the poll
                 await service.SaveAsync();
             }
 
@@ -49,9 +61,11 @@ namespace DoodlerTests
             //Checking Votes
             using (var service = Statics.NewService())
             {
+                //getting votes from the poll
                 vote = await service.GetVotesForPollAsync(poll);
              
             }
+            //Checking if the there are votes in the poll
             Assert.NotEmpty(vote);
         }
     }
