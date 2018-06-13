@@ -2,6 +2,9 @@
 
 namespace Doodler.ViewModels
 {
+    /// <summary>
+    ///     mrousavy: ViewModel for an error dialog that gets automatically wired to a WPF Template
+    /// </summary>
     public class ErrorDialogViewModel : ViewModelBase
     {
         public ErrorDialogViewModel(string message)

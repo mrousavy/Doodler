@@ -1,10 +1,13 @@
-﻿using System;
+﻿using DoodlerCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DoodlerCore;
 
 namespace Doodler.Models
 {
+    /// <summary>
+    ///     mrousavy: Model for Adding a Poll
+    /// </summary>
     public class AddPollModel
     {
         public async Task CreatePollAsync<TAnswer>(User creator, string title, DateTime endDate,

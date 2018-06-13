@@ -1,10 +1,13 @@
-﻿using System.Windows.Input;
-using Doodler.Implementation;
+﻿using Doodler.Implementation;
 using Doodler.Models;
 using Doodler.Views;
+using System.Windows.Input;
 
 namespace Doodler.ViewModels
 {
+    /// <summary>
+    ///     mrousavy: ViewModel for registering a new user
+    /// </summary>
     public class RegisterViewModel : ViewModelBase
     {
         public RegisterViewModel()

@@ -5,6 +5,9 @@ using System.Windows.Data;
 
 namespace Doodler.Implementation
 {
+    /// <summary>
+    ///     Convert an integer higher than 0 to <see cref="Visibility.Visible"/>, otherwise <see cref="Visibility.Collapsed"/>
+    /// </summary>
     [ValueConversion(typeof(int), typeof(Visibility))]
     public class CountToVisibilityConverter : IValueConverter
     {

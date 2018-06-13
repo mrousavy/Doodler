@@ -12,6 +12,9 @@ using System.Windows.Input;
 
 namespace Doodler.ViewModels
 {
+    /// <summary>
+    ///     mrousavy: ViewModel for viewing a poll's statistic and voting on that poll
+    /// </summary>
     public class PollViewModel : ViewModelBase
     {
         public PollViewModel()

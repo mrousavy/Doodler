@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Doodler.Implementation;
+using DoodlerCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Doodler.Implementation;
-using DoodlerCore;
 
 namespace Doodler.Models
 {
+    /// <summary>
+    ///     mrousavy: Model for viewing a poll's statistic and voting on that poll
+    /// </summary>
     public class PollModel
     {
         public async Task VoteAsync(Poll poll, Answer answer)

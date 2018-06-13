@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using Doodler.Implementation;
+﻿using Doodler.Implementation;
 using Doodler.Models;
 using DoodlerCore;
+using System;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Doodler.ViewModels
 {
+    /// <summary>
+    ///     mrousavy: ViewModel for viewing all polls this user has access to
+    /// </summary>
     public class PollsViewModel : ViewModelBase
     {
         public PollsViewModel()
@@ -19,7 +22,7 @@ namespace Doodler.ViewModels
 
         private async void OpenAction(Poll poll)
         {
-            var vm = new PollViewModel {Poll = poll};
+            var vm = new PollViewModel { Poll = poll };
             await vm.LoadAsync();
             DialogViewModel = vm;
             ShowEmbedDialog = true;

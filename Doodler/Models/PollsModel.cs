@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using DoodlerCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using DoodlerCore;
 
 namespace Doodler.Models
 {
+    /// <summary>
+    ///     mrousavy: Model for viewing all polls this user has access to
+    /// </summary>
     public class PollsModel
     {
         public async Task<IEnumerable<Poll>> GetAllPollsAsync()
