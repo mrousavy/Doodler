@@ -42,11 +42,10 @@ namespace Doodler.CLI.Commands
                     pollToReport = polls.SingleOrDefault(p => p.Id == id);
                 } while (pollToReport == null);
 
-                string reasoning = Prompt.GetString("Report message: ");
+                string reasoning = Prompt.GetString("Report Message:");
 
                 using (var service = Statics.NewService())
                 {
-
                     await service.ReportPollAsync(pollToReport, reasoning);
                     await service.SaveAsync();
                 }
