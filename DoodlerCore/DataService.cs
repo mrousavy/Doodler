@@ -156,10 +156,9 @@ namespace DoodlerCore
             return Task.CompletedTask;
         }
 
-        public Task ReportPollAsync(Poll poll, String text)
+        public async Task ReportPollAsync(Poll poll, String text)
         {
-            Context.Reports.AddAsync(new Report(poll, text));
-            return Task.CompletedTask;
+            await Context.Reports.AddAsync(new Report(poll, text));
         }
     }
 }
