@@ -2,6 +2,7 @@
 using Doodler.Models;
 using DoodlerCore;
 using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -53,14 +54,21 @@ namespace Doodler.ViewModels
         private async void VoteAction(object o)
         {
             IsViewEnabled = false;
-            var selected = Answers.FirstOrDefault(a => a.Selected);
-            if (selected != null)
+            try
             {
-                await Model.VoteAsync(Poll, selected.Answer);
-                await LoadAsync(); // reload first so answers update
+                var selected = Answers.FirstOrDefault(a => a.Selected);
+                if (selected != null)
+                {
+                    await Model.VoteAsync(Poll, selected.Answer);
+                    await LoadAsync(); // reload first so answers update
 
-                TransitionerIndex = 1;
-                CanVote = false;
+                    TransitionerIndex = 1;
+                    CanVote = false;
+                }
+            } catch (Exception ex)
+            {
+                DialogViewModel = new ErrorDialogViewModel(ex.Message);
+                IsDialogVisible = true;
             }
 
             IsViewEnabled = true;
@@ -72,11 +80,13 @@ namespace Doodler.ViewModels
         private ICommand _voteCommand;
         private ObservableCollection<PollModel.AnswerWrapper> _answers;
         private bool _isViewEnabled = true;
+        private bool _isDialogVisible;
         private int _transitionerIndex;
         private IList<Vote> _votes;
         private bool _canVote;
         private ICommand _closeCommand;
         private int _usersCount;
+        private object _dialogViewModel;
 
         public int UsersCount
         {
@@ -106,6 +116,18 @@ namespace Doodler.ViewModels
         {
             get => _isViewEnabled;
             set => Set(ref _isViewEnabled, value);
+        }
+
+        public bool IsDialogVisible
+        {
+            get => _isDialogVisible;
+            set => Set(ref _isDialogVisible, value);
+        }
+
+        public object DialogViewModel
+        {
+            get => _dialogViewModel;
+            set => Set(ref _dialogViewModel, value);
         }
 
         public ObservableCollection<PollModel.AnswerWrapper> Answers
