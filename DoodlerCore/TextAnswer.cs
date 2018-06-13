@@ -1,7 +1,9 @@
 
 namespace DoodlerCore
 {
-    // TODO: Docs
+    /// <summary>
+    ///     mrousavy: A possible answer to a poll containing a string/text
+    /// </summary>
     public class TextAnswer : Answer
     {
         public string Text { get; set; }

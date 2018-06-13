@@ -1,9 +1,8 @@
-
-using System;
-
 namespace DoodlerCore
 {
-    // TODO: Docs
+    /// <summary>
+    ///     mrousavy: A user's vote on a given poll answer
+    /// </summary>
     public class Vote
     {
         public int Id { get; set; }

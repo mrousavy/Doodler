@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 
 namespace DoodlerCore
 {
-    class Notification
+    public class Notification
     {
-        String titleString;
-        String messageString;
-        System.Net.Mail.MailMessage message;
+        string titleString;
+        string messageString;
+        MailMessage message;
 
         public Notification()
         {
@@ -36,8 +34,7 @@ namespace DoodlerCore
             {
                 smtp.Send("faydin@student.tgm.ac.at", "fatih65644@gmail.com", "test", "testtesttest");
                 Console.WriteLine("email sent successfully!");
-            }
-            catch(Exception ex)
+            } catch (Exception ex)
             {
                 Console.WriteLine("email not sent; reasons:");
                 Console.WriteLine(ex.Message);
