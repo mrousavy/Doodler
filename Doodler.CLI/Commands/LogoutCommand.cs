@@ -19,7 +19,6 @@ namespace Doodler.CLI.Commands
             try
             {
                 
-
                 Statics.Preferences.LastEmail = null;
                 Statics.Preferences.LastPassword = null;
                 Statics.CurrentUser = null;

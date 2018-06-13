@@ -37,7 +37,7 @@ namespace DoodlerTests
         /// </summary>
         /// <param name="title"> Title of the poll thats beeing tested </param>
         /// <param name="answers"> String array with the answers </param>
-        /// <returns> Returns if the test was successful </returns>
+ 
         
         public async Task TestVotes(string title, params string[] answers)
         {
