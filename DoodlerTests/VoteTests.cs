@@ -34,13 +34,12 @@ namespace DoodlerTests
         public async Task TestVotes(string title, params string[] answers)
         {
             IList<DoodlerCore.Vote> vote;
-
             Poll poll;
             // Create poll
             using (var service = Statics.NewService())
             {
-
-                var textAnswers = answers.Select(answer => new TextAnswer(poll, answer));
+                
+                var textAnswers = answers.Select(answer => new TextAnswer(answer));
                 poll = await service.CreatePollAsync(CurrentUser, title, DateTime.Now.AddDays(10), textAnswers);
                 await service.SaveAsync();
             }
