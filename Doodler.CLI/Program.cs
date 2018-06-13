@@ -40,7 +40,8 @@ namespace Doodler.CLI
         public static int Main(string[] args)
         {
             int exitCode = CommandLineApplication.Execute<Program>(args);
-
+            Preferences.Save(Statics.Preferences);
+            
             if (Debugger.IsAttached)
             {
                 Console.WriteLine("Press any key to continue...");

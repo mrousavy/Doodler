@@ -12,9 +12,17 @@
 
 For running and testing you will need to configure the database connection properties: Edit `%AppData%/Doodler/config.json`
 
+<p align="center">
+  <img src="Images/WPF_Login.png" alt="WPF Login Screenshot" height="400">
+</p>
+
+<p align="center">
+  <img src="Images/WPF_Demo.gif" alt="WPF Live Demo" height="450">
+</p>
+
 ## Build and Run
 ### Windows
-1. `git clone https://github.com/mrousavy/Doodler/` 
+1. `git clone https://github.com/mrousavy/Doodler/`
 2. Open the Project in Visual Studio
 3. Build all (<kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>B</kbd>)
 4. Run/Debug the `Doodler` Project
