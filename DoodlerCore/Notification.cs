@@ -7,7 +7,7 @@ using System.Text;
 namespace DoodlerCore
 {
     /// 
-    /// @author Fatih Aydin
+    /// Author: Fatih Aydin
     /// Sends a E-Mail to the user
     ///
     class Notification
