@@ -88,7 +88,6 @@ namespace DoodlerCore
             return Task.FromResult(poll);
         }
 
-        //public Task EditPollAsync(Poll poll) => throw new NotImplementedException();
         public Task EditPollAsync(Poll poll)
         {
             throw new NotImplementedException();

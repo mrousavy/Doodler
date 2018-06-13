@@ -8,6 +8,10 @@ using McMaster.Extensions.CommandLineUtils;
 
 namespace Doodler.CLI.Commands
 {
+    /// 
+    /// @author Fatih Aydin
+    /// Edit Poll Command: the user can perform changes to their polls. 
+    ///
     [Command(Description = "Edit a poll", Name = "edit")]
     public class EditPollCommand : CommandBase
     {

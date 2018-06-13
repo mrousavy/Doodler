@@ -8,6 +8,10 @@ using Xunit;
 
 namespace DoodlerTests
 {
+    /// 
+    /// @author Fatih Aydin
+    /// UnitTests for the delete vote functionality 
+    ///
     public class DeleteVote_Tests
     {
         public User CurrentUser { get; set; }

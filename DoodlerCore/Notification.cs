@@ -6,6 +6,10 @@ using System.Text;
 
 namespace DoodlerCore
 {
+    /// 
+    /// @author Fatih Aydin
+    /// Sends a E-Mail to the user
+    ///
     class Notification
     {
         String titleString;

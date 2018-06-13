@@ -9,6 +9,10 @@ using Xunit;
 
 namespace DoodlerTests
 {
+    /// 
+    /// @author Fatih Aydin
+    /// UnitTests for the delete poll functionality 
+    ///
     public class DeletePoll_Tests : IDisposable
     {
         public User CurrentUser { get; set; }
