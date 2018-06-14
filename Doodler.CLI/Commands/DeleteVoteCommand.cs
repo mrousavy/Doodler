@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Doodler.CLI.Commands
 {
+    /// <summary>
+    /// Author: Fatih Aydin
+    /// The DeleteVoteCommand class is called, when the user tries to remove a vote. 
+    /// </summary>
     [Command(Description = "Delete a vote", Name = "unvote")]
     public class DeleteVoteCommand : CommandBase
     {

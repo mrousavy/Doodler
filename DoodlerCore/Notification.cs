@@ -16,6 +16,9 @@ namespace DoodlerCore
         String messageString;
         System.Net.Mail.MailMessage message;
 
+        /// <summary>
+        /// set a default title and messsage
+        /// </summary
         public Notification()
         {
             titleString = "Test title";
@@ -24,6 +27,9 @@ namespace DoodlerCore
 
         }
 
+        /// <summary>
+        /// sends the mail to the user
+        /// </summary>
         public void sendMail()  //Boolean
         {
             message.To.Add("faydin@student.tgm.ac.at");
@@ -38,9 +44,11 @@ namespace DoodlerCore
 
             try
             {
+                // sending the email
                 smtp.Send("faydin@student.tgm.ac.at", "fatih65644@gmail.com", "test", "testtesttest");
                 Console.WriteLine("email sent successfully!");
             }
+            // exception, if a email could not be sent.
             catch(Exception ex)
             {
                 Console.WriteLine("email not sent; reasons:");

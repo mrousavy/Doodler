@@ -14,6 +14,7 @@ namespace DoodlerTests
     ///
     public class DeleteVote_Tests
     {
+        //the current user for the poll
         public User CurrentUser { get; set; }
 
         public DeleteVote_Tests()
@@ -21,17 +22,25 @@ namespace DoodlerTests
             CurrentUser = Statics.LoginUser().GetAwaiter().GetResult();
         }
 
+        [Fact]
         public void Dispose()
         {
             throw new NotImplementedException();
         }
 
+        //Fact what the test should return
         [Fact]
         public void TestFact()
         {
             Assert.True(true);
         }
 
+        /// <summary>
+        /// Tests the functionality for votes and whether deleting them works.
+        /// </summary>
+        /// <param name="title"> Title of the poll that is being tested </param>
+        /// <param name="answers"> A String Arrays that contains the answers </param>
+        /// <returns> Returns if the test was successfull </returns>
         [Theory]
         [InlineData("Test: Is [person] nice?", "yes", "kinda", "no, not really")]
         [InlineData("Test: Is the weather nice today?", "no", "it's london what do you expect", "yes")]
@@ -48,19 +57,22 @@ namespace DoodlerTests
                 poll = await service.CreatePollAsync(CurrentUser, title, DateTime.Now.AddDays(10), textAnswers);
                 await service.SaveAsync();
 
+                //get a answer
                 IList<Answer> PollAnswers = await service.GetAnswersForPollAsync(poll);
                 Answer PollAnswer = PollAnswers.First();
                 
+                //vote for that answwer
                 await service.VoteOnPoll(CurrentUser, poll, PollAnswer);
                 
-                //Get Vote
+                //Get the Vote
                 vote = await service.GetVoteFromUserForPoll(CurrentUser, poll);
 
                 Assert.NotNull(vote);
 
-                //Delete Vote
+                //Delete the Vote
                 await service.DeleteVoteAsync(vote);
 
+                //Check if it has been deleted
                 Vote CurrentVote = await service.GetVoteFromUserForPoll(CurrentUser, poll);
                 Assert.Null(CurrentVote);
             }
