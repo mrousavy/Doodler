@@ -50,7 +50,7 @@ namespace Doodler.CLI.Commands
                     // Register
                     using (var service = Statics.NewService())
                     {
-                        Statics.CurrentUser = await service.RegisterAsync(Email, Username, password);
+                        Statics.CurrentUser = await service.RegisterAsync(email, username, password);
                         await service.SaveAsync();
                     }
 
