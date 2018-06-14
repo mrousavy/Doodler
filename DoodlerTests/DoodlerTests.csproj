@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Doodler.CLI\Doodler.CLI.csproj" />
     <ProjectReference Include="..\DoodlerCore\DoodlerCore.csproj" />
   </ItemGroup>
 
