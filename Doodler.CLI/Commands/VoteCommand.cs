@@ -22,16 +22,6 @@ namespace Doodler.CLI.Commands
         {
             var user = await Statics.LoginUser();
             // TODO: Vote on poll
-using McMaster.Extensions.CommandLineUtils;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-namespace Doodler.CLI.Commands
-{
-    [Command(Description = "Vote on a given Poll", Name = "vote")]
-    public class VoteCommand : CommandBase
-    {
-        [Argument(0, Description = "The Poll ID")]
-        public int Id { get; }
             Poll poll;
             IEnumerable<Answer> answers;
             try
