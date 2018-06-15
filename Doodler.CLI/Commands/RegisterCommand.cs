@@ -20,7 +20,7 @@ namespace Doodler.CLI.Commands
             {
                 var addr = new System.Net.Mail.MailAddress(email);
                 return addr.Address == email;
-            } catch(Exception e)
+            } catch
             {
                 return false;
             }

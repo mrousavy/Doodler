@@ -3,6 +3,9 @@ using System.Windows.Controls;
 
 namespace Doodler.Implementation
 {
+    /// <summary>
+    ///     mrousavy: A validation rule checking if a string is not empty
+    /// </summary>
     public class NotEmptyValidationRule : ValidationRule
     {
         private const string InvalidMessage = ""; // "Can't be empty!";

@@ -4,6 +4,9 @@ using System.Windows.Controls;
 
 namespace Doodler.Implementation
 {
+    /// <summary>
+    ///     mrousavy: Validate a given email address using regex
+    /// </summary>
     public class EmailValidationRule : ValidationRule
     {
         // See: https://stackoverflow.com/a/201378

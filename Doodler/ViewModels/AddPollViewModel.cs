@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Doodler.Implementation;
+using Doodler.Models;
+using DoodlerCore;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Doodler.Implementation;
-using Doodler.Models;
-using DoodlerCore;
 
 namespace Doodler.ViewModels
 {
+    /// <summary>
+    ///     mrousavy: ViewModel for Adding a Poll
+    /// </summary>
     public class AddPollViewModel : ViewModelBase
     {
         private ICommand _addAnswerCommand;
@@ -67,8 +70,9 @@ namespace Doodler.ViewModels
         private void AddAnswerAction(object o)
         {
             if (o is string text)
-                Answers.Add(new TextAnswer {Text = text});
-            else if (o is DateTime date) Answers.Add(new DateAnswer {Date = date});
+                Answers.Add(new TextAnswer { Text = text });
+            else if (o is DateTime date)
+                Answers.Add(new DateAnswer { Date = date });
         }
 
         private void RemoveListItemAction(Answer answer)

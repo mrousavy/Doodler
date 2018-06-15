@@ -6,6 +6,9 @@ using Xunit;
 
 namespace DoodlerTests
 {
+    /// <summary>
+    ///     mrousavy: XUnit tests for a given poll
+    /// </summary>
     public class PollTests : IDisposable
     {
         public User CurrentUser { get; set; }

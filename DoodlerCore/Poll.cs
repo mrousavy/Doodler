@@ -1,17 +1,17 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DoodlerCore
 {
-    // TODO: Docs
+    /// <summary>
+    ///     mrousavy: A user created poll with answers
+    /// </summary>
     public class Poll
     {
         public int Id { get; set; }
         public string Title { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime EndsAt { get; set; }
-    
+
         public User Creator { get; set; }
 
 

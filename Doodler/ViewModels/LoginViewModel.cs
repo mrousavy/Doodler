@@ -1,10 +1,13 @@
-﻿using System.Windows.Input;
-using Doodler.Implementation;
+﻿using Doodler.Implementation;
 using Doodler.Models;
 using Doodler.Views;
+using System.Windows.Input;
 
 namespace Doodler.ViewModels
 {
+    /// <summary>
+    ///     mrousavy: ViewModel for logging in to the Doodler system
+    /// </summary>
     public class LoginViewModel : ViewModelBase
     {
         public LoginViewModel()
