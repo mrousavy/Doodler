@@ -4,12 +4,19 @@ using System.Net.Mail;
 
 namespace DoodlerCore
 {
+    /// 
+    /// Author: Fatih Aydin
+    /// Sends a E-Mail to the user
+    ///
     public class Notification
     {
         string titleString;
         string messageString;
         MailMessage message;
 
+        /// <summary>
+        /// set a default title and messsage
+        /// </summary
         public Notification()
         {
             titleString = "Test title";
@@ -18,6 +25,9 @@ namespace DoodlerCore
 
         }
 
+        /// <summary>
+        /// sends the mail to the user
+        /// </summary>
         public void sendMail()  //Boolean
         {
             message.To.Add("faydin@student.tgm.ac.at");
@@ -32,6 +42,7 @@ namespace DoodlerCore
 
             try
             {
+                // sending the email
                 smtp.Send("faydin@student.tgm.ac.at", "fatih65644@gmail.com", "test", "testtesttest");
                 Console.WriteLine("email sent successfully!");
             } catch (Exception ex)

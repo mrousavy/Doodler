@@ -81,6 +81,11 @@ namespace DoodlerCore
             return Task.FromResult(poll);
         }
 
+        /// <summary>
+        /// Delete the poll from the database
+        /// </summary>
+        /// <param name="poll"> The poll, that should get removed</param>
+        /// <returns></returns>
         public Task DeletePollAsync(Poll poll)
         {
             Context.Polls.Remove(Context.Polls.Find(poll.Id));
@@ -88,7 +93,15 @@ namespace DoodlerCore
             return Task.FromResult(poll);
         }
 
-        public Task EditPollAsync(Poll poll) => throw new NotImplementedException();
+        /// <summary>
+        /// Edit the poll from the database
+        /// </summary>
+        /// <param name="poll"> The poll, that has been edited</param>
+        /// <returns></returns>
+        public Task EditPollAsync(Poll poll)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<Poll> GetPollByIdAsync(int id) => await Context.Polls.FindAsync(id);
 
@@ -123,7 +136,7 @@ namespace DoodlerCore
                 throw new ArgumentException(nameof(poll));
             if (answer == null)
                 throw new ArgumentException(nameof(answer));
-                        
+
 
             var originalUser = await Context.Users.FindAsync(user.Id);
             var originalPoll = await Context.Polls.FindAsync(poll.Id);
@@ -137,8 +150,18 @@ namespace DoodlerCore
             Context.Votes.Add(vote);
         }
 
-        public Task RemoveVote<TAnswer>(User user, Poll poll, TAnswer answer) where TAnswer : Answer =>
-            throw new NotImplementedException();
+        /// <summary>
+        /// get vote of a user from a specific poll from the database
+        /// </summary>
+        /// <param name="user"> the user </param>
+        /// <param name="poll"> the poll, from which the vote of the current user gets deleted</param>
+        /// <returns></returns>
+        public async Task<Vote> GetVoteFromUserForPoll(User user, Poll poll)
+        {
+            return await Context.Votes.Include(v => v.Poll)
+            .Include(v => v.Answer)
+            .Include(v => v.User).Where(v => v.User == user && v.Poll == poll).SingleAsync();
+        }
 
         public string ConnectionString { get; }
         public bool IsDirty => Context.ChangeTracker.HasChanges();
@@ -150,6 +173,11 @@ namespace DoodlerCore
         private static string BuildConnectionString(string database, string server, string username, string password) =>
             $"Server={server};Database={database};User={username};Password={password};Trusted_Connection=False;";
 
+        /// <summary>
+        /// delete the vote from the database
+        /// </summary>
+        /// <param name="vote"> the vote, that the user wants to remove</param>
+        /// <returns></returns>
         public Task DeleteVoteAsync(Vote vote)
         {
             Context.Votes.Remove(vote);
@@ -159,11 +187,6 @@ namespace DoodlerCore
         {
             Context.Answers.Remove(answer);
             return Task.CompletedTask;
-        }
-
-        public async Task ReportPollAsync(Poll poll, String text)
-        {
-            await Context.Reports.AddAsync(new Report(poll, text));
         }
     }
 }

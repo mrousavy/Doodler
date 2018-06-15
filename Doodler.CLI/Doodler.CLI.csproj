@@ -5,6 +5,12 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <!--
+  <ItemGroup>
+    <Compile Include="Commands\EditPollCommand.cs" />
+  </ItemGroup>
+  -->
+  
   <ItemGroup>
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />

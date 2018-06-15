@@ -41,9 +41,7 @@ namespace Doodler.CLI.Commands
             // TODO: Ask user which answer (via index?)
             int index = Prompt.GetInt("answer??");
             // TODO: Vote on Poll
-
-                return 0;
+            return 0;
         }
-
     }
 }

@@ -11,13 +11,13 @@ namespace Doodler.CLI.Commands
     {
         public override List<string> CreateArgs()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         protected override Task<int> OnExecuteAsync(CommandLineApplication app)
         {
 
-            throw new NotImplementedException();
+            return null;
         }
 
        

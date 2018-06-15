@@ -1,10 +1,9 @@
-﻿using DoodlerCore;
+using DoodlerCore;
 using McMaster.Extensions.CommandLineUtils;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-
 
 namespace Doodler.CLI.Commands
 {
@@ -20,26 +19,13 @@ namespace Doodler.CLI.Commands
         //password from database
         String pwdata;
 
-        //id of user
-        int id;
-
-        //User
-        User user;
-
-
-        public override List<string> CreateArgs()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task<int> OnExecuteAsync(CommandLineApplication app)
         {
-
+            User user;
+            int id;
             using (var service = Statics.NewService())
             {
                 user = await service.GetUserByIdAsync(id);
-                
-
             }
 
             pwdata = user.Password;     
@@ -50,22 +36,18 @@ namespace Doodler.CLI.Commands
                 {
                     //update in database
                     user.Password = pwuser;
-
-
                 }
                 else
                 {
                     throw new Exception();
                 }
 
-                return (await Task.FromResult(0));
+                return Task.FromResult(0);
             }
             catch (Exception e)
             {
                 //User wrote wrong password
-                
-
-                return (await Task.FromResult(1));
+                return Task.FromResult(1);
             }
       }
    }

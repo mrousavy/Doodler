@@ -13,7 +13,9 @@ namespace Doodler.CLI
     [Subcommand("register", typeof(RegisterCommand))]
     [Subcommand("create", typeof(CreatePollCommand))]
     [Subcommand("vote", typeof(VoteCommand))]
+    [Subcommand("edit", typeof(EditPollCommand))]
     [Subcommand("delete", typeof(DeletePollCommand))]
+    [Subcommand("unvote", typeof(DeleteVoteCommand))]
     [Subcommand("report", typeof(ReportPollCommand))]
     public class Program : CommandBase
     {
@@ -41,13 +43,23 @@ namespace Doodler.CLI
         {
             int exitCode = CommandLineApplication.Execute<Program>(args);
             Preferences.Save(Statics.Preferences);
-            
             if (Debugger.IsAttached)
             {
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             }
 
+            if (Debugger.IsAttached)
+            {
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+            }
+
+            if (Debugger.IsAttached)
+            {
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+            }
             return exitCode;
         }
     }
