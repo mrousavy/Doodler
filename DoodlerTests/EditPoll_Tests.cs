@@ -24,7 +24,7 @@ namespace DoodlerTests
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
 
         [Fact]

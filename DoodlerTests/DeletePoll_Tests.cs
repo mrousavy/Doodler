@@ -5,7 +5,7 @@ using DoodlerCore;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-
+using DoodlerCore.Exceptions;
 
 namespace DoodlerTests
 {
@@ -25,7 +25,7 @@ namespace DoodlerTests
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
 
         //Fact what the test should return
@@ -55,13 +55,22 @@ namespace DoodlerTests
                 poll = await service.CreatePollAsync(CurrentUser, title, DateTime.Now.AddDays(10), textAnswers);
                 // save poll
                 await service.SaveAsync();
+            }
+            int id = poll.Id;
+
+            using (var service = Statics.NewService())
+            {
+                poll = await service.GetPollByIdAsync(id);
 
                 //Delete Poll
                 await service.DeletePollAsync(poll);
                 // save after deletion
                 await service.SaveAsync();
+            }
 
-                Assert.Null(poll);
+            using (var service = Statics.NewService())
+            {
+                await Assert.ThrowsAsync<PollNotFoundException>(async () => await service.GetPollByIdAsync(id));
             }
         }
     }
