@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using DoodlerCore;
+using System;
 using System.Threading.Tasks;
-using DoodlerCore;
 using Xunit;
 
 namespace DoodlerTests
 {
+    /// <summary>
+    ///     mrousavy: XUnit tests for a given user
+    /// </summary>
     public class UserTests : IDisposable
     {
         public Random Random { get; set; }

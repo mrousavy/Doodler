@@ -218,6 +218,13 @@ namespace DoodlerCore
         Task DeleteAnswerAsync(Answer answer);
         #endregion
 
+        #region Report
+        /// <summary>
+        ///     Report the given poll with a report description
+        /// </summary>
+        Task ReportPollAsync(Poll poll, String text);
+        #endregion
+
         #region Data Service
 
         /// <summary>

@@ -2,6 +2,9 @@
 
 namespace Doodler.ViewModels
 {
+    /// <summary>
+    ///     mrousavy: ViewModel for the main page
+    /// </summary>
     public class MainViewModel : ViewModelBase
     {
         #region Properties

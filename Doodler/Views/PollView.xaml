@@ -20,135 +20,137 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
 
-    <Grid Margin="15" IsEnabled="{Binding IsViewEnabled}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <md:DialogHost DialogContent="{Binding DialogViewModel}" IsOpen="{Binding IsDialogVisible}">
+        <Grid Margin="15" IsEnabled="{Binding IsViewEnabled}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <md:PackIcon
-            Grid.Row="0"
-            Grid.Column="0"
-            Margin="7"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Foreground="{StaticResource MaterialDesignGray}"
-            Kind="Poll" />
-        <TextBlock
-            Grid.Row="0"
-            Grid.Column="1"
-            Margin="5,15,15,15"
-            VerticalAlignment="Center"
-            Foreground="{StaticResource MaterialDesignGray}"
-            Style="{StaticResource MaterialDesignTitleTextBlock}"
-            Text="{Binding Poll.Title, Mode=OneWay, FallbackValue=Poll Title}" />
-        <StackPanel
-            Grid.Row="1"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Orientation="Horizontal">
-            <TextBlock
-                Margin="5,5,15,5"
+            <md:PackIcon
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="7"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Foreground="{StaticResource MaterialDesignGray}"
-                Text="{Binding Poll.Creator.Username, Mode=OneWay, StringFormat={}by {0}, FallbackValue=by Creator}"
-                ToolTip="Poll Creator" />
+                Kind="Poll" />
             <TextBlock
-                Margin="15,5,5,5"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="5,15,15,15"
                 VerticalAlignment="Center"
                 Foreground="{StaticResource MaterialDesignGray}"
-                Text="{Binding Poll.EndsAt, Mode=OneWay, StringFormat=dd.MM.yyyy, FallbackValue=15.5.2018}"
-                ToolTip="End date" />
-        </StackPanel>
+                Style="{StaticResource MaterialDesignTitleTextBlock}"
+                Text="{Binding Poll.Title, Mode=OneWay, FallbackValue=Poll Title}" />
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="5,5,15,5"
+                    VerticalAlignment="Center"
+                    Foreground="{StaticResource MaterialDesignGray}"
+                    Text="{Binding Poll.Creator.Username, Mode=OneWay, StringFormat={}by {0}, FallbackValue=by Creator}"
+                    ToolTip="Poll Creator" />
+                <TextBlock
+                    Margin="15,5,5,5"
+                    VerticalAlignment="Center"
+                    Foreground="{StaticResource MaterialDesignGray}"
+                    Text="{Binding Poll.EndsAt, Mode=OneWay, StringFormat=dd.MM.yyyy, FallbackValue=15.5.2018}"
+                    ToolTip="End date" />
+            </StackPanel>
 
-        <md:Transitioner
-            Grid.Row="2"
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Margin="15"
-            SelectedIndex="{Binding TransitionerIndex}">
-            <ItemsControl ItemsSource="{Binding Answers}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <RadioButton
-                            Content="{Binding Value}"
-                            GroupName="Answers"
-                            IsChecked="{Binding Selected}" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <ItemsControl ItemsSource="{Binding Answers}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+            <md:Transitioner
+                Grid.Row="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Margin="15"
+                SelectedIndex="{Binding TransitionerIndex}">
+                <ItemsControl ItemsSource="{Binding Answers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
                             <RadioButton
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
                                 Content="{Binding Value}"
-                                GroupName="Votes"
-                                IsChecked="{Binding Selected}"
-                                IsEnabled="False" />
+                                GroupName="Answers"
+                                IsChecked="{Binding Selected}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <ItemsControl ItemsSource="{Binding Answers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <RadioButton
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{Binding Value}"
+                                    GroupName="Votes"
+                                    IsChecked="{Binding Selected}"
+                                    IsEnabled="False" />
 
-                            <ProgressBar
-                                Grid.Column="1"
-                                Width="150"
-                                Margin="15"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                Maximum="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Votes.Count}"
-                                Value="{Binding Votes}" />
+                                <ProgressBar
+                                    Grid.Column="1"
+                                    Width="150"
+                                    Margin="15"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Maximum="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Votes.Count}"
+                                    Value="{Binding Votes}" />
 
-                            <TextBlock
-                                Grid.Column="2"
-                                Margin="5"
-                                Foreground="{StaticResource MaterialDesignGray}"
-                                Text="{Binding Votes, StringFormat={}{0} Votes}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </md:Transitioner>
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Margin="5"
+                                    Foreground="{StaticResource MaterialDesignGray}"
+                                    Text="{Binding Votes, StringFormat={}{0} Votes}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </md:Transitioner>
 
-        <!--  TODO: This progressbar ?  -->
-        <ProgressBar
-            Grid.Row="3"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            Margin="5"
-            HorizontalAlignment="Stretch"
-            Maximum="{Binding UsersCount}"
-            ToolTip="Answers"
-            Value="{Binding Votes.Count, Mode=OneWay, FallbackValue=5}" />
+            <!--  TODO: This progressbar ?  -->
+            <ProgressBar
+                Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="5"
+                HorizontalAlignment="Stretch"
+                Maximum="{Binding UsersCount}"
+                ToolTip="Answers"
+                Value="{Binding Votes.Count, Mode=OneWay, FallbackValue=5}" />
 
-        <Button
-            Grid.Row="3"
-            Grid.Column="2"
-            Margin="5"
-            Command="{Binding VoteCommand}"
-            Content="Vote"
-            IsEnabled="{Binding CanVote}"
-            Style="{StaticResource MaterialDesignFlatButton}" />
+            <Button
+                Grid.Row="3"
+                Grid.Column="2"
+                Margin="5"
+                Command="{Binding VoteCommand}"
+                Content="Vote"
+                IsEnabled="{Binding CanVote}"
+                Style="{StaticResource MaterialDesignFlatButton}" />
 
-        <Button
-            Grid.Row="3"
-            Grid.Column="3"
-            Margin="5"
-            Command="{Binding CloseCommand}"
-            CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-            Content="Close"
-            Style="{StaticResource MaterialDesignFlatButton}" />
-    </Grid>
+            <Button
+                Grid.Row="3"
+                Grid.Column="3"
+                Margin="5"
+                Command="{Binding CloseCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                Content="Close"
+                Style="{StaticResource MaterialDesignFlatButton}" />
+        </Grid>
+    </md:DialogHost>
 </UserControl>

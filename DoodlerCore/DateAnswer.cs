@@ -2,7 +2,9 @@ using System;
 
 namespace DoodlerCore
 {
-    // TODO: Docs
+    /// <summary>
+    ///     mrousavy: A possible answer to a poll containing a date
+    /// </summary>
     public class DateAnswer : Answer
     {
         public DateTime Date { get; set; }

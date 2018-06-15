@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 
 namespace DoodlerCore
 {
@@ -10,11 +8,11 @@ namespace DoodlerCore
     /// Author: Fatih Aydin
     /// Sends a E-Mail to the user
     ///
-    class Notification
+    public class Notification
     {
-        String titleString;
-        String messageString;
-        System.Net.Mail.MailMessage message;
+        string titleString;
+        string messageString;
+        MailMessage message;
 
         /// <summary>
         /// set a default title and messsage
@@ -47,9 +45,7 @@ namespace DoodlerCore
                 // sending the email
                 smtp.Send("faydin@student.tgm.ac.at", "fatih65644@gmail.com", "test", "testtesttest");
                 Console.WriteLine("email sent successfully!");
-            }
-            // exception, if a email could not be sent.
-            catch(Exception ex)
+            } catch (Exception ex)
             {
                 Console.WriteLine("email not sent; reasons:");
                 Console.WriteLine(ex.Message);

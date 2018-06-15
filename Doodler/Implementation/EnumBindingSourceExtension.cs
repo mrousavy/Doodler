@@ -3,6 +3,9 @@ using System.Windows.Markup;
 
 namespace Doodler.Implementation
 {
+    /// <summary>
+    ///     mrousavy: Bind and enum to an ItemsSource using WPF
+    /// </summary>
     public class EnumBindingSourceExtension : MarkupExtension
     {
         private Type _enumType;
@@ -21,7 +24,8 @@ namespace Doodler.Implementation
             get => _enumType;
             set
             {
-                if (value == _enumType) return;
+                if (value == _enumType)
+                    return;
                 if (null != value)
                 {
                     var enumType = Nullable.GetUnderlyingType(value) ?? value;

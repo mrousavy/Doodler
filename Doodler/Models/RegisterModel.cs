@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
-using DoodlerCore;
-using DoodlerCore.Exceptions;
+﻿using DoodlerCore.Exceptions;
+using System.Threading.Tasks;
 
 namespace Doodler.Models
 {
+    /// <summary>
+    ///     mrousavy: Model for registering a new user
+    /// </summary>
     public class RegisterModel
     {
         public async Task<bool> TryRegisterAsync(string email, string username, string password)

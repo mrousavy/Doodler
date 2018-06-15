@@ -16,6 +16,7 @@ namespace Doodler.CLI
     [Subcommand("edit", typeof(EditPollCommand))]
     [Subcommand("delete", typeof(DeletePollCommand))]
     [Subcommand("unvote", typeof(DeleteVoteCommand))]
+    [Subcommand("report", typeof(ReportPollCommand))]
     public class Program : CommandBase
     {
         protected override async Task<int> OnExecuteAsync(CommandLineApplication app)
@@ -42,7 +43,6 @@ namespace Doodler.CLI
         {
             int exitCode = CommandLineApplication.Execute<Program>(args);
             Preferences.Save(Statics.Preferences);
-
             if (Debugger.IsAttached)
             {
                 Console.WriteLine("Press any key to continue...");

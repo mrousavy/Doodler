@@ -1,4 +1,5 @@
-﻿using McMaster.Extensions.CommandLineUtils;
+using DoodlerCore;
+using McMaster.Extensions.CommandLineUtils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,35 +19,35 @@ namespace Doodler.CLI.Commands
         //password from database
         String pwdata;
 
-        public override List<string> CreateArgs()
+        protected override async Task<int> OnExecuteAsync(CommandLineApplication app)
         {
-            return null;
-        }
+            User user;
+            int id;
+            using (var service = Statics.NewService())
+            {
+                user = await service.GetUserByIdAsync(id);
+            }
 
-        protected override Task<int> OnExecuteAsync(CommandLineApplication app)
-        {
+            pwdata = user.Password;     
+
             try
             {
                 if (pwcheck.Equals(pwdata))
                 {
                     //update in database
-                    pwdata = pwuser;
-
+                    user.Password = pwuser;
                 }
                 else
                 {
                     throw new Exception();
                 }
 
-                return (Task.FromResult(0));
+                return Task.FromResult(0);
             }
             catch (Exception e)
             {
                 //User wrote wrong password
-                
-
-
-                return (Task.FromResult(1));
+                return Task.FromResult(1);
             }
       }
    }
